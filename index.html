@@ -291,6 +291,25 @@ function entrarSistema(){
   <p><strong>Poliani Cristina Fratoni de Oliveira</strong><br>
   Pesquisadora assistente</p>
 </div>
+  
+function abrirAcesso(tipo){
+
+  grupoSelecionado = tipo;
+
+  if(tipo === "familia"){
+
+    document.getElementById("camposFamilia").classList.remove("hidden");
+    document.getElementById("camposEquipe").classList.add("hidden");
+
+  } else {
+
+    document.getElementById("camposFamilia").classList.add("hidden");
+    document.getElementById("camposEquipe").classList.remove("hidden");
+
+  }
+
+  mostrar("acesso");
+}
 
 <label><input id="checkTCLE" type="checkbox" style="width:auto">Declaro ter conhecimento das informações contidas neste documento e ter recebido respostas claras às minhas perguntas sobre minha participação na pesquisa.</label>
 
