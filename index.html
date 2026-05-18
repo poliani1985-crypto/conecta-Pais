@@ -257,33 +257,7 @@ Eu declaro ter conhecimento das informações contidas neste documento e ter rec
 Declaro que compreendi o objetivo do estudo, a forma de participação, os possíveis riscos e benefícios, bem como meus direitos como participante.
 </label>
 
-<label class="check">
-<input type="checkbox" class="checkObrigatorio">
-Após ter tido tempo suficiente para refletir sobre as informações apresentadas, concordo de forma livre e voluntária em participar desta pesquisa.
-</label>
-
-<button id="btnContinuar" class="green" disabled onclick="aceitarTCLE()">
-✅ Continuar participação
-</button>
-
-</div>
-    <script>
-
-// outros códigos
-
-const checks = document.querySelectorAll(".checkObrigatorio");
-const botao = document.getElementById("btnContinuar");
-
-checks.forEach(check => {
-    check.addEventListener("change", () => {
-
-        const todosMarcados = [...checks].every(c => c.checked);
-
-        botao.disabled = !todosMarcados;
-    });
-});
-
-</script>
+<label><input id="checkTCLE" type="checkbox" style="width:auto"> Li e compreendi todas as informações acima. Declaro que estou participando de forma voluntária e que fui esclarecido(a) sobre os objetivos, procedimentos, riscos e benefícios desta pesquisa. Consinto em participar como membro da pesquisa.</label>
     <div class="actions"><button class="green" onclick="aceitarTCLE()">✅ Aceito participar</button><button class="red" onclick="naoAceito()">❌ Não aceito participar</button></div>
   </div>
 </section>
