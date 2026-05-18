@@ -245,7 +245,45 @@ function entrarSistema(){
     <div class="banner" style="text-align:center"><h2 id="tituloTCLE" class="sectionTitle">TCLE</h2><p>Leia com atenção antes de continuar.</p></div>
     <div class="infoGrid"><div class="info"><b>📄 Participação voluntária</b><br>Você pode desistir em qualquer etapa.</div><div class="info"><b>❓ Liberdade para responder</b><br>Você pode deixar perguntas sem resposta.</div><div class="info"><b>🛡️ Sigilo garantido</b><br>As respostas serão tratadas por código.</div></div>
     <p id="textoTCLE" style="line-height:1.7;background:#f8f9fa;border-radius:24px;padding:20px"></p>
-    <label><input id="checkTCLE" type="checkbox" style="width:auto"> Li e compreendi todas as informações acima. Declaro que estou participando de forma voluntária e que fui esclarecido(a) sobre os objetivos, procedimentos, riscos e benefícios desta pesquisa. Consinto em participar como membro da pesquisa.</label>
+    <div class="termosBox">
+
+<label class="check">
+<input type="checkbox" class="checkObrigatorio">
+Eu declaro ter conhecimento das informações contidas neste documento e ter recebido respostas claras às minhas perguntas sobre minha participação na pesquisa.
+</label>
+
+<label class="check">
+<input type="checkbox" class="checkObrigatorio">
+Declaro que compreendi o objetivo do estudo, a forma de participação, os possíveis riscos e benefícios, bem como meus direitos como participante.
+</label>
+
+<label class="check">
+<input type="checkbox" class="checkObrigatorio">
+Após ter tido tempo suficiente para refletir sobre as informações apresentadas, concordo de forma livre e voluntária em participar desta pesquisa.
+</label>
+
+<button id="btnContinuar" class="green" disabled onclick="aceitarTCLE()">
+✅ Continuar participação
+</button>
+
+</div>
+    <script>
+
+// outros códigos
+
+const checks = document.querySelectorAll(".checkObrigatorio");
+const botao = document.getElementById("btnContinuar");
+
+checks.forEach(check => {
+    check.addEventListener("change", () => {
+
+        const todosMarcados = [...checks].every(c => c.checked);
+
+        botao.disabled = !todosMarcados;
+    });
+});
+
+</script>
     <div class="actions"><button class="green" onclick="aceitarTCLE()">✅ Aceito participar</button><button class="red" onclick="naoAceito()">❌ Não aceito participar</button></div>
   </div>
 </section>
