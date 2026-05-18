@@ -82,12 +82,147 @@ Pesquisadora: Poliani Cristina Fratoni de Oliveira  |  Orientador: Professor Dou
     </div>
     <div class="card">
       <div class="choice">
-        <button class="chooseBtn familia" onclick="abrirTCLE('familia')"><div class="iconBox">👨‍👩‍👧</div><h3>Pais, mães ou responsáveis</h3><p>Clique aqui para ler o TCLE das famílias e iniciar sua participação.</p></button>
-        <button class="chooseBtn equipe" onclick="abrirTCLE('equipe')"><div class="iconBox">🏫</div><h3>Equipe pedagógica</h3><p>Clique aqui para ler o TCLE da equipe e colaborar com a pesquisa.</p></button>
+        <button class="chooseBtn familia" onclick="abrirAcesso('familia')"><div class="iconBox">👨‍👩‍👧</div><h3>Pais, mães ou responsáveis</h3><p>Clique aqui para criar um código de acesso das famílias e iniciar sua participação.</p></button>
+        <button class="chooseBtn equipe" onclick="abrirAcesso('equipe')"><div class="iconBox">🏫</div><h3>Equipe pedagógica</h3><p>Clique aqui para criar um código de acesso da equipe e colaborar com a pesquisa.</p></button>
       </div>
     </div>
   </div>
 </section>
+  <!-- ========================= -->
+<!-- SISTEMA DE ACESSO -->
+<!-- ========================= -->
+
+<section id="acesso" class="screen hidden">
+
+  <div class="card" style="max-width:700px;margin:auto;text-align:center;">
+
+    <div class="banner">
+      <h2>🔐 Acesso ao ConectaPais</h2>
+      <p>
+        Informe seu código para continuar ou realize seu primeiro acesso.
+      </p>
+    </div>
+
+    <div style="margin-top:25px">
+
+      <label style="text-align:left">
+        Seu código de participante
+      </label>
+
+      <input
+        type="text"
+        id="codigoAcesso"
+        placeholder="Ex.: MA04"
+      >
+
+    </div>
+
+    <div id="campoEquipe" class="hidden" style="margin-top:18px">
+
+      <label style="text-align:left">
+        Código da unidade
+      </label>
+
+      <input
+        type="password"
+        id="codigoEquipe"
+        placeholder="Digite o código da equipe"
+      >
+
+    </div>
+
+    <div class="actions" style="justify-content:center;margin-top:28px">
+
+      <button class="green" onclick="primeiroAcesso()">
+        🌱 Primeiro acesso
+      </button>
+
+      <button class="blue" onclick="entrarSistema()">
+        🚀 Já participei
+      </button>
+
+    </div>
+
+    <p style="margin-top:18px;color:#666;font-size:14px">
+      O código será utilizado para acompanhar sua participação
+      durante toda a pesquisa.
+    </p>
+
+  </div>
+
+</section>
+  <script>
+    // ========================
+// SISTEMA DE ACESSO
+// ========================
+
+let codigosSalvos = JSON.parse(localStorage.getItem("codigosConectaPais")) || [];
+
+function abrirAcesso(tipo){
+
+  grupoSelecionado = tipo;
+
+  document.getElementById("campoEquipe").classList.add("hidden");
+
+  if(tipo === "equipe"){
+    document.getElementById("campoEquipe").classList.remove("hidden");
+  }
+
+  mostrar("acesso");
+}
+
+function primeiroAcesso(){
+
+  const codigo = document.getElementById("codigoAcesso").value.trim().toUpperCase();
+
+  if(codigo === ""){
+    alert("Digite um código.");
+    return;
+  }
+
+  if(grupoSelecionado === "equipe"){
+
+    const codigoEquipe =
+      document.getElementById("codigoEquipe").value;
+
+    if(codigoEquipe !== "26"){
+      alert("Código da equipe incorreto.");
+      return;
+    }
+  }
+
+  if(!codigosSalvos.includes(codigo)){
+    codigosSalvos.push(codigo);
+
+    localStorage.setItem(
+      "codigosConectaPais",
+      JSON.stringify(codigosSalvos)
+    );
+  }
+
+  abrirTCLE(grupoSelecionado);
+}
+
+function entrarSistema(){
+
+  const codigo = document.getElementById("codigoAcesso").value.trim().toUpperCase();
+
+  if(codigo === ""){
+    alert("Digite seu código.");
+    return;
+  }
+
+  if(codigosSalvos.includes(codigo)){
+
+    abrirPrincipal();
+
+  }else{
+
+    alert(
+      "Código não encontrado. Faça o primeiro acesso."
+    );
+  }
+}
 <section id="tcle" class="screen hidden">
   <div class="card">
     <div class="banner" style="text-align:center"><h2 id="tituloTCLE" class="sectionTitle">TCLE</h2><p>Leia com atenção antes de continuar.</p></div>
