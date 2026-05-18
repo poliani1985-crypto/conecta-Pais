@@ -99,7 +99,7 @@ Pesquisadora: Poliani Cristina Fratoni de Oliveira  |  Orientador: Professor Dou
     <div class="banner">
       <h2>🔐 Acesso ao ConectaPais</h2>
       <p>
-        Para criar o seu código: digite as 2 primeiras letras do nome do seu filho(a) + 2 dígitos da idade dele(a) "maiúsculos".</p><p>Informe seu código para continuar ou realize seu primeiro acesso.
+       <p id="textoAcesso"> Para criar o seu código: digite as 2 primeiras letras do nome do seu filho(a) + 2 dígitos da idade dele(a) "maiúsculos".</p><p>Informe seu código para continuar ou realize seu primeiro acesso.
       </p>
     </div>
 
@@ -164,7 +164,23 @@ function abrirAcesso(tipo){
 
   document.getElementById("campoEquipe").classList.add("hidden");
 
-  if(tipo === "equipe"){
+  if(tipo === "familia"){
+
+    document.getElementById("textoAcesso").innerHTML = `
+      Para criar o seu código, digite as 2 primeiras letras do nome do seu filho(a) + 2 dígitos da idade dele(a), em MAIÚSCULO.<br><br>
+      Exemplo: Maria, 4 anos = MA04.<br><br>
+      Informe seu código para continuar ou realize seu primeiro acesso.
+    `;
+
+  } else {
+
+    document.getElementById("textoAcesso").innerHTML = `
+      Área destinada à equipe pedagógica.<br><br>
+      Para criar seu código, digite as 2 primeiras letras do seu nome + 2 dígitos da sua idade, em MAIÚSCULO.<br><br>
+      Exemplo: Maria, 40 anos = MA40.<br><br>
+      Informe também o código da unidade escolar para liberar o acesso.
+    `;
+
     document.getElementById("campoEquipe").classList.remove("hidden");
   }
 
