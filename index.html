@@ -1,42 +1,132 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>ConectaPais</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(180deg,#fff1f7,#fff8d9,#e8f7ff);color:#333}header{background:linear-gradient(120deg,#ff6fae,#ffb347,#6ecbff);color:white;text-align:center;padding:45px 20px}header h1{font-size:44px;margin:0}.container{max-width:1000px;margin:auto;padding:20px}.card{background:white;border-radius:24px;padding:25px;margin:20px 0;box-shadow:0 8px 20px rgba(0,0,0,.10)}h2{color:#d63384}.buttons{display:flex;flex-wrap:wrap;gap:15px;justify-content:center;margin-top:20px}button{background:linear-gradient(120deg,#ff6fae,#ff9f43);color:white;border:none;padding:14px 22px;border-radius:16px;cursor:pointer;font-size:16px;font-weight:bold}.blue{background:linear-gradient(120deg,#3ca6ff,#8b5cf6)}.green{background:linear-gradient(120deg,#22c55e,#14b8a6)}.red{background:linear-gradient(120deg,#ef4444,#f97316)}.hidden{display:none}input,textarea,select{width:100%;padding:12px;margin:8px 0 18px;border-radius:12px;border:1px solid #ccc;font-size:15px}label{font-weight:bold;display:block;margin-top:10px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}.content-card{background:#fff7fb;border:2px solid #ffd6e8;border-radius:20px;padding:18px}.tag{display:inline-block;background:#ffe066;color:#6b4e00;padding:6px 12px;border-radius:999px;font-size:13px;font-weight:bold;margin-bottom:8px}footer{text-align:center;padding:30px 20px;color:#555}
+:root{
+  --pink:#ff5aa5;--orange:#ff9f43;--yellow:#ffd166;--blue:#4dabf7;--purple:#845ef7;--green:#20c997;--dark:#263238;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#fff0f7,#fff8df,#e9f8ff);color:var(--dark);min-height:100vh;overflow-x:hidden}
+.bg{position:fixed;inset:0;pointer-events:none;z-index:0}
+.blob{position:absolute;border-radius:50%;filter:blur(40px);opacity:.45}
+.b1{width:280px;height:280px;background:#ffd166;top:-80px;left:-70px}
+.b2{width:300px;height:300px;background:#ff8cc6;top:180px;right:-100px}
+.b3{width:330px;height:330px;background:#8bd3ff;bottom:-90px;left:35%}
+.emoji{position:absolute;font-size:46px;animation:float 4s ease-in-out infinite}
+.e1{top:100px;left:8%}.e2{top:180px;right:10%;animation-delay:.5s}.e3{bottom:140px;left:7%;animation-delay:1s}.e4{bottom:80px;right:12%;animation-delay:1.5s}.e5{top:50%;left:48%;animation-delay:.8s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+header{position:sticky;top:0;z-index:3;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.7)}
+.top{max-width:1180px;margin:auto;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{display:flex;gap:12px;align-items:center}
+.logoIcon{background:linear-gradient(135deg,var(--pink),var(--orange),var(--yellow));color:white;width:52px;height:52px;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 10px 22px rgba(0,0,0,.15)}
+.logo h1{font-size:22px;margin:0;font-weight:900}.logo p{font-size:12px;margin:2px 0;color:#607d8b}
+.badges{display:flex;gap:8px;flex-wrap:wrap}.badge{background:white;border-radius:999px;padding:9px 13px;font-size:13px;font-weight:700;box-shadow:0 3px 10px rgba(0,0,0,.08)}
+main{position:relative;z-index:1;max-width:1180px;margin:auto;padding:34px 18px}
+.hidden{display:none!important}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+@media(max-width:850px){.hero{grid-template-columns:1fr}.top{align-items:flex-start}}
+.pill{display:inline-flex;gap:8px;align-items:center;background:white;border-radius:999px;padding:10px 16px;color:#e8590c;font-weight:900;box-shadow:0 6px 15px rgba(0,0,0,.08)}
+h2.big{font-size:52px;line-height:1.05;margin:20px 0 14px;font-weight:950}
+.grad{background:linear-gradient(90deg,var(--pink),var(--orange),#f5c542);-webkit-background-clip:text;color:transparent}
+.card{background:rgba(255,255,255,.93);border-radius:34px;padding:26px;box-shadow:0 18px 40px rgba(0,0,0,.12);margin:18px 0}
+.card h2,.card h3{margin-top:0}
+.choice{display:grid;gap:18px}
+.chooseBtn{border:0;border-radius:30px;padding:28px;text-align:left;color:white;cursor:pointer;box-shadow:0 16px 30px rgba(0,0,0,.18);transition:.25s;font-size:16px}
+.chooseBtn:hover{transform:scale(1.025)}
+.familia{background:linear-gradient(135deg,var(--pink),var(--orange))}
+.equipe{background:linear-gradient(135deg,var(--blue),var(--purple))}
+.chooseBtn h3{font-size:26px;margin:8px 0;font-weight:950}.chooseBtn p{font-size:16px;color:rgba(255,255,255,.92)}
+.iconBox{background:rgba(255,255,255,.22);width:58px;height:58px;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:32px}
+.sectionTitle{font-size:36px;font-weight:950}
+.banner{padding:30px;border-radius:34px;color:white;background:linear-gradient(90deg,var(--pink),var(--orange),var(--yellow));box-shadow:0 18px 40px rgba(0,0,0,.14)}
+.infoGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+.info{border-radius:24px;padding:18px;background:#fff9db;border:1px solid #ffe8a3}.info:nth-child(2){background:#fff0f6;border-color:#ffc9de}.info:nth-child(3){background:#e7f5ff;border-color:#bde0ff}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+button,.button{border:0;border-radius:18px;padding:15px 22px;font-weight:900;font-size:15px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;color:white;background:linear-gradient(90deg,var(--pink),var(--orange))}
+.green{background:linear-gradient(90deg,#2fce74,#20c997)}.red{background:linear-gradient(90deg,#ff4d4f,#ff8a3d)}.blue{background:linear-gradient(90deg,var(--blue),var(--purple))}.outline{background:white;color:#555;border:2px solid #ffd1e4}
+input,textarea,select{width:100%;padding:13px;border:1px solid #ddd;border-radius:16px;font-size:15px;margin-top:8px}
+label{display:block;margin:12px 0;font-weight:800}.radioGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}
+.option{background:#f8f9fa;border-radius:16px;padding:12px;font-weight:500}.option input{width:auto;margin-right:8px}
+.layout{display:grid;grid-template-columns:280px 1fr;gap:22px}@media(max-width:850px){.layout{grid-template-columns:1fr}}
+.side{position:sticky;top:95px;align-self:start}
+.oldItem{width:100%;text-align:left;margin:6px 0;border-radius:16px;background:#f1f8ff;color:#455a64;padding:12px;border:0}
+.contentGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.contentCard{background:white;border-radius:28px;overflow:hidden;box-shadow:0 12px 25px rgba(0,0,0,.1);transition:.25s}
+.contentCard:hover{transform:translateY(-4px)}.stripe{height:10px;background:linear-gradient(90deg,#ff80b5,#ffd166,#74c0fc)}
+.contentInner{padding:20px}.tag{display:inline-block;background:#d0ebff;color:#1971c2;border-radius:999px;padding:6px 11px;font-size:12px;font-weight:900;margin-bottom:10px}
+.roundIcon{width:58px;height:58px;border-radius:20px;background:linear-gradient(135deg,#ffe3ef,#fff3bf);display:flex;align-items:center;justify-content:center;font-size:30px;margin-bottom:12px}
+footer{position:relative;z-index:1;text-align:center;padding:28px 15px;color:#607d8b}
 </style>
 </head>
 <body>
-<header><h1>🌈 ConectaPais</h1><p>Laços Educativos entre Família e Escola</p><p>💛 Produto Educacional | Educação Infantil | Família e Escola 💛</p></header>
-<div class="container">
-<section id="inicio" class="card"><h2>🌻 Bem-vindos ao ConectaPais</h2><p>Este ambiente digital foi desenvolvido como produto educacional de uma pesquisa de mestrado, com o objetivo de aproximar as famílias do CMEI João Paulo II do trabalho pedagógico realizado na Educação Infantil.</p><p>Agradeço de coração por sua participação. Sua colaboração é muito importante para fortalecer os laços entre família e escola.</p><div class="buttons"><button onclick="abrirTCLE('familia')">👨‍👩‍👧 Pais, mães ou responsáveis</button><button class="blue" onclick="abrirTCLE('equipe')">🏫 Equipe pedagógica</button></div></section>
-<section id="tcle" class="card hidden"><h2 id="tituloTCLE">📄 TCLE</h2><p id="textoTCLE"></p><label><input type="checkbox" id="checkTCLE" style="width:auto"> Declaro que li as informações e compreendi que minha participação é voluntária.</label><div class="buttons"><button class="green" onclick="aceitarTCLE()">✅ Aceito participar</button><button class="red" onclick="naoAceito()">❌ Não aceito participar</button></div></section>
-<section id="encerrado" class="card hidden"><h2>🌷 Participação encerrada</h2><p>Agradecemos por acessar o ConectaPais. Como você optou por não participar da pesquisa, sua participação será encerrada neste momento. Essa escolha é respeitada e não trará nenhum prejuízo.</p></section>
-<section id="questionarioInicial" class="card hidden"><h2>📝 Questionário inicial</h2><label>Código do participante</label><input type="text" placeholder="Ex.: MA04 ou MA40"><div id="perguntasIniciais"></div><button onclick="abrirConteudos()">Enviar questionário e acessar conteúdos</button></section>
-<section id="conteudos" class="card hidden"><h2>📚 Conteúdos da semana</h2><p>Neste espaço serão disponibilizados conteúdos informativos, imagens, vídeos e orientações sobre a Educação Infantil e o trabalho pedagógico desenvolvido no CMEI.</p><div class="grid"><div class="content-card"><span class="tag">Texto + imagem</span><h3>🎨 O brincar também ensina</h3><p>Na Educação Infantil, brincar é uma forma importante de aprender. A criança imagina, conversa, cria regras, resolve problemas e desenvolve diferentes habilidades.</p></div><div class="content-card"><span class="tag">Texto curto</span><h3>💛 Cuidar e educar caminham juntos</h3><p>Os momentos de alimentação, higiene, descanso, brincadeiras e rodas de conversa também fazem parte do processo educativo.</p></div><div class="content-card"><span class="tag">Vídeo curto</span><h3>🌈 A rotina do CMEI tem aprendizagem</h3><p>A rotina ajuda a criança a se sentir segura e compreender os momentos do dia, favorecendo o desenvolvimento integral.</p></div><div class="content-card"><span class="tag">Orientação prática</span><h3>👨‍👩‍👧 Como a família pode participar?</h3><p>A família pode acompanhar comunicados, conversar com a criança, participar das reuniões quando possível e valorizar as experiências compartilhadas pela escola.</p></div></div><div class="card" style="background:#f0fff4"><h3>❓ Espaço para dúvidas</h3><textarea rows="5" placeholder="Digite sua dúvida, comentário ou sugestão..."></textarea><button class="green" onclick="alert('Dúvida registrada nesta versão. Para uso real, conecte ao Google Forms ou Planilha.')">Enviar dúvida</button></div><div class="buttons"><button class="blue" onclick="abrirRetaFinal()">Abrir etapa final</button></div></section>
-<section id="retaFinal" class="card hidden"><h2>🎉 Estamos na reta final!</h2><p>Para concluir sua participação, precisamos que você responda o questionário final. Sua resposta ajudará a compreender as contribuições do ConectaPais.</p><button onclick="abrirQuestionarioFinal()">Responder questionário final</button></section>
-<section id="questionarioFinal" class="card hidden"><h2>📝 Questionário final</h2><label>Código do participante</label><input type="text" placeholder="Digite o mesmo código usado no início"><div id="perguntasFinais"></div><button onclick="abrirEnquete()">Enviar questionário final</button></section>
-<section id="enquete" class="card hidden"><h2>📅 Enquete final</h2><label>Você tem interesse em participar de um encontro presencial final sobre o ConectaPais?</label><select><option>Sim, tenho interesse</option><option>Talvez</option><option>Não tenho interesse no momento</option><option>Prefiro não responder</option></select><label>O que mais motivaria sua participação nesse encontro?</label><select><option>Conhecer os resultados da pesquisa</option><option>Tirar dúvidas e conversar</option><option>Compartilhar minha opinião</option><option>Prefiro não responder</option></select><label>Deseja deixar alguma sugestão?</label><textarea rows="4"></textarea><button class="green" onclick="abrirAgradecimento()">Finalizar participação</button></section>
-<section id="agradecimento" class="card hidden"><h2>💖 Muito obrigada!</h2><p>Sua participação foi muito importante para o desenvolvimento desta pesquisa e para o uso do ConectaPais como material informativo de aproximação entre família e escola.</p><p>Sem a colaboração das famílias e da equipe pedagógica, este estudo não seria possível. Agradeço de coração por caminhar comigo nesta etapa.</p></section>
-</div><footer>ConectaPais: Laços Educativos entre Família e Escola — Produto educacional vinculado à pesquisa de mestrado.</footer>
+<div class="bg"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="emoji e1">🌻</div><div class="emoji e2">☁️</div><div class="emoji e3">🎨</div><div class="emoji e4">🧸</div><div class="emoji e5">🌈</div></div>
+<header><div class="top"><div class="logo"><div class="logoIcon">💖</div><div><h1>ConectaPais</h1><p>Família e Escola</p></div></div><div class="badges"><span class="badge">⭐ Produto educacional</span><span class="badge">💗 70 dias</span><span class="badge">✨ Conteúdos semanais</span></div></div></header>
+<main>
+<section id="inicio" class="screen">
+  <div class="hero">
+    <div>
+      <span class="pill">🌼 Bem-vindo(a) ao nosso espaço de aproximação</span>
+      <div style="font-size:42px;margin-top:18px">🖍️ 📚 🌈 🧩</div>
+      <h2 class="big">ConectaPais: <span class="grad">família e escola mais perto</span></h2>
+      <p style="font-size:18px;line-height:1.6">Este site é o produto educacional da pesquisa de mestrado e foi criado especialmente para aproximar as famílias do CMEI João Paulo II do trabalho pedagógico desenvolvido na Educação Infantil.</p>
+      <div class="card"><h3>💗 Agradecimento inicial</h3><p>Agradeço de coração por você estar aqui. Sua participação é muito importante para esta pesquisa e para pensarmos, juntos, caminhos que fortaleçam a relação entre família e escola.</p></div>
+    </div>
+    <div class="card">
+      <div class="choice">
+        <button class="chooseBtn familia" onclick="abrirTCLE('familia')"><div class="iconBox">👨‍👩‍👧</div><h3>Pais, mães ou responsáveis</h3><p>Clique aqui para ler o TCLE das famílias e iniciar sua participação.</p></button>
+        <button class="chooseBtn equipe" onclick="abrirTCLE('equipe')"><div class="iconBox">🏫</div><h3>Equipe pedagógica</h3><p>Clique aqui para ler o TCLE da equipe e colaborar com a pesquisa.</p></button>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="tcle" class="screen hidden">
+  <div class="card">
+    <div class="banner"><h2 id="tituloTCLE" class="sectionTitle">TCLE</h2><p>Leia com atenção antes de continuar.</p></div>
+    <div class="infoGrid"><div class="info"><b>📄 Participação voluntária</b><br>Você pode desistir em qualquer etapa.</div><div class="info"><b>❓ Liberdade para responder</b><br>Você pode deixar perguntas sem resposta.</div><div class="info"><b>🛡️ Sigilo garantido</b><br>As respostas serão tratadas por código.</div></div>
+    <p id="textoTCLE" style="line-height:1.7;background:#f8f9fa;border-radius:24px;padding:20px"></p>
+    <label><input id="checkTCLE" type="checkbox" style="width:auto"> Declaro que li as informações e compreendi que minha participação é voluntária.</label>
+    <div class="actions"><button class="green" onclick="aceitarTCLE()">✅ Aceito participar</button><button class="red" onclick="naoAceito()">❌ Não aceito participar</button></div>
+  </div>
+</section>
+<section id="naoAceito" class="screen hidden"><div class="card" style="text-align:center"><h2>🌷 Participação encerrada</h2><p>Agradecemos por acessar o ConectaPais. Como você optou por não participar da pesquisa, sua participação será encerrada neste momento.</p><button onclick="voltarInicio()">Voltar ao início</button></div></section>
+<section id="questionarioInicial" class="screen hidden"><div class="card"><div class="banner"><h2>📝 Questionário inicial</h2><p>Responda com tranquilidade. Não existem respostas certas ou erradas.</p></div><label>Código do participante</label><input placeholder="Ex.: MA04 ou MA40"><div id="perguntasIniciais"></div><div class="actions"><button onclick="abrirPrincipal()">Enviar questionário e acessar conteúdos 🚀</button></div></div></section>
+<section id="principal" class="screen hidden">
+  <div class="layout">
+    <aside class="side"><div class="card"><h3>📦 Conteúdos anteriores</h3><button class="oldItem">Semana 1: Conhecendo o ConectaPais</button><button class="oldItem">Semana 2: O papel da Educação Infantil</button><button class="oldItem">Semana 3: Família e escola juntas</button><button class="oldItem">Semana 4: Aprendizagens no cotidiano</button></div><div class="card" style="background:linear-gradient(135deg,#ffd43b,#ffa94d)"><h3>✨ Atualização semanal</h3><p>Durante 70 dias, este espaço receberá novos conteúdos para leitura, vídeo ou visualização.</p></div></aside>
+    <section><div class="banner"><h2>📚 Página principal</h2><p>Aqui você encontrará os conteúdos do ConectaPais para acompanhar, aprender e participar.</p></div>
+      <div style="margin:16px 0"><span class="badge">🌼 Educação Infantil</span> <span class="badge">🎨 Aprender brincando</span> <span class="badge">💛 Família e escola</span></div>
+      <div class="contentGrid" id="conteudosCards"></div>
+      <div id="conteudoAberto" class="card hidden"></div>
+      <div class="card" style="background:#f0fff4"><h2>💬 Espaço para tirar dúvidas</h2><textarea rows="5" placeholder="Digite sua dúvida aqui..."></textarea><button class="green" onclick="alert('Dúvida registrada nesta versão. Para uso real, conecte ao Google Forms ou Planilha.')">Enviar dúvida</button></div>
+      <div class="actions" style="justify-content:flex-end"><button class="blue" onclick="mostrar('retaFinal')">Abrir etapa final 🎉</button></div>
+    </section>
+  </div>
+</section>
+<section id="retaFinal" class="screen hidden"><div class="card" style="text-align:center"><div class="banner"><h2>🎉 Estamos na reta final!</h2><p>Para concluir sua participação, precisamos que você responda o questionário final.</p><div style="font-size:40px">🎉 🌟 💖</div></div><p>Sua resposta ajudará a compreender se o ConectaPais contribuiu para aproximar família e escola e para ampliar o olhar sobre a Educação Infantil.</p><button onclick="abrirQuestionarioFinal()">Responder questionário final</button></div></section>
+<section id="questionarioFinal" class="screen hidden"><div class="card"><div class="banner"><h2>📝 Questionário final</h2><p>Conte como foi sua experiência com o ConectaPais.</p></div><label>Código do participante</label><input placeholder="Digite o mesmo código usado no início"><div id="perguntasFinais"></div><button onclick="mostrar('enquete')">Enviar e responder enquete</button></div></section>
+<section id="enquete" class="screen hidden"><div class="card"><div class="banner" style="background:linear-gradient(90deg,#4dabf7,#20c997)"><h2>📅 Enquete final</h2><p>Queremos saber se você tem interesse em participar de um último encontro presencial.</p></div><label>Você tem interesse em participar de um encontro presencial final?</label><select><option>Sim, tenho interesse</option><option>Talvez</option><option>Não tenho interesse no momento</option><option>Prefiro não responder</option></select><label>O que mais motivaria sua participação?</label><select><option>Conhecer os resultados da pesquisa</option><option>Tirar dúvidas e conversar</option><option>Compartilhar minha opinião</option><option>Prefiro não responder</option></select><label>Deseja deixar alguma sugestão?</label><textarea rows="4"></textarea><button class="green" onclick="mostrar('agradecimento')">Finalizar participação</button></div></section>
+<section id="agradecimento" class="screen hidden"><div class="card" style="text-align:center"><div class="banner"><h2>💖 Muito obrigada pela sua participação!</h2></div><p style="font-size:18px">Sua colaboração foi muito importante para o desenvolvimento desta pesquisa e para o uso do ConectaPais como material informativo de aproximação entre família e escola.</p><p>Sem a participação das famílias e da equipe pedagógica, este estudo não seria possível. Agradeço de coração por caminhar comigo nesta etapa.</p><button onclick="voltarInicio()">Voltar ao início</button></div></section>
+</main>
+<footer>ConectaPais: Laços Educativos entre Família e Escola — Produto educacional vinculado à pesquisa de mestrado.</footer>
 <script>
 let grupoSelecionado="";
-const tcleFamilia="Você está sendo convidado(a) a participar desta pesquisa de forma livre e voluntária. O ConectaPais terá conteúdos informativos em linguagem simples, imagens, vídeos curtos, informações sobre a rotina escolar, orientações pedagógicas e espaço para diálogo e dúvidas. A pesquisa terá duração aproximada de 70 dias. Sua identidade será preservada e você poderá desistir a qualquer momento, sem prejuízo para você, sua criança ou sua relação com a instituição.";
-const tcleEquipe="Você está sendo convidado(a) a participar desta pesquisa de forma livre e voluntária. Sua participação envolverá o acompanhamento do produto educacional, colaboração com orientações pedagógicas, apoio às interações realizadas pelas famílias e preenchimento de questionários. Sua identidade será preservada e você poderá desistir a qualquer momento, sem prejuízo profissional ou institucional.";
-const perguntasFamiliaInicial=["Por qual motivo principal você matriculou seu filho(a) no CMEI?","Na sua opinião, qual é a principal função do CMEI?","Você acredita que seu filho(a) aprende no CMEI?","Você sente que conhece o trabalho realizado pelos professores no CMEI?","Como você avalia a comunicação entre sua família e o CMEI?","Você acredita que escola e família devem trabalhar juntas?"];
-const perguntasEquipeInicial=["Como você avalia atualmente a participação das famílias na rotina escolar do CMEI?","Na sua opinião, as famílias compreendem a função pedagógica da Educação Infantil?","Como você avalia a comunicação entre escola e famílias?","Você considera importante aproximar mais as famílias do trabalho pedagógico?","Você acredita que recursos digitais podem ajudar na aproximação com as famílias?"];
-const perguntasFinais=["Os conteúdos do ConectaPais ajudaram a compreender melhor a Educação Infantil?","A comunicação entre família e escola melhorou?","Você passou a conhecer melhor o trabalho pedagógico?","Você gostaria que ações como essa continuassem no CMEI?","Deixe sua opinião final sobre o ConectaPais."];
-function esconderTudo(){document.querySelectorAll("section").forEach(sec=>sec.classList.add("hidden"))}
-function abrirTCLE(grupo){grupoSelecionado=grupo;esconderTudo();document.getElementById("tcle").classList.remove("hidden");document.getElementById("checkTCLE").checked=false;if(grupo==="familia"){document.getElementById("tituloTCLE").innerText="📄 TCLE — Pais, mães ou responsáveis";document.getElementById("textoTCLE").innerText=tcleFamilia}else{document.getElementById("tituloTCLE").innerText="📄 TCLE — Equipe pedagógica";document.getElementById("textoTCLE").innerText=tcleEquipe}}
-function aceitarTCLE(){if(!document.getElementById("checkTCLE").checked){alert("Por favor, marque que leu e compreendeu o TCLE antes de continuar.");return}esconderTudo();document.getElementById("questionarioInicial").classList.remove("hidden");const perguntas=grupoSelecionado==="familia"?perguntasFamiliaInicial:perguntasEquipeInicial;const area=document.getElementById("perguntasIniciais");area.innerHTML="";perguntas.forEach((p,i)=>{area.innerHTML+=`<label>${i+1}. ${p}</label><select><option>Sim / Concordo</option><option>Em parte</option><option>Não / Discordo</option><option>Prefiro não responder</option></select>`});area.innerHTML+=`<label>Deixe uma opinião, sugestão ou comentário.</label><textarea rows="4"></textarea>`}
-function naoAceito(){esconderTudo();document.getElementById("encerrado").classList.remove("hidden")}
-function abrirConteudos(){esconderTudo();document.getElementById("conteudos").classList.remove("hidden")}
-function abrirRetaFinal(){esconderTudo();document.getElementById("retaFinal").classList.remove("hidden")}
-function abrirQuestionarioFinal(){esconderTudo();document.getElementById("questionarioFinal").classList.remove("hidden");const area=document.getElementById("perguntasFinais");area.innerHTML="";perguntasFinais.forEach((p,i)=>{area.innerHTML+=`<label>${i+1}. ${p}</label>${i<4?`<select><option>Sim, muito</option><option>Em parte</option><option>Não percebi mudança</option><option>Prefiro não responder</option></select>`:`<textarea rows="4"></textarea>`}`})}
-function abrirEnquete(){esconderTudo();document.getElementById("enquete").classList.remove("hidden")}
-function abrirAgradecimento(){esconderTudo();document.getElementById("agradecimento").classList.remove("hidden")}
+const tcle={familia:"Você está sendo convidado(a) a participar desta pesquisa de forma livre e voluntária. A participação das famílias acontecerá por meio do acesso ao ConectaPais, onde serão disponibilizados conteúdos informativos em linguagem simples, imagens, vídeos curtos e espaço para dúvidas sobre a Educação Infantil e o trabalho pedagógico do CMEI. A pesquisa terá duração aproximada de 70 dias, com atualização semanal dos conteúdos. Sua identidade será preservada e você poderá desistir a qualquer momento, sem prejuízo para você, sua criança ou sua relação com a instituição.",equipe:"Você está sendo convidado(a) a participar desta pesquisa de forma livre e voluntária. A participação da equipe pedagógica envolve colaborar com o desenvolvimento do ConectaPais, acompanhar as etapas da pesquisa, responder ao questionário inicial e ao questionário final e contribuir com orientações pedagógicas relacionadas aos conteúdos e às interações das famílias. Sua identidade será preservada e você poderá desistir a qualquer momento, sem prejuízo profissional ou institucional."};
+const perguntas={familia:["Por qual motivo principal você matriculou seu filho(a) no CMEI?","Na sua opinião, qual é a principal função do CMEI?","Você acredita que seu filho(a) aprende no CMEI?","Você sente que conhece o trabalho realizado pelos professores no CMEI?","Como você avalia a comunicação entre sua família e o CMEI?","Você acredita que escola e família devem trabalhar juntas?"],equipe:["Como você avalia atualmente a participação das famílias na rotina escolar do CMEI?","Na sua opinião, as famílias compreendem a função pedagógica da Educação Infantil?","Como você avalia a comunicação entre escola e famílias?","Você considera importante aproximar mais as famílias do trabalho pedagógico?","Você acredita que recursos digitais podem ajudar na aproximação com as famílias?"]};
+const finais=["Os conteúdos do ConectaPais ajudaram a compreender melhor a Educação Infantil?","A comunicação entre família e escola melhorou?","Você passou a conhecer melhor o trabalho pedagógico?","Você gostaria que ações como essa continuassem no CMEI?","Deixe sua opinião final sobre o ConectaPais."];
+const conteudos=[["🎨","O brincar também ensina","Texto + imagem","Na Educação Infantil, brincar é uma forma importante de aprender. Enquanto brinca, a criança imagina, conversa, cria regras, resolve problemas, expressa sentimentos e desenvolve diferentes habilidades."],["💛","Cuidar e educar caminham juntos","Texto curto","Na Educação Infantil, cuidar e educar acontecem juntos. Os momentos de alimentação, higiene, descanso, brincadeiras e rodas de conversa também ensinam."],["🌈","A rotina do CMEI tem aprendizagem","Vídeo curto","A rotina ajuda a criança a se sentir segura e compreender os momentos do dia. Cada atividade possui uma intenção pedagógica."],["👨‍👩‍👧","Como a família pode participar?","Orientação prática","A família pode participar acompanhando comunicados, conversando com a criança, participando das reuniões quando possível e valorizando as experiências pedagógicas."],["🖼️","Registro pedagógico da semana","Imagem informativa","Este espaço pode ser usado para apresentar fotos autorizadas, registros, desenhos, recados ou sínteses pedagógicas."]];
+function mostrar(id){document.querySelectorAll('.screen').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');window.scrollTo(0,0)}
+function voltarInicio(){mostrar('inicio')}
+function abrirTCLE(g){grupoSelecionado=g;document.getElementById('tituloTCLE').innerText=g==='familia'?'📄 TCLE — Pais, mães ou responsáveis':'📄 TCLE — Equipe pedagógica';document.getElementById('textoTCLE').innerText=tcle[g];document.getElementById('checkTCLE').checked=false;mostrar('tcle')}
+function aceitarTCLE(){if(!document.getElementById('checkTCLE').checked){alert('Por favor, marque que leu e compreendeu o TCLE antes de continuar.');return}montarInicial();mostrar('questionarioInicial')}
+function naoAceito(){mostrar('naoAceito')}
+function montarInicial(){let area=document.getElementById('perguntasIniciais');area.innerHTML='';perguntas[grupoSelecionado].forEach((p,i)=>{area.innerHTML+=`<label>${i+1}. ${p}</label><div class="radioGrid"><label class="option"><input type="radio" name="q${i}">Sim / Concordo</label><label class="option"><input type="radio" name="q${i}">Em parte</label><label class="option"><input type="radio" name="q${i}">Não / Discordo</label><label class="option"><input type="radio" name="q${i}">Prefiro não responder</label></div>`});area.innerHTML+='<label>Deixe uma opinião, sugestão ou comentário.</label><textarea rows="4"></textarea>'}
+function abrirPrincipal(){montarConteudos();mostrar('principal')}
+function montarConteudos(){let area=document.getElementById('conteudosCards');area.innerHTML='';conteudos.forEach((c,i)=>{area.innerHTML+=`<div class="contentCard"><div class="stripe"></div><div class="contentInner"><div class="roundIcon">${c[0]}</div><span class="tag">${c[2]}</span><h3>${c[1]}</h3><p>${c[3].slice(0,110)}...</p><button class="outline" onclick="abrirConteudo(${i})">Abrir conteúdo</button></div></div>`})}
+function abrirConteudo(i){let c=conteudos[i];let box=document.getElementById('conteudoAberto');box.innerHTML=`<h2>${c[0]} ${c[1]}</h2><p style="line-height:1.7">${c[3]}</p><button class="outline" onclick="document.getElementById('conteudoAberto').classList.add('hidden')">Fechar</button>`;box.classList.remove('hidden');box.scrollIntoView({behavior:'smooth'})}
+function abrirQuestionarioFinal(){let area=document.getElementById('perguntasFinais');area.innerHTML='';finais.forEach((p,i)=>{area.innerHTML+=`<label>${i+1}. ${p}</label>${i<4?'<select><option>Sim, muito</option><option>Em parte</option><option>Não percebi mudança</option><option>Prefiro não responder</option></select>':'<textarea rows="4"></textarea>'}`});mostrar('questionarioFinal')}
 </script>
 </body>
 </html>
