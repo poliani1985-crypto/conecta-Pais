@@ -381,28 +381,8 @@ const conteudos=[["🎨","O brincar também ensina","Texto + imagem","Na Educaç
 function mostrar(id){document.querySelectorAll('.screen').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');window.scrollTo(0,0)}
 function voltarInicio(){mostrar('inicio')}
 function abrirTCLE(g){grupoSelecionado=g;document.getElementById('tituloTCLE').innerText=g==='familia'?'📄 TCLE — Pais, mães ou responsáveis':'📄 TCLE — Equipe pedagógica';document.getElementById('textoTCLE').innerText=tcle[g];document.getElementById('checkTCLE').checked=false;mostrar('tcle')}
-  function abrirAcesso(tipo){
-
-  grupoSelecionado = tipo;
-
-  if(tipo === "familia"){
-
-    document.getElementById("camposFamilia").classList.remove("hidden");
-    document.getElementById("camposEquipe").classList.add("hidden");
-
-  } else {
-
-    document.getElementById("camposFamilia").classList.add("hidden");
-    document.getElementById("camposEquipe").classList.remove("hidden");
-
-  }
-
-  mostrar("acesso");
-}
-
-function aceitarTCLE(){
-
-✨ O lugar correto é exatamente entre essas duas funções.
+  
+function aceitarTCLE(){ ✨ O lugar correto é exatamente entre essas duas funções.
 function aceitarTCLE(){if(!document.getElementById('checkTCLE').checked){alert('Por favor, marque que leu e compreendeu o TCLE antes de continuar.');return}montarInicial();mostrar('questionarioInicial')}
 function naoAceito(){mostrar('naoAceito')}
 function montarInicial(){let area=document.getElementById('perguntasIniciais');area.innerHTML='';perguntas[grupoSelecionado].forEach((p,i)=>{area.innerHTML+=`<label>${i+1}. ${p}</label><div class="radioGrid"><label class="option"><input type="radio" name="q${i}">Sim / Concordo</label><label class="option"><input type="radio" name="q${i}">Em parte</label><label class="option"><input type="radio" name="q${i}">Não / Discordo</label><label class="option"><input type="radio" name="q${i}">Prefiro não responder</label></div>`});area.innerHTML+='<label>Deixe uma opinião, sugestão ou comentário.</label><textarea rows="4"></textarea>'}
