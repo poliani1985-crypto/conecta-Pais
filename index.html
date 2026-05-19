@@ -248,11 +248,15 @@ function entrarSistema(){
 
 <div id="caixaPDFTCLE">
   <iframe
-    src="https://drive.google.com/file/d/18czVh8M502LniObL4dNEIEP2V6GIKWZu/preview"
-    width="100%"
-    height="550"
-    style="border:none; border-radius:20px; background:white;">
-  </iframe>
+id="pdfTCLE"
+src=""
+width="100%"
+height="550"
+style="
+border:none;
+border-radius:20px;
+background:white;">
+</iframe>
 </div>
    </div> <div id="camposFamilia">
       <div class="termosBox">
@@ -381,7 +385,47 @@ const finais=["Os conteúdos do ConectaPais ajudaram a compreender melhor a Educ
 const conteudos=[["🎨","O brincar também ensina","Texto + imagem","Na Educação Infantil, brincar é uma forma importante de aprender. Enquanto brinca, a criança imagina, conversa, cria regras, resolve problemas, expressa sentimentos e desenvolve diferentes habilidades."],["💛","Cuidar e educar caminham juntos","Texto curto","Na Educação Infantil, cuidar e educar acontecem juntos. Os momentos de alimentação, higiene, descanso, brincadeiras e rodas de conversa também ensinam."],["🌈","A rotina do CMEI tem aprendizagem","Vídeo curto","A rotina ajuda a criança a se sentir segura e compreender os momentos do dia. Cada atividade possui uma intenção pedagógica."],["👨‍👩‍👧","Como a família pode participar?","Orientação prática","A família pode participar acompanhando comunicados, conversando com a criança, participando das reuniões quando possível e valorizando as experiências pedagógicas."],["🖼️","Registro pedagógico da semana","Imagem informativa","Este espaço pode ser usado para apresentar fotos autorizadas, registros, desenhos, recados ou sínteses pedagógicas."]];
 function mostrar(id){document.querySelectorAll('.screen').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');window.scrollTo(0,0)}
 function voltarInicio(){mostrar('inicio')}
-function abrirTCLE(g){grupoSelecionado=g;document.getElementById('textoTCLE').innerText=tcle[g];'familia'?'📄 TCLE — Pais, mães ou responsáveis':'📄 TCLE — Equipe pedagógica';document.getElementById('textoTCLE').innerText=tcle[g];document.getElementById('checkTCLE').checked=false;mostrar('tcle')}
+function abrirTCLE(g){
+
+  grupoSelecionado = g;
+
+  document.getElementById('tituloTCLE').innerText =
+  g === 'familia'
+  ? '📄 TCLE — Pais, mães ou responsáveis'
+  : '📄 TCLE — Equipe pedagógica';
+
+  // PDF DAS FAMÍLIAS
+  if(g === 'familia'){
+
+    document.getElementById("pdfTCLE").src =
+    "function abrirTCLE(g){
+
+  grupoSelecionado = g;
+
+  document.getElementById('tituloTCLE').innerText =
+  g === 'familia'
+  ? '📄 TCLE — Pais, mães ou responsáveis'
+  : '📄 TCLE — Equipe pedagógica';
+
+  // PDF DAS FAMÍLIAS
+  if(g === 'familia'){
+
+    document.getElementById("pdfTCLE").src =
+    "https://drive.google.com/file/d/18czVh8M502LniObL4dNEIEP2V6GIKWZu/preview";
+
+  }
+
+  // PDF DA EQUIPE
+  else{
+
+    document.getElementById("pdfTCLE").src =
+    "https://drive.google.com/file/d/1ELDjgNtrwqOCyQY7T7-448c31ju3041A/preview";
+
+  }
+
+  mostrar('tcle');
+}";
+}
 function aceitarTCLE(){if(!document.getElementById('checkTCLE').checked){alert('Por favor, marque que leu e compreendeu o TCLE antes de continuar.');return}montarInicial();mostrar('questionarioInicial')}
 function naoAceito(){mostrar('naoAceito')}
 function montarInicial(){let area=document.getElementById('perguntasIniciais');area.innerHTML='';perguntas[grupoSelecionado].forEach((p,i)=>{area.innerHTML+=`<label>${i+1}. ${p}</label><div class="radioGrid"><label class="option"><input type="radio" name="q${i}">Sim / Concordo</label><label class="option"><input type="radio" name="q${i}">Em parte</label><label class="option"><input type="radio" name="q${i}">Não / Discordo</label><label class="option"><input type="radio" name="q${i}">Prefiro não responder</label></div>`});area.innerHTML+='<label>Deixe uma opinião, sugestão ou comentário.</label><textarea rows="4"></textarea>'}
