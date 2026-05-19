@@ -572,7 +572,188 @@ function montarInicial(){
 function abrirPrincipal(){montarConteudos();mostrar('principal')}
 function montarConteudos(){let area=document.getElementById('conteudosCards');area.innerHTML='';conteudos.forEach((c,i)=>{area.innerHTML+=`<div class="contentCard"><div class="stripe"></div><div class="contentInner"><div class="roundIcon">${c[0]}</div><span class="tag">${c[2]}</span><h3>${c[1]}</h3><p>${c[3].slice(0,110)}...</p><button class="outline" onclick="abrirConteudo(${i})">Abrir conteúdo</button></div></div>`})}
 function abrirConteudo(i){let c=conteudos[i];let box=document.getElementById('conteudoAberto');box.innerHTML=`<h2>${c[0]} ${c[1]}</h2><p style="line-height:1.7">${c[3]}</p><button class="outline" onclick="document.getElementById('conteudoAberto').classList.add('hidden')">Fechar</button>`;box.classList.remove('hidden');box.scrollIntoView({behavior:'smooth'})}
-function abrirQuestionarioFinal(){let area=document.getElementById('perguntasFinais');area.innerHTML='';finais.forEach((p,i)=>{area.innerHTML+=`<label>${i+1}. ${p}</label>${i<4?'<select><option>Sim, muito</option><option>Em parte</option><option>Não percebi mudança</option><option>Prefiro não responder</option></select>':'<textarea rows="4"></textarea>'}`});mostrar('questionarioFinal')}
+function montarFinal(){
+
+  let area = document.getElementById('perguntasFinais');
+  area.innerHTML = '';
+
+  let titulo = grupoSelecionado === 'familia'
+    ? 'QUESTIONÁRIO FINAL - FAMÍLIAS / PAIS / RESPONSÁVEIS'
+    : 'QUESTIONÁRIO FINAL - EQUIPE PEDAGÓGICA / PROFISSIONAIS DA INSTITUIÇÃO';
+
+  let apresentacao = grupoSelecionado === 'familia'
+    ? `Este questionário corresponde à etapa final da pesquisa sobre a relação entre família e escola na Educação Infantil.`
+    : `Este questionário corresponde à etapa final da pesquisa sobre a relação entre família e escola na Educação Infantil.`;
+
+  area.innerHTML += `
+    <h2>${titulo}</h2>
+
+    <p style="line-height:1.7">
+      ${apresentacao}
+    </p>
+
+    <label>Código do participante</label>
+    <input type="text" placeholder="Digite seu código">
+
+    <label>Idade</label>
+    <input type="number" placeholder="Digite sua idade">
+
+    <label>Sexo</label>
+    <select>
+      <option>Selecione</option>
+      <option>Feminino</option>
+      <option>Masculino</option>
+      <option>Prefiro não responder</option>
+    </select>
+  `;
+
+  if(grupoSelecionado === 'equipe'){
+    area.innerHTML += `
+      <label>Função</label>
+
+      <select>
+        <option>Selecione</option>
+        <option>Direção</option>
+        <option>Coordenação</option>
+        <option>Professor(a)</option>
+        <option>Auxiliar / Apoio</option>
+        <option>Outro</option>
+      </select>
+    `;
+  }
+
+  const questoesFamilia = [
+
+["1. Após sua participação na pesquisa, como você compreende hoje a função do CMEI?", ["Apenas local de cuidado","Espaço de cuidado, ensino e desenvolvimento integral","Ainda tenho dúvidas sobre sua função","Prefiro não responder"]],
+
+["2. Hoje você acredita que seu filho(a) aprende no CMEI?", ["Sim, aprende bastante","Aprende algumas coisas","Aprende pouco ou nada","Prefiro não responder"]],
+
+["3. Atualmente você sente que conhece melhor o trabalho realizado pelos professores?", ["Sim, conheço melhor","Conheço um pouco melhor","Não percebi mudança","Prefiro não responder"]],
+
+["4. Depois da participação no projeto, como você avalia a comunicação entre família e CMEI?", ["Melhorou bastante","Melhorou um pouco","Não mudou","Prefiro não responder"]],
+
+["5. Hoje a escola explica melhor o que a criança aprende no dia a dia?", ["Sempre","Às vezes","Não percebi mudança","Prefiro não responder"]],
+
+["6. Sua participação nas atividades e informações da escola mudou durante esse período?", ["Aumentou bastante","Aumentou um pouco","Não mudou","Prefiro não responder"]],
+
+["7. Hoje você considera mais importante a participação da família no desenvolvimento da criança?", ["Sim, muito mais","Sim, um pouco mais","Continuo pensando igual antes","Prefiro não responder"]],
+
+["8. Os conteúdos do ConectaPais ajudaram a compreender melhor a Educação Infantil?", ["Ajudaram muito","Ajudaram um pouco","Não ajudaram","Prefiro não responder"]],
+
+["9. Você gostaria que ações como essa continuassem no CMEI?", ["Sim, com certeza","Sim, em alguns momentos","Não tenho interesse","Prefiro não responder"]],
+
+["10. Hoje você acredita mais que escola e família devem trabalhar juntas?", ["Sim, muito mais","Sim, continuo acreditando","Não percebi diferença","Prefiro não responder"]]
+
+];
+
+  const questoesEquipe = [
+
+["1. Após o período da pesquisa, como você avalia atualmente a participação das famílias na rotina escolar do CMEI?", ["Melhorou bastante","Melhorou um pouco","Não percebi mudança","Prefiro não responder"]],
+
+["2. Na sua opinião, as famílias compreendem melhor a função pedagógica da Educação Infantil após esse período?", ["Sim, compreenderam melhor","Houve pequena melhora","Não percebi mudança","Prefiro não responder"]],
+
+["3. Como você avalia hoje a comunicação entre escola e famílias?", ["Melhorou bastante","Melhorou um pouco","Não mudou","Prefiro não responder"]],
+
+["4. O produto educacional contribuiu para aproximar as famílias do trabalho pedagógico?", ["Contribuiu muito","Contribuiu um pouco","Não contribuiu","Prefiro não responder"]],
+
+["5. Você percebe maior valorização das famílias em relação ao trabalho da equipe escolar?", ["Sim, claramente","Em parte","Não percebi mudança","Prefiro não responder"]],
+
+["6. Os meios de diálogo entre escola e famílias melhoraram nesse período?", ["Melhoraram bastante","Melhoraram um pouco","Não mudaram","Prefiro não responder"]],
+
+["7. Sua percepção sobre a importância de ações para fortalecer a relação família-escola mudou?", ["Sim, valorizo ainda mais","Mudou um pouco","Continuo pensando igual","Prefiro não responder"]],
+
+["8. Após a experiência, como você avalia o uso de recursos digitais para aproximação com as famílias?", ["Muito positivo","Positivo em parte","Pouco eficaz","Prefiro não responder"]],
+
+["9. Como você percebe hoje o envolvimento das famílias no desenvolvimento das crianças?", ["Melhorou bastante","Melhorou um pouco","Não percebi mudança","Prefiro não responder"]],
+
+["10. Você considera que escola e família devem atuar juntas no processo educativo após essa experiência?", ["Sim, ainda mais que antes","Sim, continuo acreditando","Não percebi diferença","Prefiro não responder"]]
+
+];
+
+  const abertasFamilia = [
+
+"11. O que você aprendeu ou passou a perceber melhor sobre o CMEI durante a pesquisa?",
+
+"12. Na sua opinião, o que mudou na relação entre sua família e a escola nesse período?",
+
+"13. Deixe sua opinião sobre o produto ConectaPais e sugestões futuras."
+
+];
+
+  const abertasEquipe = [
+
+"11. Quais mudanças você percebeu na relação entre escola e famílias durante a pesquisa?",
+
+"12. Na sua opinião, quais contribuições o ConectaPais trouxe para a instituição?",
+
+"13. Deixe sua opinião, sugestão ou comentário final sobre a pesquisa."
+
+];
+
+  const questoes = grupoSelecionado === 'familia'
+    ? questoesFamilia
+    : questoesEquipe;
+
+  const abertas = grupoSelecionado === 'familia'
+    ? abertasFamilia
+    : abertasEquipe;
+
+  area.innerHTML += `<h3>Parte 1 – Questões Objetivas</h3>`;
+
+  questoes.forEach((q, i) => {
+
+    area.innerHTML += `<label>${q[0]}</label>`;
+
+    q[1].forEach(opcao => {
+
+      area.innerHTML += `
+        <label class="option">
+          <input type="radio" name="final${i}">
+          ${opcao}
+        </label>
+      `;
+    });
+
+  });
+
+  area.innerHTML += `<h3>Parte 2 – Questões Abertas</h3>`;
+
+  abertas.forEach((pergunta) => {
+
+    area.innerHTML += `
+
+      <label>${pergunta}</label>
+
+      <div class="questaoAberta">
+
+        <textarea
+        rows="4"
+        placeholder="Escreva aqui sua resposta...">
+        </textarea>
+
+        <label class="option">
+          <input type="checkbox">
+          Prefiro não responder
+        </label>
+
+      </div>
+    `;
+  });
+
+  area.innerHTML += `
+
+    <div class="card" style="background:#fff9db">
+
+      <h3>💖 Agradecimento</h3>
+
+      <p>
+      Agradecemos sua participação em todas as etapas da pesquisa.
+      Sua colaboração foi muito importante para este estudo.
+      </p>
+
+    </div>
+  `;
+}
 function validarQuestionarioInicial(){
 
   const area = document.getElementById('perguntasIniciais');
