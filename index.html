@@ -446,7 +446,127 @@ function voltarInicio(){mostrar('inicio')}
 function abrirTCLE(g){ grupoSelecionado = g;document.getElementById('tituloTCLE').innerText = g === 'familia'? '📄 TCLE — Pais, mães ou responsáveis': '📄 TCLE — Equipe pedagógica';if(g === 'familia'){document.getElementById('pdfTCLE').src = 'https://drive.google.com/file/d/18czVh8M502LniObL4dNEIEP2V6GIKWZu/preview';} else {document.getElementById('pdfTCLE').src = 'https://drive.google.com/file/d/1ELDjgNtrwqOCyQY7T7-448c31ju3041A/preview';}mostrar('tcle');}
 function aceitarTCLE(){if(!document.getElementById('checkTCLE').checked){alert('Por favor, marque que leu e compreendeu o TCLE antes de continuar.');return}montarInicial();mostrar('questionarioInicial')}
 function naoAceito(){mostrar('naoAceito')}
-function montarInicial(){let area=document.getElementById('perguntasIniciais');area.innerHTML='';perguntas[grupoSelecionado].forEach((p,i)=>{area.innerHTML+=`<label>${i+1}. ${p}</label><div class="radioGrid"><label class="option"><input type="radio" name="q${i}">Sim / Concordo</label><label class="option"><input type="radio" name="q${i}">Em parte</label><label class="option"><input type="radio" name="q${i}">Não / Discordo</label><label class="option"><input type="radio" name="q${i}">Prefiro não responder</label></div>`});area.innerHTML+='<label>Deixe uma opinião, sugestão ou comentário.</label><textarea rows="4"></textarea>'}
+function montarInicial(){
+
+  let area = document.getElementById('perguntasIniciais');
+  area.innerHTML = '';
+
+  let titulo = grupoSelecionado === 'familia'
+    ? 'QUESTIONÁRIO INICIAL FAMÍLIAS / PAIS / RESPONSÁVEIS'
+    : 'QUESTIONÁRIO INICIAL - EQUIPE PEDAGÓGICA / PROFISSIONAIS DA INSTITUIÇÃO';
+
+  let apresentacao = grupoSelecionado === 'familia'
+    ? `Este questionário faz parte de uma pesquisa sobre a relação entre família e escola na Educação Infantil. Sua participação é voluntária. Você tem total liberdade para responder ou não qualquer pergunta. Não existem respostas certas ou erradas. O que importa é a sua opinião sincera.`
+    : `Este questionário faz parte de uma pesquisa sobre a relação entre família e escola na Educação Infantil. Sua participação é voluntária. Você tem total liberdade para responder ou não qualquer pergunta. Não existem respostas certas ou erradas. O que importa é a sua opinião sincera e sua experiência profissional.`;
+
+  area.innerHTML += `
+    <h2>${titulo}</h2>
+    <p style="line-height:1.7">${apresentacao}</p>
+
+    <label>Código do participante</label>
+    <input type="text" placeholder="Digite seu código">
+
+    <label>Idade</label>
+    <input type="number" placeholder="Digite sua idade">
+
+    <label>Sexo</label>
+    <select>
+      <option>Selecione</option>
+      <option>Feminino</option>
+      <option>Masculino</option>
+      <option>Prefiro não responder</option>
+    </select>
+  `;
+
+  if(grupoSelecionado === 'equipe'){
+    area.innerHTML += `
+      <label>Função</label>
+      <select>
+        <option>Selecione</option>
+        <option>Direção</option>
+        <option>Coordenação</option>
+        <option>Professor(a)</option>
+        <option>Auxiliar / Apoio</option>
+        <option>Outro</option>
+      </select>
+    `;
+  }
+
+  const questoesFamilia = [
+    ["1. Por qual motivo principal você matriculou seu filho(a) no CMEI?", ["Preciso trabalhar e não tenho com quem deixar", "Quero que meu filho(a) se desenvolva integralmente", "Outro motivo diferente das opções acima", "Prefiro não responder"]],
+    ["2. Na sua opinião, qual é a principal função do CMEI?", ["Cuidar da criança enquanto a família trabalha", "Ensinar, cuidar e contribuir no desenvolvimento da criança", "Apenas preparar para o Ensino Fundamental", "Prefiro não responder"]],
+    ["3. Você acredita que seu filho(a) aprende no CMEI?", ["Sim, aprende bastante", "Aprende algumas coisas", "Aprende pouco ou nada", "Prefiro não responder"]],
+    ["4. Você sente que conhece o trabalho realizado pelos professores no CMEI?", ["Sim, conheço bem", "Conheço um pouco", "Conheço muito pouco", "Prefiro não responder"]],
+    ["5. A escola costuma explicar o que a criança aprende no dia a dia?", ["Sempre", "Às vezes", "Nunca ou quase nunca", "Prefiro não responder"]],
+    ["6. Como você avalia a comunicação entre sua família e o CMEI?", ["Muito boa", "Boa", "Precisa melhorar", "Prefiro não responder"]],
+    ["7. Você participa das atividades propostas pela escola quando possível?", ["Sempre", "Às vezes", "Raramente", "Prefiro não responder"]],
+    ["8. Você acredita que a participação da família ajuda no desenvolvimento da criança?", ["Sim, ajuda muito", "Ajuda um pouco", "Não faz diferença", "Prefiro não responder"]],
+    ["9. Você gostaria de receber mais informações sobre o trabalho pedagógico do CMEI?", ["Sim, gostaria muito", "Gostaria um pouco", "Não tenho interesse", "Prefiro não responder"]],
+    ["10. Você acredita que escola e família devem trabalhar juntas?", ["Sim, sempre", "Em alguns momentos", "Não considero necessário", "Prefiro não responder"]]
+  ];
+
+  const questoesEquipe = [
+    ["1. Como você avalia atualmente a participação das famílias na rotina escolar do CMEI?", ["Muito participativa", "Participativa em alguns momentos", "Pouco participativa", "Prefiro não responder"]],
+    ["2. Na sua opinião, as famílias compreendem a função pedagógica da Educação Infantil?", ["Compreendem bem", "Compreendem parcialmente", "Compreendem pouco", "Prefiro não responder"]],
+    ["3. Como você avalia a comunicação entre escola e famílias?", ["Muito boa", "Boa", "Precisa melhorar", "Prefiro não responder"]],
+    ["4. Você considera importante aproximar mais as famílias do trabalho pedagógico realizado no CMEI?", ["Sim, muito importante", "Importante em alguns aspectos", "Pouco importante", "Prefiro não responder"]],
+    ["5. Você acredita que as famílias valorizam o trabalho desenvolvido pela equipe escolar?", ["Sim, valorizam bastante", "Valorizam parcialmente", "Valorizam pouco", "Prefiro não responder"]],
+    ["6. A escola já oferece meios suficientes para diálogo com as famílias?", ["Sim, plenamente", "Em parte", "Ainda são insuficientes", "Prefiro não responder"]],
+    ["7. Você teria interesse em participar de ações que fortaleçam a relação família-escola?", ["Sim, muito interesse", "Algum interesse", "Pouco interesse", "Prefiro não responder"]],
+    ["8. Você acredita que recursos digitais podem ajudar na aproximação com as famílias?", ["Sim, ajudam muito", "Ajudam em parte", "Ajudam pouco ou nada", "Prefiro não responder"]],
+    ["9. Como você percebe o envolvimento das famílias no desenvolvimento das crianças?", ["Muito positivo", "Parcialmente positivo", "Ainda limitado", "Prefiro não responder"]],
+    ["10. Você considera importante que escola e família atuem juntas no processo educativo?", ["Sim, sempre", "Em alguns momentos", "Não considero necessário", "Prefiro não responder"]]
+  ];
+
+  const abertasFamilia = [
+    "11. O que você considera mais importante no trabalho realizado pelo CMEI?",
+    "12. Na sua opinião, o que poderia melhorar na relação entre família e escola?",
+    "13. Deixe uma opinião, sugestão ou comentário sobre o CMEI."
+  ];
+
+  const abertasEquipe = [
+    "11. Na sua opinião, qual é o maior desafio na relação entre escola e famílias?",
+    "12. O que poderia melhorar na comunicação entre equipe escolar e responsáveis?",
+    "13. Deixe uma opinião, sugestão ou comentário sobre esse tema."
+  ];
+
+  const questoes = grupoSelecionado === 'familia' ? questoesFamilia : questoesEquipe;
+  const abertas = grupoSelecionado === 'familia' ? abertasFamilia : abertasEquipe;
+
+  area.innerHTML += `<h3>Parte 1 – Questões Objetivas</h3>`;
+
+  questoes.forEach((q, i) => {
+    area.innerHTML += `<label>${q[0]}</label>`;
+    q[1].forEach(opcao => {
+      area.innerHTML += `
+        <label class="option">
+          <input type="radio" name="q${i}">
+          ${opcao}
+        </label>
+      `;
+    });
+  });
+
+  area.innerHTML += `<h3>Parte 2 – Questões Abertas</h3>`;
+
+  abertas.forEach((pergunta, i) => {
+    area.innerHTML += `
+      <label>${pergunta}</label>
+      <textarea rows="4" placeholder="Escreva aqui sua resposta..."></textarea>
+      <label class="option">
+        <input type="checkbox">
+        Prefiro não responder
+      </label>
+    `;
+  });
+
+  area.innerHTML += `
+    <div class="card" style="background:#fff9db">
+      <h3>💖 Agradecimento</h3>
+      <p>Agradecemos sua participação. Sua colaboração é muito importante para esta pesquisa.</p>
+    </div>
+  `;
+}
 function abrirPrincipal(){montarConteudos();mostrar('principal')}
 function montarConteudos(){let area=document.getElementById('conteudosCards');area.innerHTML='';conteudos.forEach((c,i)=>{area.innerHTML+=`<div class="contentCard"><div class="stripe"></div><div class="contentInner"><div class="roundIcon">${c[0]}</div><span class="tag">${c[2]}</span><h3>${c[1]}</h3><p>${c[3].slice(0,110)}...</p><button class="outline" onclick="abrirConteudo(${i})">Abrir conteúdo</button></div></div>`})}
 function abrirConteudo(i){let c=conteudos[i];let box=document.getElementById('conteudoAberto');box.innerHTML=`<h2>${c[0]} ${c[1]}</h2><p style="line-height:1.7">${c[3]}</p><button class="outline" onclick="document.getElementById('conteudoAberto').classList.add('hidden')">Fechar</button>`;box.classList.remove('hidden');box.scrollIntoView({behavior:'smooth'})}
