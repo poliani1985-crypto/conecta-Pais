@@ -307,7 +307,7 @@ background:white;">
   
   <div style="margin-top:30px; text-align:center;">
   <p><strong>&nbsp;&nbsp;Prof. Dr. David da Silva Pereira &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Poliani Cristina Fratoni de Oliveira</strong><br>
-  </p>Pesquisador responsável / Orientador &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pesquisadora assistente</p>
+  </p>Pesquisador responsável / Orientador &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pesquisadora assistente</p>
   
 </div>
 </section>
@@ -343,141 +343,7 @@ background:white;">
 </section>
 <section id="retaFinal" class="screen hidden"><div class="card" style="text-align:center"><div class="banner"><h2>🎉 Estamos na reta final!</h2><p>Que jornada incrível! Você chegou até aqui e isso é motivo de muito orgulho. Juntos, percorremos 70 dias de aprendizagem, partilha e conexão entre família e escola. 💛.</p><div style="font-size:40px">🎉 🌟 💖</div></div><p>Para concluirmos esta etapa tão especial, precisamos da sua colaboração por mais alguns minutinhos. Vamos responder ao questionário final? Suas respostas são muito valiosas para a pesquisa! 🌟</p><button onclick="abrirQuestionarioFinal()">Responder questionário final</button></div></section>
 <section id="questionarioFinal" class="screen hidden"><div class="card"><div class="banner" style="text-align:center"><h2>📝 Questionário final</h2><p>Conte como foi sua experiência com o ConectaPais.</p></div><label>Código do participante</label><input placeholder="Digite o mesmo código usado no início"><div id="perguntasFinais"></div><button onclick="mostrar('enquete')">Enviar e responder enquete</button></div></section>
-<section id="enqueteFinal" class="screen hidden">
-
-<div class="card">
-
-<div class="banner" style="
-background:linear-gradient(90deg,#4dabf7,#20c997)">
-  
-<h2>📅 ENQUETE FINAL</h2>
-
-<p>
-PARTICIPANTES DA PESQUISA<br>
-ConectaPais: Laços Educativos entre Família e Escola
-</p>
-
-</div>
-
-<h3>Apresentação</h3>
-
-<p style="line-height:1.7">
-Chegamos à etapa final da pesquisa. Agradecemos sinceramente sua participação ao longo desse processo.
-</p>
-
-<p style="line-height:1.7">
-Gostaríamos de saber se você tem interesse em participar de um último encontro presencial, que será um momento de diálogo, escuta e compartilhamento de informações sobre a experiência vivenciada no ConectaPais.
-</p>
-
-<p style="line-height:1.7">
-Nesse encontro poderão ser apresentados resultados gerais da pesquisa, reflexões construídas ao longo do percurso e espaço para sugestões, dúvidas e feedback final dos participantes.
-</p>
-
-<p style="line-height:1.7">
-Sua resposta é voluntária.
-</p>
-
-<label>
-Código do participante
-</label>
-
-<input
-type="text"
-placeholder="Digite seu código">
-
-<hr style="margin:30px 0">
-
-<h3>
-1. Você tem interesse em participar de um encontro presencial final sobre o ConectaPais em 18/12/2026?
-</h3>
-
-<label class="option">
-<input type="radio" name="pergunta1">
-Sim, tenho interesse
-</label>
-
-<label class="option">
-<input type="radio" name="pergunta1">
-Talvez
-</label>
-
-<label class="option">
-<input type="radio" name="pergunta1">
-Não tenho interesse no momento
-</label>
-
-<label class="option">
-<input type="radio" name="pergunta1">
-Prefiro não responder
-</label>
-
-<hr style="margin:30px 0">
-
-<h3>
-2. O que mais motivaria sua participação nesse encontro?
-</h3>
-
-<label class="option">
-<input type="radio" name="pergunta2">
-Conhecer os resultados da pesquisa
-</label>
-
-<label class="option">
-<input type="radio" name="pergunta2">
-Tirar dúvidas e conversar
-</label>
-
-<label class="option">
-<input type="radio" name="pergunta2">
-Compartilhar minha opinião
-</label>
-
-<label class="option">
-<input type="radio" name="pergunta2">
-Prefiro não responder
-</label>
-
-<hr style="margin:30px 0">
-
-<h3>
-3. Deseja deixar alguma sugestão para esse encontro?
-</h3>
-
-<textarea
-rows="5"
-placeholder="Escreva aqui sua sugestão...">
-</textarea>
-
-<label class="option">
-<input type="checkbox">
-Prefiro não responder
-</label>
-
-<div class="card" style="
-margin-top:30px;
-background:#fff9db">
-
-<h3>💖 Agradecimento</h3>
-
-<p style="line-height:1.7">
-Agradecemos sua colaboração em todas as etapas da pesquisa. Sua participação foi muito importante para o desenvolvimento do ConectaPais.
-</p>
-
-</div>
-
-<div class="actions" style="justify-content:center">
-
-<button class="green" onclick="mostrar('agradecimento')">
-
-✨ Finalizar participação
-
-</button>
-
-</div>
-
-</div>
-
-</section>
+<section id="enquete" class="screen hidden"><div class="card"><div class="banner" style="background:linear-gradient(90deg,#4dabf7,#20c997)"><div class="banner" style="text-align:center"><h2>📅 Enquete final</h2><p>Queremos saber se você tem interesse em participar de um último encontro presencial.</p></div><label>Você tem interesse em participar de um encontro presencial final?</label><select><option>Sim, tenho interesse</option><option>Talvez</option><option>Não tenho interesse no momento</option><option>Prefiro não responder</option></select><label>O que mais motivaria sua participação?</label><select><option>Conhecer os resultados da pesquisa</option><option>Tirar dúvidas e conversar</option><option>Compartilhar minha opinião</option><option>Prefiro não responder</option></select><label>Deseja deixar alguma sugestão?</label><textarea rows="4"></textarea><button class="green" onclick="mostrar('agradecimento')">Finalizar participação</button></div></section>
 <section id="agradecimento" class="screen hidden"><div class="card" style="text-align:center"><div class="banner"><h2>💖 Muito obrigada pela sua participação! 💖 </p><p>💖 De todo o coração 💖</h2></div><p style="font-size:18px">Chegamos ao fim desta jornada tão especial e quero que saiba: a sua participação foi fundamental para que esta pesquisa acontecesse.
 
 Cada acesso, cada resposta, </p><p>cada dúvida enviada e cada momento dedicado ao ConectaPais representa um ato de amor e cuidado com a educação das crianças. Isso é muito valioso!💖</p><p>Esta pesquisa só foi possível graças à confiança e à dedicação de cada família e de cada profissional que se dispôs a fazer parte desta experiência. </p><p> Vocês são a razão de todo este trabalho! 🌈</p><p>
