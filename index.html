@@ -312,7 +312,7 @@ background:white;">
 </div>
 </section>
 <section id="naoAceito" class="screen hidden"><div class="card" style="text-align:center"><h2>🌷 Participação encerrada</h2><p>Agradecemos por acessar o ConectaPais. Como você optou por não participar da pesquisa, sua participação será encerrada neste momento.</p><button onclick="voltarInicio()">Voltar ao início</button></div></section>
-<section id="questionarioInicial" class="screen hidden"><div class="card"><div class="banner" style="text-align:center"><h2>📝 Questionário inicial</h2><p>Responda com tranquilidade. Não existem respostas certas ou erradas.</p></div><div id="perguntasIniciais"></div><div class="actions"><button onclick="abrirPrincipal()">Enviar questionário e acessar conteúdos 🚀</button></div></div></section>
+<section id="questionarioInicial" class="screen hidden"><div class="card"><div class="banner" style="text-align:center"><h2>📝 Questionário inicial</h2><p>Responda com tranquilidade. Não existem respostas certas ou erradas.</p></div><div id="perguntasIniciais"></div><div class="actions"><button onclick="validarQuestionarioInicial()">Enviar questionário e acessar conteúdos 🚀</button></div></div></section>
 <section id="principal" class="screen hidden">
   <div class="layout">
     <aside class="side"><div class="card"><h3>📦 Conteúdos anteriores</h3><button class="oldItem">Semana 1: Conhecendo o ConectaPais</button><button class="oldItem">Semana 2: O papel da Educação Infantil</button><button class="oldItem">Semana 3: Família e escola juntas</button><button class="oldItem">Semana 4: Aprendizagens no cotidiano</button></div><div class="card" style="background:linear-gradient(135deg,#ffd43b,#ffa94d)"><h3>✨ Atualização semanal</h3><p>Durante 70 dias, este espaço receberá novos conteúdos para leitura, vídeo ou visualização.</p></div></aside>
@@ -552,11 +552,13 @@ function montarInicial(){
   abertas.forEach((pergunta, i) => {
     area.innerHTML += `
       <label>${pergunta}</label>
-      <textarea rows="4" placeholder="Escreva aqui sua resposta..."></textarea>
-      <label class="option">
-        <input type="checkbox">
-        Prefiro não responder
-      </label>
+     <div class="questaoAberta">
+  <textarea rows="4" placeholder="Escreva aqui sua resposta..."></textarea>
+  <label class="option">
+    <input type="checkbox">
+    Prefiro não responder
+  </label>
+</div>
     `;
   });
 
@@ -571,6 +573,38 @@ function abrirPrincipal(){montarConteudos();mostrar('principal')}
 function montarConteudos(){let area=document.getElementById('conteudosCards');area.innerHTML='';conteudos.forEach((c,i)=>{area.innerHTML+=`<div class="contentCard"><div class="stripe"></div><div class="contentInner"><div class="roundIcon">${c[0]}</div><span class="tag">${c[2]}</span><h3>${c[1]}</h3><p>${c[3].slice(0,110)}...</p><button class="outline" onclick="abrirConteudo(${i})">Abrir conteúdo</button></div></div>`})}
 function abrirConteudo(i){let c=conteudos[i];let box=document.getElementById('conteudoAberto');box.innerHTML=`<h2>${c[0]} ${c[1]}</h2><p style="line-height:1.7">${c[3]}</p><button class="outline" onclick="document.getElementById('conteudoAberto').classList.add('hidden')">Fechar</button>`;box.classList.remove('hidden');box.scrollIntoView({behavior:'smooth'})}
 function abrirQuestionarioFinal(){let area=document.getElementById('perguntasFinais');area.innerHTML='';finais.forEach((p,i)=>{area.innerHTML+=`<label>${i+1}. ${p}</label>${i<4?'<select><option>Sim, muito</option><option>Em parte</option><option>Não percebi mudança</option><option>Prefiro não responder</option></select>':'<textarea rows="4"></textarea>'}`});mostrar('questionarioFinal')}
+function validarQuestionarioInicial(){
+
+  const area = document.getElementById('perguntasIniciais');
+
+  // valida perguntas objetivas
+  const gruposRadio = [...new Set(
+    [...area.querySelectorAll('input[type="radio"]')].map(r => r.name)
+  )];
+
+  for(const grupo of gruposRadio){
+    const marcado = area.querySelector(`input[name="${grupo}"]:checked`);
+    if(!marcado){
+      alert("Por favor, responda todas as questões objetivas ou marque 'Prefiro não responder'.");
+      return;
+    }
+  }
+
+  // valida perguntas abertas
+  const abertas = area.querySelectorAll('.questaoAberta');
+
+  for(const bloco of abertas){
+    const texto = bloco.querySelector('textarea');
+    const prefiro = bloco.querySelector('input[type="checkbox"]');
+
+    if(texto.value.trim() === "" && !prefiro.checked){
+      alert("Nas questões abertas, escreva sua resposta ou marque 'Prefiro não responder'.");
+      return;
+    }
+  }
+
+  abrirPrincipal();
+}
 </script>
 </body>
 </html>
