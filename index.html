@@ -790,6 +790,43 @@ function validarQuestionarioInicial(){
 
   abrirPrincipal();
 }
+  function validarQuestionarioFinal(){
+
+  const area = document.getElementById('perguntasFinais');
+
+  const gruposRadio = [...new Set(
+    [...area.querySelectorAll('input[type="radio"]')].map(r => r.name)
+  )];
+
+  for(const grupo of gruposRadio){
+
+    const marcado = area.querySelector(`input[name="${grupo}"]:checked`);
+
+    if(!marcado){
+
+      alert("Por favor, responda todas as questões objetivas ou marque 'Prefiro não responder'.");
+
+      return;
+    }
+  }
+
+  const abertas = area.querySelectorAll('.questaoAberta');
+
+  for(const bloco of abertas){
+
+    const texto = bloco.querySelector('textarea');
+    const prefiro = bloco.querySelector('input[type="checkbox"]');
+
+    if(texto.value.trim() === "" && !prefiro.checked){
+
+      alert("Nas questões abertas, escreva sua resposta ou marque 'Prefiro não responder'.");
+
+      return;
+    }
+  }
+
+  mostrar('enquete');
+}
 </script>
 </body>
 </html>
