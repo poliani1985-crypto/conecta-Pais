@@ -394,7 +394,7 @@ background:white;">
     </div>
 
     <div class="actions" style="justify-content:center;">
-      <button class="green" onclick="mostrar('agradecimento')">
+      <button class="green" onclick="validarEnquete()">
         ✨ Finalizar participação
       </button>
     </div>
@@ -823,6 +823,28 @@ function validarQuestionarioInicial(){
   }
 
   mostrar('enquete');
+}
+  function validarEnquete(){
+
+  const area = document.getElementById('enquete');
+
+  const pergunta1 = area.querySelector('input[name="enquete1"]:checked');
+  const pergunta2 = area.querySelector('input[name="enquete2"]:checked');
+
+  if(!pergunta1 || !pergunta2){
+    alert("Por favor, responda as perguntas da enquete ou marque 'Prefiro não responder'.");
+    return;
+  }
+
+  const texto = area.querySelector('textarea');
+  const prefiro = area.querySelector('input[type="checkbox"]');
+
+  if(texto.value.trim() === "" && !prefiro.checked){
+    alert("Na sugestão, escreva sua resposta ou marque 'Prefiro não responder'.");
+    return;
+  }
+
+  mostrar('agradecimento');
 }
 </script>
 </body>
