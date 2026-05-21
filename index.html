@@ -59,6 +59,26 @@ label{display:block;margin:12px 0;font-weight:800}.radioGrid{display:grid;grid-t
 .contentInner{padding:20px}.tag{display:inline-block;background:#d0ebff;color:#1971c2;border-radius:999px;padding:6px 11px;font-size:12px;font-weight:900;margin-bottom:10px}
 .roundIcon{width:58px;height:58px;border-radius:20px;background:linear-gradient(135deg,#ffe3ef,#fff3bf);display:flex;align-items:center;justify-content:center;font-size:30px;margin-bottom:12px}
 footer{position:relative;z-index:1;text-align:center;padding:28px 15px;color:#607d8b}
+  @media (max-width: 768px){
+
+  .side{
+    display:none;
+  }
+
+  .hero{
+    grid-template-columns:1fr;
+  }
+
+  section{
+    width:100%;
+    padding:10px;
+  }
+
+  .card{
+    padding:18px;
+  }
+
+}
 </style>
 </head>
 <body>
@@ -306,9 +326,10 @@ background:white;">
 </label></p>
   
   <div style="margin-top:30px; text-align:center;">
-  <p><strong>&nbsp;&nbsp;Prof. Dr. David da Silva Pereira &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Poliani Cristina Fratoni de Oliveira</strong><br>
-  </p>Pesquisador responsável / Orientador &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pesquisadora assistente</p>
-  
+  <p><strong>Professor Doutor. David da Silva Pereira</strong><br>
+  </p>Pesquisador responsável / Orientador</p>
+  <p><strong>Poliani Cristina Fratoni de Oliveira</strong><br>
+  </p>Pesquisadora assistente/Mestranda</p>
 </div>
 </section>
 <section id="naoAceito" class="screen hidden"><div class="card" style="text-align:center"><h2>🌷 Participação encerrada</h2><p>Agradecemos por acessar o ConectaPais. Como você optou por não participar da pesquisa, sua participação será encerrada neste momento.</p><button onclick="voltarInicio()">Voltar ao início</button></div></section>
