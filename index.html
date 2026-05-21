@@ -287,17 +287,17 @@ background:white;">
   id="codigoAcesso"
   placeholder="Ex.: MA04"
   style="text-transform: uppercase;"
->
+required>
       <label>Turma da criança ou Código da Unidade</label>
 <input type="text" placeholder="Digite a turma">
 
 <label>Nome do pai/mãe/responsável ou Participante</label>
-<input type="text" placeholder="Digite seu nome"></div>
+<input type="text" placeholder="Digite seu nome"required></div>
          
 <div id="camposEquipe">
 
 </div><label>Número do documento RG ou CPF</label>
-<input type="text" placeholder="Digite o número do documento">
+<input type="text" placeholder="Digite o número do documento"required>
 
 <label>
   <input type="checkbox" style="width:auto">
@@ -419,7 +419,7 @@ onclick="mostrar('retaFinal')">
   </div>
 </section>
 <section id="retaFinal" class="screen hidden"><div class="card" style="text-align:center"><div class="banner"><h2>🎉 Estamos na reta final!</h2><p>Que jornada incrível! Você chegou até aqui e isso é motivo de muito orgulho. Juntos, percorremos 70 dias de aprendizagem, partilha e conexão entre família e escola. 💛.</p><div style="font-size:40px">🎉 🌟 💖</div></div><p>Para concluirmos esta etapa tão especial, precisamos da sua colaboração por mais alguns minutinhos. Vamos responder ao questionário final? Suas respostas são muito valiosas para a pesquisa! 🌟</p><button onclick="abrirQuestionarioFinal()">Responder questionário final</button></div></section>
-<section id="questionarioFinal" class="screen hidden"><div class="card"><div class="banner" style="text-align:center"><h2>📝 Questionário final</h2><p>Conte como foi sua experiência com o ConectaPais.</p></div><label>Código do participante</label><input placeholder="Digite o mesmo código usado no início"><div id="perguntasFinais"></div><button onclick="validarQuestionarioFinal()">Enviar e responder enquete</button></div></section>
+<section id="questionarioFinal" class="screen hidden"><div class="card"><div class="banner" style="text-align:center"><h2>📝 Questionário final</h2><p>Conte como foi sua experiência com o ConectaPais.</p></div><label>Código do participante</label><input placeholder="Digite o mesmo código usado no início"required><div id="perguntasFinais"></div><button onclick="validarQuestionarioFinal()">Enviar e responder enquete</button></div></section>
 <section id="enquete" class="screen hidden"><div class="banner" style="background:linear-gradient(90deg,#f857a6,#ffb347); text-align:center;">
       <h2>📅 ENQUETE FINAL</h2>
       <p>PARTICIPANTES DA PESQUISA<br>
@@ -437,7 +437,7 @@ onclick="mostrar('retaFinal')">
     <p>Sua resposta é voluntária.</p>
 
     <label>Código do participante</label>
-    <input type="text" placeholder="Digite seu código">
+    <input type="text" placeholder="Digite seu código"required>
 
     <hr>
 
@@ -541,7 +541,7 @@ function montarInicial(){
     <p style="line-height:1.7">${apresentacao}</p>
 
     <label>Código do participante</label>
-    <input type="text" placeholder="Digite seu código">
+    <input type="text" placeholder="Digite seu código"required>
 
     <label>Idade</label>
     <input type="number" placeholder="Digite sua idade">
