@@ -244,41 +244,12 @@ function entrarSistema(){
 
   const codigo = document.getElementById("codigoAcesso").value.trim();
 
-  const nome = document.getElementById("nomeParticipante").value.trim();
-
-  const documento = document.getElementById("documentoParticipante").value.trim();
-
-  const aceite = document.getElementById("aceiteTCLE").checked;
-
   if(codigo === ""){
     alert("Digite seu código.");
     return;
   }
 
-  if(nome === ""){
-    alert("Digite seu nome.");
-    return;
-  }
-
-  if(documento === ""){
-    alert("Digite seu documento.");
-    return;
-  }
-
-  if(!aceite){
-    alert("Você precisa aceitar o TCLE para continuar.");
-    return;
-  }
-
- if(codigosSalvos.includes(codigo)){
-
   mostrar('principal');
-
-}else{
-
-  alert("Código não encontrado. Faça o primeiro acesso.");
-
-}
 
 }
   </script>
