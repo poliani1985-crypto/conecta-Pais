@@ -920,6 +920,12 @@ function montarFinal(){
 }
 function validarQuestionarioInicial(){
 
+  const codigo = document.getElementById("codigoQuestionario").value.trim();
+
+if(codigo === ""){
+  alert("Digite o código do participante.");
+  return;
+}
   const area = document.getElementById('perguntasIniciais');
 
   // valida perguntas objetivas
