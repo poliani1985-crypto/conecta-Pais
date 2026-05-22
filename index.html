@@ -485,7 +485,13 @@ onclick="mostrar('retaFinal')">
     <p>Sua resposta é voluntária.</p>
 
     <label>Código do participante</label>
-    <input type="text" placeholder="Digite seu código"required>
+
+<input
+type="text"
+id="codigoEnquete"
+placeholder="Digite seu código"
+required
+>
 
     <hr>
 
@@ -755,6 +761,14 @@ function montarFinal(){
       ${apresentacao}
     </p>
 
+<label>Código do participante</label>
+
+<input
+type="text"
+id="codigoQuestionarioFinal"
+placeholder="Digite seu código"
+required
+>
     <label>Idade</label>
     <input type="number" placeholder="Digite sua idade">
 
@@ -958,6 +972,12 @@ if(codigo === ""){
 }
   function validarQuestionarioFinal(){
 
+    const codigo = document.getElementById("codigoQuestionarioFinal").value.trim();
+
+if(codigo === ""){
+  alert("Digite o código do participante.");
+  return;
+}
   const area = document.getElementById('perguntasFinais');
 
   const gruposRadio = [...new Set(
@@ -994,7 +1014,12 @@ if(codigo === ""){
   mostrar('enquete');
 }
   function validarEnquete(){
+const codigo = document.getElementById("codigoEnquete").value.trim();
 
+if(codigo === ""){
+  alert("Digite o código do participante.");
+  return;
+}
   const area = document.getElementById('enquete');
 
   const pergunta1 = area.querySelector('input[name="enquete1"]:checked');
