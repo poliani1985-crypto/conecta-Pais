@@ -576,10 +576,10 @@ function aceitarTCLE(){
   const documento = document.getElementById("documentoParticipante").value.trim();
   const aceite = document.getElementById("checkTCLE").checked;
 
-  if(codigo === ""){
-    alert("Digite o código do participante.");
-    return;
-  }
+ if(codigo === ""){
+  alert("Digite o código do participante.");
+  return;
+}
 
   if(nome === ""){
     alert("Digite o nome do participante.");
@@ -622,7 +622,12 @@ function montarInicial(){
     <p style="line-height:1.7">${apresentacao}</p>
 
     <label>Código do participante</label>
-    <input type="text" placeholder="Digite seu código"required>
+    <input
+type="text"
+id="codigoQuestionario"
+placeholder="Digite seu código"
+required
+>
 
     <label>Idade</label>
     <input type="number" placeholder="Digite sua idade">
