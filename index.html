@@ -571,8 +571,7 @@ function mostrarEmail(){
   const nome = document.getElementById("nomeParticipante").value.trim();
   const documento = document.getElementById("documentoParticipante").value.trim();
   const checks = document.querySelectorAll(".checkObrigatorio");
-
-const todosMarcados = [...checks].every(c => c.checked);
+const todosMarcados = Array.from(checks).every(c => c.checked);
 
  if(!codigo || codigo.length < 2){
   alert("Digite o código do participante.");
@@ -588,11 +587,11 @@ const todosMarcados = [...checks].every(c => c.checked);
     alert("Digite o documento.");
     return;
   }
+    if(!todosMarcados){
+  alert("Por favor, marque todas as declarações do TCLE antes de continuar.");
+  return;
+}
 
-  if(!aceite){
-    alert("Por favor, marque que leu e compreendeu o TCLE antes de continuar.");
-    return;
-  }
   
 montarInicial();
   
