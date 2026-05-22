@@ -567,7 +567,39 @@ const conteudos=[["🎨","O brincar também ensina","Texto + imagem","Na Educaç
 function mostrar(id){document.querySelectorAll('.screen').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');window.scrollTo(0,0)}
 function voltarInicio(){mostrar('inicio')}
 function abrirTCLE(g){ grupoSelecionado = g;document.getElementById('tituloTCLE').innerText = g === 'familia'? '📄 TCLE — Pais, mães ou responsáveis': '📄 TCLE — Equipe pedagógica';if(g === 'familia'){document.getElementById('pdfTCLE').src = 'https://drive.google.com/file/d/18czVh8M502LniObL4dNEIEP2V6GIKWZu/preview';} else {document.getElementById('pdfTCLE').src = 'https://drive.google.com/file/d/1ELDjgNtrwqOCyQY7T7-448c31ju3041A/preview';}mostrar('tcle');}
-function aceitarTCLE(){if(!document.getElementById('checkTCLE').checked){alert('Por favor, marque que leu e compreendeu o TCLE antes de continuar.');return}montarInicial();mostrar('questionarioInicial')}
+function aceitarTCLE(){
+
+  const codigo = document.getElementById("codigoAcesso").value.trim();
+
+  const nome = document.getElementById("nomeParticipante").value.trim();
+
+  const documento = document.getElementById("documentoParticipante").value.trim();
+
+  const aceite = document.getElementById("checkTCLE").checked;
+
+  if(codigo === ""){
+    alert("Digite o código do participante.");
+    return;
+  }
+
+  if(nome === ""){
+    alert("Digite o nome do participante.");
+    return;
+  }
+
+  if(documento === ""){
+    alert("Digite o documento.");
+    return;
+  }
+
+  if(!aceite){
+    alert("Por favor, marque que leu e compreendeu o TCLE antes de continuar.");
+    return;
+  }
+
+  montarInicial();
+
+}
 function naoAceito(){mostrar('naoAceito')}
 function montarInicial(){
 
