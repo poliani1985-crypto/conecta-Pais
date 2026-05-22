@@ -582,7 +582,7 @@ function aceitarTCLE(){
   const documento = document.getElementById("documentoParticipante").value.trim();
   const aceite = document.getElementById("checkTCLE").checked;
 
- if(codigo === ""){
+ if(!codigo || codigo.length < 2){
   alert("Digite o código do participante.");
   return;
 }
