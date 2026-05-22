@@ -571,35 +571,10 @@ function voltarInicio(){mostrar('inicio')}
 function abrirTCLE(g){ grupoSelecionado = g;document.getElementById('tituloTCLE').innerText = g === 'familia'? '📄 TCLE — Pais, mães ou responsáveis': '📄 TCLE — Equipe pedagógica';if(g === 'familia'){document.getElementById('pdfTCLE').src = 'https://drive.google.com/file/d/18czVh8M502LniObL4dNEIEP2V6GIKWZu/preview';} else {document.getElementById('pdfTCLE').src = 'https://drive.google.com/file/d/1ELDjgNtrwqOCyQY7T7-448c31ju3041A/preview';}mostrar('tcle');}
 function aceitarTCLE(){
 
-  const campoCodigo = document.getElementById("codigoAcesso");
-  const campoNome = document.getElementById("nomeParticipante");
-  const campoDocumento = document.getElementById("documentoParticipante");
-  const campoAceite = document.getElementById("checkTCLE");
-
-  if(!campoCodigo){
-    alert("Erro: campo código não encontrado.");
-    return;
-  }
-
-  if(!campoNome){
-    alert("Erro: campo nome não encontrado.");
-    return;
-  }
-
-  if(!campoDocumento){
-    alert("Erro: campo documento não encontrado.");
-    return;
-  }
-
-  if(!campoAceite){
-    alert("Erro: campo aceite do TCLE não encontrado.");
-    return;
-  }
-
-  const codigo = campoCodigo.value.trim();
-  const nome = campoNome.value.trim();
-  const documento = campoDocumento.value.trim();
-  const aceite = campoAceite.checked;
+  const codigo = document.getElementById("codigoAcesso").value.trim();
+  const nome = document.getElementById("nomeParticipante").value.trim();
+  const documento = document.getElementById("documentoParticipante").value.trim();
+  const aceite = document.getElementById("checkTCLE").checked;
 
   if(codigo === ""){
     alert("Digite o código do participante.");
@@ -617,11 +592,13 @@ function aceitarTCLE(){
   }
 
   if(!aceite){
-  alert("Por favor, marque que leu e compreendeu o TCLE antes de continuar.");
-  return;
-}
+    alert("Por favor, marque que leu e compreendeu o TCLE antes de continuar.");
+    return;
+  }
 
-montarInicial();
+  document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+  document.getElementById('questionarioInicial').classList.remove('hidden');
+
 }
   
 function naoAceito(){mostrar('naoAceito')}
