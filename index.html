@@ -570,7 +570,9 @@ function mostrarEmail(){
   const codigo = document.getElementById("codigoAcesso").value.trim();
   const nome = document.getElementById("nomeParticipante").value.trim();
   const documento = document.getElementById("documentoParticipante").value.trim();
-  const aceite = document.getElementById("checkTCLE").checked;
+  const checks = document.querySelectorAll(".checkObrigatorio");
+
+const todosMarcados = [...checks].every(c => c.checked);
 
  if(!codigo || codigo.length < 2){
   alert("Digite o código do participante.");
@@ -656,25 +658,25 @@ required
     ["2. Na sua opinião, qual é a principal função do CMEI?", ["Cuidar da criança enquanto a família trabalha", "Ensinar, cuidar e contribuir no desenvolvimento da criança", "Apenas preparar para o Ensino Fundamental", "Prefiro não responder"]],
     ["3. Você acredita que seu filho(a) aprende no CMEI?", ["Sim, aprende bastante", "Aprende algumas coisas", "Aprende pouco ou nada", "Prefiro não responder"]],
     ["4. Você sente que conhece o trabalho realizado pelos professores no CMEI?", ["Sim, conheço bem", "Conheço um pouco", "Conheço muito pouco", "Prefiro não responder"]],
-    ["5. A escola costuma explicar o que a criança aprende no dia a dia?", ["Sempre", "Às vezes", "Nunca ou quase nunca", "Prefiro não responder"]],
+    ["5. O CMEI costuma explicar o que a criança aprende no dia a dia?", ["Sempre", "Às vezes", "Nunca ou quase nunca", "Prefiro não responder"]],
     ["6. Como você avalia a comunicação entre sua família e o CMEI?", ["Muito boa", "Boa", "Precisa melhorar", "Prefiro não responder"]],
     ["7. Você participa das atividades propostas pela escola quando possível?", ["Sempre", "Às vezes", "Raramente", "Prefiro não responder"]],
     ["8. Você acredita que a participação da família ajuda no desenvolvimento da criança?", ["Sim, ajuda muito", "Ajuda um pouco", "Não faz diferença", "Prefiro não responder"]],
     ["9. Você gostaria de receber mais informações sobre o trabalho pedagógico do CMEI?", ["Sim, gostaria muito", "Gostaria um pouco", "Não tenho interesse", "Prefiro não responder"]],
-    ["10. Você acredita que escola e família devem trabalhar juntas?", ["Sim, sempre", "Em alguns momentos", "Não considero necessário", "Prefiro não responder"]]
+    ["10. Você acredita que o CMEI e as família devem trabalhar juntas?", ["Sim, sempre", "Em alguns momentos", "Não considero necessário", "Prefiro não responder"]]
   ];
 
   const questoesEquipe = [
     ["1. Como você avalia atualmente a participação das famílias na rotina escolar do CMEI?", ["Muito participativa", "Participativa em alguns momentos", "Pouco participativa", "Prefiro não responder"]],
     ["2. Na sua opinião, as famílias compreendem a função pedagógica da Educação Infantil?", ["Compreendem bem", "Compreendem parcialmente", "Compreendem pouco", "Prefiro não responder"]],
-    ["3. Como você avalia a comunicação entre escola e famílias?", ["Muito boa", "Boa", "Precisa melhorar", "Prefiro não responder"]],
+    ["3. Como você avalia a comunicação entre o CMEI e as famílias?", ["Muito boa", "Boa", "Precisa melhorar", "Prefiro não responder"]],
     ["4. Você considera importante aproximar mais as famílias do trabalho pedagógico realizado no CMEI?", ["Sim, muito importante", "Importante em alguns aspectos", "Pouco importante", "Prefiro não responder"]],
     ["5. Você acredita que as famílias valorizam o trabalho desenvolvido pela equipe escolar?", ["Sim, valorizam bastante", "Valorizam parcialmente", "Valorizam pouco", "Prefiro não responder"]],
-    ["6. A escola já oferece meios suficientes para diálogo com as famílias?", ["Sim, plenamente", "Em parte", "Ainda são insuficientes", "Prefiro não responder"]],
+    ["6. O CMEI já oferece meios suficientes para diálogo com as famílias?", ["Sim, plenamente", "Em parte", "Ainda são insuficientes", "Prefiro não responder"]],
     ["7. Você teria interesse em participar de ações que fortaleçam a relação família-escola?", ["Sim, muito interesse", "Algum interesse", "Pouco interesse", "Prefiro não responder"]],
     ["8. Você acredita que recursos digitais podem ajudar na aproximação com as famílias?", ["Sim, ajudam muito", "Ajudam em parte", "Ajudam pouco ou nada", "Prefiro não responder"]],
     ["9. Como você percebe o envolvimento das famílias no desenvolvimento das crianças?", ["Muito positivo", "Parcialmente positivo", "Ainda limitado", "Prefiro não responder"]],
-    ["10. Você considera importante que escola e família atuem juntas no processo educativo?", ["Sim, sempre", "Em alguns momentos", "Não considero necessário", "Prefiro não responder"]]
+    ["10. Você considera importante que o CMEI e família atuem juntas no processo educativo?", ["Sim, sempre", "Em alguns momentos", "Não considero necessário", "Prefiro não responder"]]
   ];
 
   const abertasFamilia = [
@@ -796,9 +798,9 @@ required
 
 ["4. Depois da participação no projeto, como você avalia a comunicação entre família e CMEI?", ["Melhorou bastante","Melhorou um pouco","Não mudou","Prefiro não responder"]],
 
-["5. Hoje a escola explica melhor o que a criança aprende no dia a dia?", ["Sempre","Às vezes","Não percebi mudança","Prefiro não responder"]],
+["5. Hoje o CMEI explica melhor o que a criança aprende no dia a dia?", ["Sempre","Às vezes","Não percebi mudança","Prefiro não responder"]],
 
-["6. Sua participação nas atividades e informações da escola mudou durante esse período?", ["Aumentou bastante","Aumentou um pouco","Não mudou","Prefiro não responder"]],
+["6. Sua participação nas atividades e informações do CMEI mudou durante esse período?", ["Aumentou bastante","Aumentou um pouco","Não mudou","Prefiro não responder"]],
 
 ["7. Hoje você considera mais importante a participação da família no desenvolvimento da criança?", ["Sim, muito mais","Sim, um pouco mais","Continuo pensando igual antes","Prefiro não responder"]],
 
@@ -806,7 +808,7 @@ required
 
 ["9. Você gostaria que ações como essa continuassem no CMEI?", ["Sim, com certeza","Sim, em alguns momentos","Não tenho interesse","Prefiro não responder"]],
 
-["10. Hoje você acredita mais que escola e família devem trabalhar juntas?", ["Sim, muito mais","Sim, continuo acreditando","Não percebi diferença","Prefiro não responder"]]
+["10. Hoje você acredita mais que o CMEI e família devem trabalhar juntas?", ["Sim, muito mais","Sim, continuo acreditando","Não percebi diferença","Prefiro não responder"]]
 
 ];
 
@@ -816,7 +818,7 @@ required
 
 ["2. Na sua opinião, as famílias compreendem melhor a função pedagógica da Educação Infantil após esse período?", ["Sim, compreenderam melhor","Houve pequena melhora","Não percebi mudança","Prefiro não responder"]],
 
-["3. Como você avalia hoje a comunicação entre escola e famílias?", ["Melhorou bastante","Melhorou um pouco","Não mudou","Prefiro não responder"]],
+["3. Como você avalia hoje a comunicação entre equipe pedagógica e famílias?", ["Melhorou bastante","Melhorou um pouco","Não mudou","Prefiro não responder"]],
 
 ["4. O produto educacional contribuiu para aproximar as famílias do trabalho pedagógico?", ["Contribuiu muito","Contribuiu um pouco","Não contribuiu","Prefiro não responder"]],
 
@@ -830,7 +832,7 @@ required
 
 ["9. Como você percebe hoje o envolvimento das famílias no desenvolvimento das crianças?", ["Melhorou bastante","Melhorou um pouco","Não percebi mudança","Prefiro não responder"]],
 
-["10. Você considera que escola e família devem atuar juntas no processo educativo após essa experiência?", ["Sim, ainda mais que antes","Sim, continuo acreditando","Não percebi diferença","Prefiro não responder"]]
+["10. Você considera que o CMEI e família devem atuar juntas no processo educativo após essa experiência?", ["Sim, ainda mais que antes","Sim, continuo acreditando","Não percebi diferença","Prefiro não responder"]]
 
 ];
 
