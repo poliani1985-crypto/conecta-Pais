@@ -340,22 +340,25 @@ placeholder="Digite o número do documento"
 required
 >
 
-<input
-type="checkbox"
-id="aceiteTCLE"
-style="width:auto"
-required
->
-
-Quero receber informações gerais sobre os resultados da pesquisa.
-
+<label>
+  <input
+    type="checkbox"
+    id="receberInfo"
+    style="width:auto"
+    onchange="mostrarEmail()"
+  >
+  Quero receber informações gerais sobre os resultados da pesquisa.
 </label>
 
-<label>E-mail para receber os resultados, caso deseje</label>
-<input type="email" placeholder="Digite seu e-mail"required>
+<div id="campoEmail" style="display:none; margin-top:10px;">
 
-<div style="margin-top:30px; text-align:center;">
-  <p><strong>Cornélio Procópio, 01 de outubro de 2026</strong></p></p><p>
+  <label>E-mail para receber os resultados</label>
+
+  <input
+    type="email"
+    id="emailParticipante"
+    placeholder="Digite seu e-mail"
+  >
 
 </div>
   
@@ -574,7 +577,24 @@ const conteudos=[["🎨","O brincar também ensina","Texto + imagem","Na Educaç
 function mostrar(id){document.querySelectorAll('.screen').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');window.scrollTo(0,0)}
 function voltarInicio(){mostrar('inicio')}
 function abrirTCLE(g){ grupoSelecionado = g;document.getElementById('tituloTCLE').innerText = g === 'familia'? '📄 TCLE — Pais, mães ou responsáveis': '📄 TCLE — Equipe pedagógica';if(g === 'familia'){document.getElementById('pdfTCLE').src = 'https://drive.google.com/file/d/18czVh8M502LniObL4dNEIEP2V6GIKWZu/preview';} else {document.getElementById('pdfTCLE').src = 'https://drive.google.com/file/d/1ELDjgNtrwqOCyQY7T7-448c31ju3041A/preview';}mostrar('tcle');}
-function aceitarTCLE(){
+function mostrarEmail(){
+
+  const checkbox = document.getElementById("receberInfo");
+
+  const campo = document.getElementById("campoEmail");
+
+  if(checkbox.checked){
+
+    campo.style.display = "block";
+
+  }else{
+
+    campo.style.display = "none";
+
+  }
+
+}
+  function aceitarTCLE(){
 
   const codigo = document.getElementById("codigoAcesso").value.trim();
   const nome = document.getElementById("nomeParticipante").value.trim();
