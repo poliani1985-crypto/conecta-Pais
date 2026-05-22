@@ -270,17 +270,15 @@ function entrarSistema(){
     return;
   }
 
-  if(codigosSalvos.includes(codigo)){
+ if(codigosSalvos.includes(codigo)){
 
-    abrirPrincipal();
+  mostrar('principal');
 
-  }else{
+}else{
 
-    alert(
-      "Código não encontrado. Faça o primeiro acesso."
-    );
+  alert("Código não encontrado. Faça o primeiro acesso.");
 
-  }
+}
 
 }
   </script>
