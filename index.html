@@ -595,7 +595,9 @@ function aceitarTCLE(){
     alert("Por favor, marque que leu e compreendeu o TCLE antes de continuar.");
     return;
   }
-
+  
+montarInicial();
+  
   document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
   document.getElementById('questionarioInicial').classList.remove('hidden');
 
