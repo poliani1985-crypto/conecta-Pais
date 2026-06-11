@@ -381,15 +381,19 @@ Quero receber informações gerais sobre os resultados da pesquisa.
     Envie aqui! A equipe pedagógica vai responder com carinho. 🤝
   </p>
 
-  <input type="text" placeholder="Seu código de participante (Ex: MA04)">
+  <form action="https://formspree.io/f/xykanwjq" method="POST">
 
-  <input type="text" placeholder="Assunto da sua dúvida">
+  <input type="text" name="codigo" placeholder="Seu código de participante (Ex: MA04)" required>
 
-  <textarea rows="5" placeholder="Escreva sua dúvida aqui..."></textarea>
+  <input type="text" name="assunto" placeholder="Assunto da sua dúvida" required>
 
-  <button class="green" onclick="alert('Dúvida enviada! Para uso real, conecte este espaço ao Google Forms ou Planilha.')">
+  <textarea name="duvida" rows="5" placeholder="Escreva sua dúvida aqui..." required></textarea>
+
+  <button class="green" type="submit">
     💌 Enviar Dúvida
   </button>
+
+</form>
 </div>
       <div style="
 background:#fff3cd;
