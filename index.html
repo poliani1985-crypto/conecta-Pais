@@ -381,17 +381,17 @@ Quero receber informações gerais sobre os resultados da pesquisa.
     Envie aqui! A equipe pedagógica vai responder com carinho. 🤝
   </p>
 
-  <form action="https://formspree.io/f/xykanwjq" method="POST">
+  <form id="formDuvidas">
 
-  <input type="text" name="codigo" placeholder="Seu código de participante (Ex: MA04)" required>
+  <input id="codigoDuvida" type="text" name="codigo" placeholder="Seu código de participante (Ex: MA04)" required>
 
-  <input type="text" name="assunto" placeholder="Assunto da sua dúvida" required>
+<input id="assuntoDuvida" type="text" name="assunto" placeholder="Assunto da sua dúvida" required>
 
-  <textarea name="duvida" rows="5" placeholder="Escreva sua dúvida aqui..." required></textarea>
+<textarea id="textoDuvida" name="duvida" rows="5" placeholder="Escreva sua dúvida aqui..." required></textarea>
 
-  <button class="green" type="submit">
-    💌 Enviar Dúvida
-  </button>
+  <button class="green" type="button" onclick="enviarDuvida()">
+💗 Enviar Dúvida
+</button>
 
 </form>
 </div>
@@ -756,6 +756,40 @@ required
       <p>Agradecemos sua participação. Sua colaboração é muito importante para esta pesquisa.</p>
     </div>
   `;
+}
+  function enviarDuvida(){
+
+  const codigo = document.getElementById("codigoDuvida").value.trim();
+  const assunto = document.getElementById("assuntoDuvida").value.trim();
+  const duvida = document.getElementById("textoDuvida").value.trim();
+
+  if(codigo === "" || assunto === "" || duvida === ""){
+    alert("Preencha todos os campos antes de enviar sua dúvida.");
+    return;
+  }
+
+  fetch("https://formspree.io/f/xykanwjq", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({
+      codigo: codigo,
+      assunto: assunto,
+      duvida: duvida,
+      data: new Date().toLocaleString("pt-BR")
+    })
+  })
+  .then(() => {
+    alert("Dúvida enviada com sucesso! 💌");
+    document.getElementById("codigoDuvida").value = "";
+    document.getElementById("assuntoDuvida").value = "";
+    document.getElementById("textoDuvida").value = "";
+  })
+  .catch(() => {
+    alert("Não foi possível enviar sua dúvida neste momento. Verifique sua conexão e tente novamente.");
+  });
 }
 function abrirPrincipal(){montarConteudos();mostrar('principal')}
 function montarConteudos(){let area=document.getElementById('conteudosCards');area.innerHTML='';conteudos.forEach((c,i)=>{area.innerHTML+=`<div class="contentCard"><div class="stripe"></div><div class="contentInner"><div class="roundIcon">${c[0]}</div><span class="tag">${c[2]}</span><h3>${c[1]}</h3><p>${c[3].slice(0,110)}...</p><button class="outline" onclick="abrirConteudo(${i})">Abrir conteúdo</button></div></div>`})}
