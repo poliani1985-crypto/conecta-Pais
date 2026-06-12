@@ -1118,7 +1118,61 @@ if(codigo === ""){
     }
   }
 
+  const endpointFinal = grupoSelecionado === "familia"
+  ? "https://formspree.io/f/mbdezyrg"
+  : "https://formspree.io/f/xwvjrbep";
+
+const respostasObjetivasFinal = {};
+const radiosMarcadosFinal = area.querySelectorAll('input[type="radio"]:checked');
+
+radiosMarcadosFinal.forEach((radio, index) => {
+  const textoResposta = radio.parentElement.innerText.trim();
+  respostasObjetivasFinal[`questao_${index + 1}`] = textoResposta;
+});
+
+const respostasAbertasFinal = {};
+const blocosAbertosFinal = area.querySelectorAll('.questaoAberta');
+
+blocosAbertosFinal.forEach((bloco, index) => {
+  const texto = bloco.querySelector('textarea').value.trim();
+  const prefiro = bloco.querySelector('input[type="checkbox"]').checked;
+
+  respostasAbertasFinal[`questao_aberta_${index + 11}`] =
+    prefiro ? "Prefiro não responder" : texto;
+});
+
+const idadeFinal = area.querySelector('input[type="number"]')?.value || "";
+const sexoFinal = area.querySelector('select')?.value || "";
+
+let funcaoFinal = "";
+if(grupoSelecionado === "equipe"){
+  const selects = area.querySelectorAll('select');
+  funcaoFinal = selects[1]?.value || "";
+}
+
+fetch(endpointFinal, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+  },
+  body: JSON.stringify({
+    grupo: grupoSelecionado,
+    codigo: codigo,
+    idade: idadeFinal,
+    sexo: sexoFinal,
+    funcao: funcaoFinal,
+    data: new Date().toLocaleString("pt-BR"),
+    ...respostasObjetivasFinal,
+    ...respostasAbertasFinal
+  })
+})
+.then(() => {
   mostrar('enquete');
+})
+.catch(() => {
+  alert("Não foi possível enviar o questionário final neste momento. Verifique sua conexão e tente novamente.");
+});
 }
   function validarEnquete(){
 const codigo = document.getElementById("codigoEnquete").value.trim();
