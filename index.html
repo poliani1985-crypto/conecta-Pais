@@ -1199,7 +1199,32 @@ if(codigo === ""){
     return;
   }
 
+  const resposta1 = pergunta1.parentElement.innerText.trim();
+const resposta2 = pergunta2.parentElement.innerText.trim();
+const sugestao = texto.value.trim();
+const respostaSugestao = prefiro.checked ? "Prefiro não responder" : sugestao;
+
+fetch("https://formspree.io/f/mrevykge", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+  },
+  body: JSON.stringify({
+    grupo: grupoSelecionado,
+    codigo: codigo,
+    interesse_encontro: resposta1,
+    motivacao_encontro: resposta2,
+    sugestao: respostaSugestao,
+    data: new Date().toLocaleString("pt-BR")
+  })
+})
+.then(() => {
   mostrar('agradecimento');
+})
+.catch(() => {
+  alert("Não foi possível enviar a enquete neste momento. Verifique sua conexão e tente novamente.");
+});
 }
 </script>
 </body>
