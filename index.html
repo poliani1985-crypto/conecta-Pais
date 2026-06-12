@@ -991,6 +991,34 @@ const endpointInicial = grupoSelecionado === "familia"
   ? "https://formspree.io/f/xzdqjrno"
   : "https://formspree.io/f/xvznwrpo";
 
+const respostasObjetivas = {};
+const radiosMarcados = area.querySelectorAll('input[type="radio"]:checked');
+
+radiosMarcados.forEach((radio, index) => {
+  const textoResposta = radio.parentElement.innerText.trim();
+  respostasObjetivas[`questao_${index + 1}`] = textoResposta;
+});
+
+const respostasAbertas = {};
+const blocosAbertos = area.querySelectorAll('.questaoAberta');
+
+blocosAbertos.forEach((bloco, index) => {
+  const texto = bloco.querySelector('textarea').value.trim();
+  const prefiro = bloco.querySelector('input[type="checkbox"]').checked;
+
+  respostasAbertas[`questao_aberta_${index + 11}`] =
+    prefiro ? "Prefiro não responder" : texto;
+});
+
+const idade = area.querySelector('input[type="number"]')?.value || "";
+const sexo = area.querySelector('select')?.value || "";
+
+let funcao = "";
+if(grupoSelecionado === "equipe"){
+  const selects = area.querySelectorAll('select');
+  funcao = selects[1]?.value || "";
+}
+
 fetch(endpointInicial, {
   method: "POST",
   headers: {
@@ -1000,8 +1028,12 @@ fetch(endpointInicial, {
   body: JSON.stringify({
     grupo: grupoSelecionado,
     codigo: codigo,
+    idade: idade,
+    sexo: sexo,
+    funcao: funcao,
     data: new Date().toLocaleString("pt-BR"),
-    respostas: "Questionário inicial preenchido"
+    ...respostasObjetivas,
+    ...respostasAbertas
   })
 })
 .then(() => {
