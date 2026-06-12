@@ -283,17 +283,17 @@ style="text-transform: uppercase;"
 required
 >
 
-<label>Turma da criança ou Código da Unidade</label>
+<label>Turma da criança ou Cargo do servidor:</label>
 
 <input
 type="text"
 id="codigoAcesso"
-placeholder="Ex.: IN 02 ou UN 02"
+placeholder="Ex.: IN 02 ou PROFESSOR"
 style="text-transform: uppercase;"
 required
 >
 
-<label>Nome do participante Pais ou responsáveis / Equipe pedagógica</label> 
+<label>Nome Completo: (participante Pais ou responsáveis / Equipe pedagógica)</label> 
 <input
 type="text"
 id="nomeParticipante"
@@ -989,7 +989,7 @@ if(codigo === ""){
 
 const endpointInicial = grupoSelecionado === "familia"
   ? "https://formspree.io/f/xzdqjrno"
-  : "";
+  : "https://formspree.io/f/xvznwrpo";
 
 fetch(endpointInicial, {
   method: "POST",
