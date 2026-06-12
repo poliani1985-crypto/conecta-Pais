@@ -597,10 +597,34 @@ const todosMarcados = Array.from(checks).every(c => c.checked);
 }
 
   
-montarInicial();
-  
+const endpointTCLE = grupoSelecionado === "familia"
+  ? "https://formspree.io/f/xjgdawnr"
+  : "https://formspree.io/f/mdavwgqd";
+
+fetch(endpointTCLE, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+  },
+  body: JSON.stringify({
+    grupo: grupoSelecionado,
+    codigo: codigo,
+    nome: nome,
+    documento: documento,
+    email: document.getElementById("emailParticipante")?.value || "",
+    aceite: "Aceitou participar da pesquisa",
+    data: new Date().toLocaleString("pt-BR")
+  })
+})
+.then(() => {
+  montarInicial();
   document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
   document.getElementById('questionarioInicial').classList.remove('hidden');
+})
+.catch(() => {
+  alert("Não foi possível registrar o aceite neste momento. Verifique sua conexão e tente novamente.");
+});
 
 }
   
