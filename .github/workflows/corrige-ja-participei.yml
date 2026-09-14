@@ -1,0 +1,63 @@
+name: Corrigir acesso Ja participei
+
+on:
+  push:
+    paths:
+      - '.github/workflows/corrige-ja-participei.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  corrigir-acesso:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Corrigir entrada direta na area de conteudos
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          antigo = '''function entrarSistema(){
+
+  const codigo = document.getElementById("codigoAcesso").value.trim();
+
+  if(codigo === ""){
+    alert("Digite seu código.");
+    return;
+  }
+
+  mostrar('principal');
+
+}'''
+
+          novo = '''function entrarSistema(){
+
+  const codigo = document.getElementById("codigoAcesso").value.trim();
+
+  if(codigo === ""){
+    alert("Digite seu código.");
+    return;
+  }
+
+  abrirPrincipal();
+
+}'''
+
+          if antigo not in s:
+              raise SystemExit('Trecho da funcao entrarSistema nao encontrado')
+
+          s = s.replace(antigo, novo, 1)
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Salvar alteracao
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Corrige Ja participei para carregar conteudos" || exit 0
+          git push origin main
