@@ -19,45 +19,23 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
+          import re
+
           p = Path('index.html')
           s = p.read_text(encoding='utf-8')
 
-          antigo = '''function entrarSistema(){
+          padrao = r"(function\s+entrarSistema\s*\(\s*\)\s*\{.*?)(mostrar\s*\(\s*['\"]principal['\"]\s*\)\s*;)(.*?\n\})"
+          novo, n = re.subn(padrao, r"\1abrirPrincipal();\3", s, count=1, flags=re.S)
 
-  const codigo = document.getElementById("codigoAcesso").value.trim();
+          if n != 1:
+              raise SystemExit('Nao foi possivel localizar mostrar principal dentro de entrarSistema')
 
-  if(codigo === ""){
-    alert("Digite seu código.");
-    return;
-  }
-
-  mostrar('principal');
-
-}'''
-
-          novo = '''function entrarSistema(){
-
-  const codigo = document.getElementById("codigoAcesso").value.trim();
-
-  if(codigo === ""){
-    alert("Digite seu código.");
-    return;
-  }
-
-  abrirPrincipal();
-
-}'''
-
-          if antigo not in s:
-              raise SystemExit('Trecho da funcao entrarSistema nao encontrado')
-
-          s = s.replace(antigo, novo, 1)
-          p.write_text(s, encoding='utf-8')
+          p.write_text(novo, encoding='utf-8')
           PY
       - name: Salvar alteracao
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html
-          git commit -m "Corrige Ja participei para carregar conteudos" || exit 0
+          git commit -m "Corrige Ja participei para montar conteudos" || exit 0
           git push origin main
