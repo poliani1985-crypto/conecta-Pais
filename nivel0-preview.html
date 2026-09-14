@@ -13,15 +13,16 @@ header{background:rgba(255,255,255,.94);border-bottom:1px solid rgba(255,255,255
 .logo{display:flex;align-items:center;gap:10px}.logoIcon{width:46px;height:46px;border-radius:16px;background:linear-gradient(135deg,var(--pink),var(--orange),var(--yellow));display:flex;align-items:center;justify-content:center;font-size:24px;color:white}.logo h1{margin:0;font-size:21px}.logo p{margin:2px 0;color:#607d8b;font-size:11px}.badges{display:flex;gap:8px;flex-wrap:wrap}.badge{background:white;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:700;box-shadow:0 3px 10px rgba(0,0,0,.08)}
 main{max-width:1180px;margin:auto;padding:24px 18px 42px}
 .shell{background:rgba(255,255,255,.95);border-radius:30px;padding:18px;box-shadow:0 18px 40px rgba(0,0,0,.11);border:1px solid rgba(255,255,255,.8)}
-.hero{display:grid;grid-template-columns:1.55fr .65fr;gap:18px;align-items:center;background:linear-gradient(135deg,#fff9fc,#fff7df,#edf8ff);border-radius:24px;padding:22px 24px;border-top:9px solid transparent;border-image:linear-gradient(90deg,#ff80b5,#ff9f43,#ffd166,#74c0fc) 1}
+.hero{position:relative;display:grid;grid-template-columns:1.55fr .65fr;gap:18px;align-items:center;background:linear-gradient(135deg,#fff9fc,#fff7df,#edf8ff);border-radius:24px;padding:22px 24px;border-top:9px solid transparent;border-image:linear-gradient(90deg,#ff80b5,#ff9f43,#ffd166,#74c0fc) 1}
 .kicker{display:inline-block;background:#dff0ff;color:#1971c2;padding:9px 16px;border-radius:999px;font-weight:900;font-size:15px;letter-spacing:.1px}
+.levelBadge{position:absolute;top:18px;right:18px;background:linear-gradient(135deg,#ff5aa5,#ff7f9f);color:white;border-radius:14px;padding:9px 14px;text-align:center;font-weight:900;line-height:1.05;box-shadow:0 7px 16px rgba(255,90,165,.25);min-width:118px}.levelBadge small{display:block;font-size:11px;font-weight:700;margin-top:4px}
 .hero h1{font-size:36px;line-height:1.05;margin:13px 0 9px;color:#213547}.hero p{font-size:16px;line-height:1.55;margin:0}.babyWrap{display:flex;justify-content:center}.baby{width:170px;height:170px;border-radius:50%;background:radial-gradient(circle at 50% 40%,#fff 0,#fff7ef 40%,#ffe3c7 100%);display:flex;align-items:center;justify-content:center;font-size:96px;box-shadow:0 10px 28px rgba(255,159,67,.18)}
 .contentGrid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;margin-top:18px}.stack{display:grid;gap:18px}
 .panel{border-radius:22px;padding:20px}.videoPanel{background:#fff0f6}.ped{background:#e7f5ff}.home{background:#edfce8}.sources{background:#f6f1ff}
 .panel h2{font-size:22px;margin:0 0 10px}.panel p{line-height:1.6;margin:7px 0}.videoBox{overflow:hidden;border-radius:18px;background:#111;aspect-ratio:16/9;box-shadow:0 8px 20px rgba(0,0,0,.14)}.videoBox iframe{width:100%;height:100%;border:0}.credit{font-size:11px;color:#687b84;margin-top:9px!important}.videoFallback{display:inline-flex;align-items:center;gap:7px;margin-top:10px;padding:10px 13px;border-radius:13px;background:white;color:#c2255c;border:2px solid #ffd1e4;font-weight:900;text-decoration:none;font-size:12px}
 .check{margin:7px 0;padding-left:2px}.check strong{color:#1f7a4c}.question{font-weight:800;color:#8a5a00}
 .footerBand{margin-top:18px;background:linear-gradient(135deg,#f9efff,#fff5fa);border-radius:20px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;border:1px solid #ead8ff}.footerBand strong{font-size:22px;color:#6f42c1}.footerBand em{color:#6b6b7a}.close{display:inline-block;padding:12px 18px;border-radius:15px;border:2px solid #ffd1e4;background:white;color:#555;font-weight:900}
-@media(max-width:850px){.hero{grid-template-columns:1fr}.baby{width:130px;height:130px;font-size:72px}.contentGrid{grid-template-columns:1fr}.hero h1{font-size:30px}.badges{display:none}.shell{padding:12px}.panel{padding:17px}.kicker{font-size:14px}}
+@media(max-width:850px){.hero{grid-template-columns:1fr;padding-top:70px}.baby{width:130px;height:130px;font-size:72px}.contentGrid{grid-template-columns:1fr}.hero h1{font-size:30px}.badges{display:none}.shell{padding:12px}.panel{padding:17px}.kicker{font-size:14px}.levelBadge{top:14px;right:14px}}
 </style>
 </head>
 <body>
@@ -29,6 +30,7 @@ main{max-width:1180px;margin:auto;padding:24px 18px 42px}
 <main>
 <div class="shell">
   <section class="hero">
+    <div class="levelBadge">Nível 0<small>6 meses a 1 ano</small></div>
     <div>
       <span class="kicker">💬 Comunicação e linguagem</span>
       <h1>Antes de falar, o bebê já conversa!</h1>
