@@ -90,11 +90,8 @@ main{max-width:1180px;margin:auto;padding:24px 18px 42px}
 </main>
 <script>
 function voltarConteudos(){
-  if(document.referrer && document.referrer.includes(location.host)){
-    history.back();
-  }else{
-    location.href='index.html';
-  }
+  sessionStorage.setItem('conectapaisVoltarConteudos','1');
+  location.href='index.html';
 }
 </script>
 </body>
