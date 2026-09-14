@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 240" role="img" aria-label="Ilustração de bebê sorrindo">
+  <defs>
+    <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffd9b8"/>
+      <stop offset="1" stop-color="#ffb98d"/>
+    </linearGradient>
+    <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8ed8ff"/>
+      <stop offset="1" stop-color="#55b8ee"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#f1a566" flood-opacity=".22"/>
+    </filter>
+  </defs>
+  <rect width="360" height="240" rx="34" fill="#fff8f1"/>
+  <path d="M286 35c14-17 39-4 32 15-7 19-32 34-32 34s-25-15-32-34c-7-19 18-32 32-15Z" fill="#ff6da8" opacity=".9"/>
+  <g stroke="#ffd166" stroke-width="8" stroke-linecap="round" opacity=".95">
+    <path d="M40 95 18 84"/><path d="M43 116 16 118"/><path d="M52 137 31 153"/>
+    <path d="M317 104 340 93"/><path d="M318 128 346 132"/>
+  </g>
+  <g filter="url(#shadow)">
+    <ellipse cx="202" cy="188" rx="112" ry="20" fill="#f5c8a3" opacity=".28"/>
+    <ellipse cx="213" cy="156" rx="83" ry="48" fill="url(#cloth)" transform="rotate(-8 213 156)"/>
+    <ellipse cx="281" cy="146" rx="26" ry="18" fill="url(#skin)" transform="rotate(-25 281 146)"/>
+    <ellipse cx="300" cy="130" rx="17" ry="13" fill="url(#skin)" transform="rotate(18 300 130)"/>
+    <circle cx="134" cy="101" r="64" fill="url(#skin)"/>
+    <path d="M96 48c20-24 54-28 81-8-11 3-20 10-26 21-15-14-34-16-55-13Z" fill="#7d4526"/>
+    <ellipse cx="81" cy="108" rx="13" ry="18" fill="#ffbd92"/>
+    <ellipse cx="187" cy="108" rx="13" ry="18" fill="#ffbd92"/>
+    <circle cx="111" cy="100" r="10" fill="#2a211f"/><circle cx="158" cy="100" r="10" fill="#2a211f"/>
+    <circle cx="108" cy="96" r="3" fill="#fff"/><circle cx="155" cy="96" r="3" fill="#fff"/>
+    <path d="M118 126c11 13 26 13 37 0" fill="none" stroke="#b33b3b" stroke-width="7" stroke-linecap="round"/>
+    <ellipse cx="101" cy="119" rx="12" ry="6" fill="#ff8ea8" opacity=".45"/><ellipse cx="169" cy="119" rx="12" ry="6" fill="#ff8ea8" opacity=".45"/>
+    <path d="M150 156c-14 15-27 28-46 31" fill="none" stroke="url(#skin)" stroke-width="22" stroke-linecap="round"/>
+    <ellipse cx="98" cy="190" rx="18" ry="12" fill="url(#skin)" transform="rotate(-12 98 190)"/>
+    <path d="M178 171c-4 17-4 31 7 44" fill="none" stroke="url(#skin)" stroke-width="20" stroke-linecap="round"/>
+    <ellipse cx="191" cy="215" rx="17" ry="11" fill="url(#skin)"/>
+  </g>
+</svg>
