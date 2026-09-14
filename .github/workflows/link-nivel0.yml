@@ -1,0 +1,46 @@
+name: Integrar Nivel 0
+
+on:
+  push:
+    paths:
+      - '.github/workflows/link-nivel0.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  atualizar-index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Adicionar cartao do Nivel 0
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          antigo = 'const conteudos=[["🎨","O brincar também ensina","Texto + imagem","Na Educação Infantil, brincar é uma forma importante de aprender. Enquanto brinca, a criança imagina, conversa, cria regras, resolve problemas, expressa sentimentos e desenvolve diferentes habilidades."]'
+          novo = 'const conteudos=[["👶","Antes de falar, o bebê já conversa!","Nível 0 · Comunicação e linguagem","Descubra como o bebê se comunica por meio do olhar, do sorriso, dos gestos e dos sons — e como essas experiências são valorizadas no CMEI.","nivel0-preview.html"],["🎨","O brincar também ensina","Texto + imagem","Na Educação Infantil, brincar é uma forma importante de aprender. Enquanto brinca, a criança imagina, conversa, cria regras, resolve problemas, expressa sentimentos e desenvolve diferentes habilidades."]'
+
+          if antigo not in s:
+              raise SystemExit('Trecho do array de conteúdos não encontrado')
+          s = s.replace(antigo, novo, 1)
+
+          antigo_func = "function abrirConteudo(i){let c=conteudos[i];let box=document.getElementById('conteudoAberto');box.innerHTML=`<h2>${c[0]} ${c[1]}</h2><p style=\"line-height:1.7\">${c[3]}</p><button class=\"outline\" onclick=\"document.getElementById('conteudoAberto').classList.add('hidden')\">Fechar</button>`;box.classList.remove('hidden');box.scrollIntoView({behavior:'smooth'})}"
+          nova_func = "function abrirConteudo(i){let c=conteudos[i];if(c[4]){window.location.href=c[4];return;}let box=document.getElementById('conteudoAberto');box.innerHTML=`<h2>${c[0]} ${c[1]}</h2><p style=\"line-height:1.7\">${c[3]}</p><button class=\"outline\" onclick=\"document.getElementById('conteudoAberto').classList.add('hidden')\">Fechar</button>`;box.classList.remove('hidden');box.scrollIntoView({behavior:'smooth'})}"
+
+          if antigo_func not in s:
+              raise SystemExit('Função abrirConteudo não encontrada')
+          s = s.replace(antigo_func, nova_func, 1)
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Salvar alteracao
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Liga conteúdo Nível 0 à área de conteúdos" || exit 0
+          git push origin main
