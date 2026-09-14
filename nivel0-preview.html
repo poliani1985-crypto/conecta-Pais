@@ -22,7 +22,7 @@ main{max-width:1180px;margin:auto;padding:24px 18px 42px}
 .panel h2{font-size:22px;margin:0 0 10px}.panel p{line-height:1.6;margin:7px 0}.videoBox{overflow:hidden;border-radius:18px;background:#111;aspect-ratio:16/9;box-shadow:0 8px 20px rgba(0,0,0,.14)}.videoBox iframe{width:100%;height:100%;border:0}.credit{font-size:11px;color:#687b84;margin-top:9px!important}.videoFallback{display:inline-flex;align-items:center;gap:7px;margin-top:10px;padding:10px 13px;border-radius:13px;background:white;color:#c2255c;border:2px solid #ffd1e4;font-weight:900;text-decoration:none;font-size:12px}
 .complemento{margin-top:16px;background:rgba(255,255,255,.72);border:1px solid #ffd2e4;border-radius:16px;padding:14px 16px}.complemento h3{margin:0 0 8px;font-size:17px;color:#b52b63}.complemento p{font-size:14px;line-height:1.65;margin:8px 0}
 .check{margin:7px 0;padding-left:2px}.check strong{color:#1f7a4c}.question{font-weight:800;color:#8a5a00}
-.footerBand{margin-top:18px;background:linear-gradient(135deg,#f9efff,#fff5fa);border-radius:20px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;border:1px solid #ead8ff}.footerBand strong{font-size:22px;color:#6f42c1}.footerBand em{color:#6b6b7a}.close{display:inline-block;padding:12px 18px;border-radius:15px;border:2px solid #ffd1e4;background:white;color:#555;font-weight:900}
+.footerBand{margin-top:18px;background:linear-gradient(135deg,#f9efff,#fff5fa);border-radius:20px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;border:1px solid #ead8ff}.footerBand strong{font-size:22px;color:#6f42c1}.footerBand em{color:#6b6b7a}.close{display:inline-block;padding:12px 18px;border-radius:15px;border:2px solid #ffd1e4;background:white;color:#555;font-weight:900;cursor:pointer}
 @media(max-width:850px){.hero{grid-template-columns:1fr;padding-top:70px}.baby{width:130px;height:130px;font-size:72px}.contentGrid{grid-template-columns:1fr}.hero h1{font-size:30px}.badges{display:none}.shell{padding:12px}.panel{padding:17px}.kicker{font-size:14px}.levelBadge{top:14px;right:14px}}
 </style>
 </head>
@@ -84,9 +84,18 @@ main{max-width:1180px;margin:auto;padding:24px 18px 42px}
 
   <div class="footerBand">
     <div><strong>💗 ConectaPais</strong><br><em>Por trás de cada experiência, existe uma intenção pedagógica.</em></div>
-    <span class="close">Fechar conteúdo</span>
+    <button class="close" type="button" onclick="voltarConteudos()">Fechar conteúdo</button>
   </div>
 </div>
 </main>
+<script>
+function voltarConteudos(){
+  if(document.referrer && document.referrer.includes(location.host)){
+    history.back();
+  }else{
+    location.href='index.html';
+  }
+}
+</script>
 </body>
 </html>
