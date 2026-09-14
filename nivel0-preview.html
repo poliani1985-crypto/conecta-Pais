@@ -8,76 +8,76 @@
 :root{--pink:#ff5aa5;--orange:#ff9f43;--yellow:#ffd166;--blue:#4dabf7;--purple:#845ef7;--green:#20c997;--dark:#263238}
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#fff0f7,#fff8df,#e9f8ff);color:var(--dark);min-height:100vh}
-header{background:rgba(255,255,255,.9);border-bottom:1px solid rgba(255,255,255,.8);position:sticky;top:0;z-index:2}
-.top{max-width:1100px;margin:auto;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.logo{display:flex;align-items:center;gap:12px}.logoIcon{width:50px;height:50px;border-radius:18px;background:linear-gradient(135deg,var(--pink),var(--orange),var(--yellow));display:flex;align-items:center;justify-content:center;font-size:26px;color:white}.logo h1{margin:0;font-size:22px}.logo p{margin:2px 0;color:#607d8b;font-size:12px}
-.badge{background:white;border-radius:999px;padding:9px 13px;font-size:13px;font-weight:700;box-shadow:0 3px 10px rgba(0,0,0,.08)}
-main{max-width:950px;margin:auto;padding:32px 18px 60px}
-.card{background:rgba(255,255,255,.96);border-radius:30px;padding:28px;box-shadow:0 18px 40px rgba(0,0,0,.11);margin:18px 0}
-.hero{background:linear-gradient(135deg,#fff6fb,#fffbea,#edf8ff);border:2px solid #ffe0ed}
-.kicker{display:inline-block;background:#ffe0ef;color:#c2255c;padding:8px 13px;border-radius:999px;font-weight:900;font-size:13px}
-h1.title{font-size:38px;line-height:1.08;margin:16px 0 12px;color:#c2255c}.lead{font-size:18px;line-height:1.65;margin:0}
-.micro{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}.micro div{background:white;border-radius:18px;padding:14px;text-align:center;font-weight:800;box-shadow:0 5px 14px rgba(0,0,0,.06)}
-.videoBox{overflow:hidden;border-radius:22px;background:#111;aspect-ratio:16/9;box-shadow:0 10px 25px rgba(0,0,0,.16)}.videoBox iframe{width:100%;height:100%;border:0}
-.credit{font-size:12px;color:#687b84;margin:10px 4px 0;line-height:1.5}.videoFallback{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:11px 15px;border-radius:14px;background:#fff;color:#c2255c;border:2px solid #ffd1e4;font-weight:900;text-decoration:none}
-.info{padding:22px;border-radius:24px;margin-top:18px}.ped{background:#fff4fa;border:1px solid #ffcfe3}.home{background:#fff9dc;border:1px solid #ffe69a}.sources{background:#edf8ff;border:1px solid #c8e6ff}.info h2{font-size:22px;margin:0 0 10px}.info p{line-height:1.7;margin:7px 0}.home .question{font-weight:800;color:#8a5a00}
-.brand{text-align:center;background:linear-gradient(135deg,#f9efff,#fff5fa);border:1px solid #ead8ff}.brand strong{font-size:22px;color:#6f42c1}.brand em{display:block;margin-top:7px;color:#6b6b7a;font-size:16px}
-.close{display:inline-block;margin-top:10px;padding:13px 18px;border-radius:16px;border:2px solid #ffd1e4;background:white;color:#555;font-weight:900}
-@media(max-width:650px){main{padding:20px 12px 40px}.card{padding:19px;border-radius:24px}h1.title{font-size:30px}.lead{font-size:16px}.micro{grid-template-columns:repeat(2,1fr)}.top{align-items:flex-start}}
+header{background:rgba(255,255,255,.94);border-bottom:1px solid rgba(255,255,255,.85);position:sticky;top:0;z-index:2}
+.top{max-width:1180px;margin:auto;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px}.logoIcon{width:46px;height:46px;border-radius:16px;background:linear-gradient(135deg,var(--pink),var(--orange),var(--yellow));display:flex;align-items:center;justify-content:center;font-size:24px;color:white}.logo h1{margin:0;font-size:21px}.logo p{margin:2px 0;color:#607d8b;font-size:11px}.badges{display:flex;gap:8px;flex-wrap:wrap}.badge{background:white;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:700;box-shadow:0 3px 10px rgba(0,0,0,.08)}
+main{max-width:1180px;margin:auto;padding:24px 18px 42px}
+.shell{background:rgba(255,255,255,.95);border-radius:30px;padding:18px;box-shadow:0 18px 40px rgba(0,0,0,.11);border:1px solid rgba(255,255,255,.8)}
+.hero{display:grid;grid-template-columns:1.55fr .65fr;gap:18px;align-items:center;background:linear-gradient(135deg,#fff9fc,#fff7df,#edf8ff);border-radius:24px;padding:22px 24px;border-top:9px solid transparent;border-image:linear-gradient(90deg,#ff80b5,#ff9f43,#ffd166,#74c0fc) 1}
+.kicker{display:inline-block;background:#dff0ff;color:#1971c2;padding:7px 12px;border-radius:999px;font-weight:900;font-size:12px}
+.hero h1{font-size:36px;line-height:1.05;margin:13px 0 9px;color:#213547}.hero p{font-size:16px;line-height:1.55;margin:0}.babyWrap{display:flex;justify-content:center}.baby{width:170px;height:170px;border-radius:50%;background:radial-gradient(circle at 50% 40%,#fff 0,#fff7ef 40%,#ffe3c7 100%);display:flex;align-items:center;justify-content:center;font-size:96px;box-shadow:0 10px 28px rgba(255,159,67,.18)}
+.contentGrid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;margin-top:18px}.stack{display:grid;gap:18px}
+.panel{border-radius:22px;padding:20px}.videoPanel{background:#fff0f6}.ped{background:#e7f5ff}.home{background:#edfce8}.sources{background:#f6f1ff}
+.panel h2{font-size:22px;margin:0 0 10px}.panel p{line-height:1.6;margin:7px 0}.videoBox{overflow:hidden;border-radius:18px;background:#111;aspect-ratio:16/9;box-shadow:0 8px 20px rgba(0,0,0,.14)}.videoBox iframe{width:100%;height:100%;border:0}.credit{font-size:11px;color:#687b84;margin-top:9px!important}.videoFallback{display:inline-flex;align-items:center;gap:7px;margin-top:10px;padding:10px 13px;border-radius:13px;background:white;color:#c2255c;border:2px solid #ffd1e4;font-weight:900;text-decoration:none;font-size:12px}
+.check{margin:7px 0;padding-left:2px}.check strong{color:#1f7a4c}.question{font-weight:800;color:#8a5a00}
+.footerBand{margin-top:18px;background:linear-gradient(135deg,#f9efff,#fff5fa);border-radius:20px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;border:1px solid #ead8ff}.footerBand strong{font-size:22px;color:#6f42c1}.footerBand em{color:#6b6b7a}.close{display:inline-block;padding:12px 18px;border-radius:15px;border:2px solid #ffd1e4;background:white;color:#555;font-weight:900}
+@media(max-width:850px){.hero{grid-template-columns:1fr}.baby{width:130px;height:130px;font-size:72px}.contentGrid{grid-template-columns:1fr}.hero h1{font-size:30px}.badges{display:none}.shell{padding:12px}.panel{padding:17px}}
 </style>
 </head>
 <body>
-<header>
-  <div class="top">
-    <div class="logo"><div class="logoIcon">💖</div><div><h1>ConectaPais</h1><p>Laços Educativos entre Família e Escola</p></div></div>
-    <span class="badge">🌱 Conteúdo semanal — Nível 0</span>
-  </div>
-</header>
+<header><div class="top"><div class="logo"><div class="logoIcon">💖</div><div><h1>ConectaPais</h1><p>Laços Educativos entre Família e Escola</p></div></div><div class="badges"><span class="badge">⭐ Produto educacional</span><span class="badge">💗 70 dias</span><span class="badge">✨ Conteúdos semanais</span></div></div></header>
 <main>
-  <section class="card hero">
-    <span class="kicker">💬 Comunicação e linguagem</span>
-    <h1 class="title">Antes de falar, o bebê já conversa!</h1>
-    <p class="lead">Você sabia que a comunicação começa muito antes das primeiras palavras? Desde muito cedo, o bebê encontra diferentes maneiras de mostrar o que sente, percebe e deseja.</p>
-    <div class="micro">
-      <div>👀 Um olhar</div><div>😊 Um sorriso</div><div>👉 Um gesto</div><div>👶 Um balbucio</div>
+<div class="shell">
+  <section class="hero">
+    <div>
+      <span class="kicker">💬 Comunicação e linguagem</span>
+      <h1>Antes de falar, o bebê já conversa!</h1>
+      <p>Você sabia que a comunicação começa muito antes das primeiras palavras? Mesmo sem falar, o bebê já se expressa por meio do olhar, do sorriso, dos gestos e dos sons.</p>
+    </div>
+    <div class="babyWrap"><div class="baby">👶</div></div>
+  </section>
+
+  <section class="contentGrid">
+    <div class="panel videoPanel">
+      <h2>🎥 Assista ao vídeo</h2>
+      <p><strong>Desenvolvimento Infantil: crianças de 0 a 9 meses</strong></p>
+      <div class="videoBox">
+        <iframe src="https://www.youtube-nocookie.com/embed/kRwDnyReTeM?controls=1&rel=0&playsinline=1" title="Desenvolvimento infantil — crianças de 0 a 9 meses" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <p class="credit">Vídeo externo reproduzido pelo player original do YouTube. Créditos e autoria conforme a publicação original. O ConectaPais não hospeda nem republica o arquivo.</p>
+      <a class="videoFallback" href="https://www.youtube.com/watch?v=kRwDnyReTeM" target="_blank" rel="noopener">🔊 Abrir vídeo original</a>
+    </div>
+
+    <div class="stack">
+      <section class="panel ped">
+        <h2>💡 O olhar pedagógico</h2>
+        <p>No CMEI, quando conversamos com o bebê, esperamos sua reação, respondemos aos seus sons, cantamos e nomeamos pessoas, objetos e ações, criamos oportunidades para ele ouvir, observar, interagir e se comunicar.</p>
+        <p>Cada gesto, olhar ou som é valorizado, pois faz parte do processo de desenvolvimento e da construção de vínculos afetivos e de aprendizagens significativas.</p>
+      </section>
+
+      <section class="panel home">
+        <h2>🏠 Experimente em casa</h2>
+        <p class="check">✅ Fique de frente para o bebê e converse com ele.</p>
+        <p class="check">✅ Faça uma pergunta simples e espere alguns segundos.</p>
+        <p class="check">✅ Observe: ele olha? Sorri? Movimenta o corpo? Faz algum som?</p>
+        <p class="check">✅ Repita os sons que ele faz e veja como ele reage.</p>
+        <p class="check">✅ Cante músicas simples e use gestos.</p>
+        <p><strong>💗 Essa também pode ser a maneira dele participar da conversa!</strong></p>
+      </section>
     </div>
   </section>
 
-  <section class="card">
-    <h2>🎥 Assista e observe</h2>
-    <p style="line-height:1.65">Neste vídeo, observe como pequenas interações do dia a dia ajudam o bebê a ouvir, responder, imitar sons e participar de verdade das primeiras “conversas”.</p>
-    <div class="videoBox">
-      <iframe src="https://www.youtube-nocookie.com/embed/kRwDnyReTeM?controls=1&rel=0&playsinline=1" title="Desenvolvimento infantil — crianças de 0 a 9 meses" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-    </div>
-    <p class="credit">Vídeo externo reproduzido pelo player original do YouTube. Créditos e autoria conforme a publicação original. O ConectaPais não hospeda nem republica o arquivo.</p>
-    <a class="videoFallback" href="https://www.youtube.com/watch?v=kRwDnyReTeM" target="_blank" rel="noopener">🔊 Se o som não aparecer, abrir o vídeo original</a>
-  </section>
-
-  <section class="info ped">
-    <h2>👀 O olhar pedagógico</h2>
-    <p>No CMEI, quando conversamos com o bebê, esperamos sua reação, respondemos aos seus sons, cantamos e nomeamos pessoas, objetos e ações, estamos criando oportunidades para ele ouvir, observar, interagir e se comunicar.</p>
-    <p>Por isso, aquela conversa durante a troca, aquela música repetida ou aquele momento em que mostramos um brinquedo não acontecem por acaso. São situações cotidianas que também podem favorecer aprendizagens e o desenvolvimento.</p>
-  </section>
-
-  <section class="info home">
-    <h2>🏠 Experimente em casa</h2>
-    <p>Durante um momento tranquilo, fique de frente para o seu bebê e converse com ele.</p>
-    <p class="question">Pergunte: “Cadê a mamãe?” ou “Vamos brincar?”</p>
-    <p>Depois, espere alguns segundos e observe: ele olha para você? Sorri? Movimenta o corpo? Faz algum som?</p>
-    <p><strong>💬 Essa também pode ser a maneira dele participar da conversa!</strong></p>
-  </section>
-
-  <section class="info sources">
+  <section class="panel sources" style="margin-top:18px">
     <h2>📚 Fontes consultadas</h2>
     <p><strong>BRASIL. Ministério da Educação.</strong> Base Nacional Comum Curricular — Educação Infantil.</p>
     <p><strong>BRASIL. Ministério da Saúde.</strong> Desenvolvimento infantil / Caderneta da Criança.</p>
   </section>
 
-  <section class="card brand">
-    <strong>💚 ConectaPais</strong>
-    <em>Por trás de cada experiência, existe uma intenção pedagógica.</em>
+  <div class="footerBand">
+    <div><strong>💗 ConectaPais</strong><br><em>Por trás de cada experiência, existe uma intenção pedagógica.</em></div>
     <span class="close">Fechar conteúdo</span>
-  </section>
+  </div>
+</div>
 </main>
 </body>
 </html>
