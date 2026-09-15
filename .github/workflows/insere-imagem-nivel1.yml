@@ -1,0 +1,41 @@
+name: Inserir imagem Nivel 1
+on:
+  push:
+    paths:
+      - '.github/workflows/insere-imagem-nivel1.yml'
+permissions:
+  contents: write
+jobs:
+  ajustar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Inserir imagem na pagina e no card
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          img='ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2009_31_04.png'
+          p=Path('nivel1-preview.html'); s=p.read_text(encoding='utf-8')
+          s=s.replace('.kid{font-size:90px}', '.kid{width:100%;height:100%;object-fit:cover;display:block}')
+          old='<div class="heroVisual"><span class="kid">👧</span><span class="bubble">Mamã! 💗</span></div>'
+          new=f'<div class="heroVisual"><img class="kid" src="{img}" alt="Ilustração de uma criança se comunicando"><span class="bubble">Mamã! 💗</span></div>'
+          if old not in s: raise SystemExit('Hero esperado nao encontrado')
+          s=s.replace(old,new,1); p.write_text(s,encoding='utf-8')
+          p=Path('index.html'); s=p.read_text(encoding='utf-8')
+          old="let imagem=i===0?`<img src=\"ChatGPT%20Image%2014%20de%20set.%20de%202026%2C%2021_40_08.png\" alt=\"Ilustração de um bebê se comunicando\" style=\"width:100%;height:170px;object-fit:cover;object-position:center;border-radius:20px;margin-bottom:14px;display:block\">`:'';"
+          new=f'''let imagem=i===0?`<img src="ChatGPT%20Image%2014%20de%20set.%20de%202026%2C%2021_40_08.png" alt="Ilustração de um bebê se comunicando" style="width:100%;height:170px;object-fit:cover;object-position:center;border-radius:20px;margin-bottom:14px;display:block">`:i===1?`<img src="{img}" alt="Ilustração de uma criança se comunicando" style="width:100%;height:170px;object-fit:cover;object-position:center;border-radius:20px;margin-bottom:14px;display:block">`:'';'''
+          if old not in s: raise SystemExit('Gerador de imagem dos cards nao encontrado')
+          s=s.replace(old,new,1)
+          s=s.replace("${imagem}${i===0?'':`<div class=\"roundIcon\">${c[0]}</div>`}", "${imagem}${i<=1?'':`<div class=\"roundIcon\">${c[0]}</div>`}",1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit e push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html nivel1-preview.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Insere imagem ilustrada no Nivel 1"
+          git push origin main
