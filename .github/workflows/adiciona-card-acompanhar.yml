@@ -1,0 +1,35 @@
+name: Adiciona card Acompanhar tambem e cuidar
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Adicionar card
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          alvo='["💬","Deixa eu contar uma coisa?","Nível 3 · Comunicação e linguagem","Perguntas, histórias e muita imaginação! Descubra como a escuta pode ajudar a criança a organizar ideias e ampliar suas conversas.","nivel3-preview.html"]'
+          novo=alvo+',\n["🌱","Acompanhar também é cuidar","Para todas as famílias · Desenvolvimento infantil","Cada criança tem seu ritmo, mas alguns sinais merecem atenção. Conheça referências para acompanhar o desenvolvimento com informação, cuidado e sem comparações.","acompanhar-desenvolvimento.html"]'
+          if '"acompanhar-desenvolvimento.html"' not in s:
+              if alvo not in s: raise SystemExit('entrada do Nivel 3 nao encontrada')
+              s=s.replace(alvo,novo,1)
+          # imagem do quinto card e supressao do icone redondo
+          old="const imagemCard = i===0 ? 'ChatGPT%20Image%2014%20de%20set.%20de%202026%2C%2021_40_08.png' : i===1 ? 'ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2009_31_04.png' : i===2 ? 'ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2010_43_43.png' : i===3 ? 'ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2011_13_11.png' : '';"
+          if old in s:
+              new=old[:-3]+" : i===4 ? 'ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2012_26_43.png' : '';"
+              s=s.replace(old,new,1)
+          s=s.replace("i<=3 ? '' :", "i<=4 ? '' :")
+          p.write_text(s)
+          PY
+      - name: Commit
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add index.html
+          git diff --cached --quiet || git commit -m "Adiciona card Acompanhar tambem e cuidar"
+          git push
