@@ -1,0 +1,40 @@
+name: Inserir imagem no card Nivel 0
+
+on:
+  push:
+    paths:
+      - '.github/workflows/insere-imagem-card-nivel0.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  inserir-imagem:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Inserir imagem no primeiro card
+        shell: bash
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          old = "function montarConteudos(){let area=document.getElementById('conteudosCards');area.innerHTML='';conteudos.forEach((c,i)=>{area.innerHTML+=`<div class=\"contentCard\"><div class=\"stripe\"></div><div class=\"contentInner\"><div class=\"roundIcon\">${c[0]}</div><span class=\"tag\">${c[2]}</span><h3>${c[1]}</h3><p>${c[3].slice(0,110)}...</p><button class=\"outline\" onclick=\"abrirConteudo(${i})\">Abrir conteúdo</button></div></div>`})}"
+          new = "function montarConteudos(){let area=document.getElementById('conteudosCards');area.innerHTML='';conteudos.forEach((c,i)=>{let imagem=i===0?`<img src=\"ChatGPT%20Image%2014%20de%20set.%20de%202026%2C%2021_40_08.png\" alt=\"Ilustração de um bebê se comunicando\" style=\"width:100%;height:170px;object-fit:cover;object-position:center;border-radius:20px;margin-bottom:14px;display:block\">`:'';area.innerHTML+=`<div class=\"contentCard\"><div class=\"stripe\"></div><div class=\"contentInner\">${imagem}<div class=\"roundIcon\">${c[0]}</div><span class=\"tag\">${c[2]}</span><h3>${c[1]}</h3><p>${c[3].slice(0,110)}...</p><button class=\"outline\" onclick=\"abrirConteudo(${i})\">Abrir conteúdo</button></div></div>`})}"
+          if old not in s:
+              raise SystemExit('Funcao montarConteudos esperada nao encontrada; nenhuma alteracao feita.')
+          s = s.replace(old, new, 1)
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Salvar alteracao
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Insere imagem do bebe no card do Nivel 0"
+          git push origin main
