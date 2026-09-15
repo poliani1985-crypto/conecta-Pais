@@ -1,0 +1,46 @@
+name: Integrar Nivel 3
+on:
+  push:
+    paths:
+      - '.github/workflows/integra-nivel3.yml'
+permissions:
+  contents: write
+jobs:
+  integrar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Integrar card Nivel 3
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html'); s=p.read_text(encoding='utf-8')
+          old='["🧩","Agora tenho muito para contar!","Nível 2 · Comunicação e linguagem","Nas brincadeiras, pequenas falas podem virar grandes conversas. Veja como escutar e ampliar o que a criança tem a dizer.","nivel2-preview.html"],\n  ["🎨","Brincar é aprender","Brincadeira","Como o brincar desenvolve habilidades essenciais."]'
+          new='["🧩","Agora tenho muito para contar!","Nível 2 · Comunicação e linguagem","Nas brincadeiras, pequenas falas podem virar grandes conversas. Veja como escutar e ampliar o que a criança tem a dizer.","nivel2-preview.html"],\n  ["💬","Deixa eu contar uma coisa?","Nível 3 · Comunicação e linguagem","Perguntas, histórias e muita imaginação! Descubra como a escuta pode ajudar a criança a organizar ideias e ampliar suas conversas.","nivel3-preview.html"],\n  ["🎨","Brincar é aprender","Brincadeira","Como o brincar desenvolve habilidades essenciais."]'
+          if old not in s: raise SystemExit('Lista de conteudos esperada nao encontrada')
+          s=s.replace(old,new,1)
+          old2="const imgNivel2='ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2010_43_43.png';"
+          new2=old2+"\n  const imgNivel3='ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2011_13_11.png';"
+          if old2 not in s: raise SystemExit('Marcador imagem Nivel 2 nao encontrado')
+          s=s.replace(old2,new2,1)
+          old3="const imagemCard = i===0 ? imgNivel0 : (i===1 ? imgNivel1 : (i===2 ? imgNivel2 : null));"
+          new3="const imagemCard = i===0 ? imgNivel0 : (i===1 ? imgNivel1 : (i===2 ? imgNivel2 : (i===3 ? imgNivel3 : null)));"
+          if old3 not in s: raise SystemExit('Logica de imagens nao encontrada')
+          s=s.replace(old3,new3,1)
+          old4="const tagClasse = i===0 ? 'nivel0' : (i===1 ? 'nivel1' : (i===2 ? 'nivel2' : ''));"
+          new4="const tagClasse = i===0 ? 'nivel0' : (i===1 ? 'nivel1' : (i===2 ? 'nivel2' : (i===3 ? 'nivel3' : '')));"
+          if old4 in s: s=s.replace(old4,new4,1)
+          old5='.tag.nivel2{background:#d3f9d8;color:#2b8a3e}'
+          new5=old5+'\n.tag.nivel3{background:#e5dbff;color:#6741d9}'
+          if old5 in s and '.tag.nivel3{' not in s: s=s.replace(old5,new5,1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'Integra conteudo do Nivel 3'
+          git push origin main
