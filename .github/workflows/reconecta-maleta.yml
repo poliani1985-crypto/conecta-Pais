@@ -1,0 +1,32 @@
+name: Reconecta Maleta Viajante
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/reconecta-maleta.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Adiciona link da pagina ao sexto card
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          old='["🧳","Aconteceu no CMEI","Projeto Maleta Viajante","Uma história que saiu do CMEI e chegou até as famílias. Conheça a experiência da Maleta Viajante e tudo o que existe por trás dessa viagem."]'
+          new='["🧳","Aconteceu no CMEI","Projeto Maleta Viajante","Uma história que saiu do CMEI e chegou até as famílias. Conheça a experiência da Maleta Viajante e tudo o que existe por trás dessa viagem.","maleta-viajante.html"]'
+          if old not in s:
+              raise SystemExit('Trecho esperado do card Maleta Viajante não encontrado')
+          p.write_text(s.replace(old,new,1),encoding='utf-8')
+          PY
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Liga sexto card a pagina Maleta Viajante" || exit 0
+          git push
