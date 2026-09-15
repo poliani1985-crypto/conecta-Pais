@@ -9,38 +9,20 @@ permissions:
   contents: write
 
 jobs:
-  corrigir-retorno:
+  corrigir:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: main
-      - name: Abrir area de conteudos ao voltar do Nivel 0
+      - name: Corrigir index
+        shell: bash
         run: |
-          python - <<'PY'
-          from pathlib import Path
-          p = Path('index.html')
-          s = p.read_text(encoding='utf-8')
-          marcador = '</body>'
-          bloco = '''<script>
-document.addEventListener('DOMContentLoaded', function(){
-  if(sessionStorage.getItem('conectapaisVoltarConteudos') === '1'){
-    sessionStorage.removeItem('conectapaisVoltarConteudos');
-    abrirPrincipal();
-  }
-});
-</script>
-'''
-          if 'conectapaisVoltarConteudos' not in s:
-              if marcador not in s:
-                  raise SystemExit('Tag body nao encontrada')
-              s = s.replace(marcador, bloco + marcador, 1)
-              p.write_text(s, encoding='utf-8')
-          PY
-      - name: Salvar alteracao
+          python3 -c "from pathlib import Path; p=Path('index.html'); s=p.read_text(encoding='utf-8'); b=\"<script>document.addEventListener('DOMContentLoaded',function(){if(sessionStorage.getItem('conectapaisVoltarConteudos')==='1'){sessionStorage.removeItem('conectapaisVoltarConteudos');abrirPrincipal();}});</script>\\n\"; p.write_text(s.replace('</body>',b+'</body>',1) if 'conectapaisVoltarConteudos' not in s else s,encoding='utf-8')"
+      - name: Salvar no main
+        shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html
-          git commit -m "Corrige Fechar conteudo para retornar aos conteudos" || exit 0
+          git diff --cached --quiet && exit 0
+          git commit -m "Corrige retorno do Nivel 0 para area de conteudos"
           git push origin main
