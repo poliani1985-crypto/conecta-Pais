@@ -1,4 +1,4 @@
-name: Adiciona card Acompanhar tambem e cuidar
+name: Organiza seis cards da semana
 on:
   push:
     paths:
@@ -11,23 +11,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Adicionar card
+      - name: Organizar seis cards
         run: |
           python3 - <<'PY'
           from pathlib import Path
+          import re
           p=Path('index.html')
           s=p.read_text()
-          alvo='["💬","Deixa eu contar uma coisa?","Nível 3 · Comunicação e linguagem","Perguntas, histórias e muita imaginação! Descubra como a escuta pode ajudar a criança a organizar ideias e ampliar suas conversas.","nivel3-preview.html"]'
-          novo=alvo+',\n["🌱","Acompanhar também é cuidar","Para todas as famílias · Desenvolvimento infantil","Cada criança tem seu ritmo, mas alguns sinais merecem atenção. Conheça referências para acompanhar o desenvolvimento com informação, cuidado e sem comparações.","acompanhar-desenvolvimento.html"]'
-          if '"acompanhar-desenvolvimento.html"' not in s:
-              if alvo not in s: raise SystemExit('entrada do Nivel 3 nao encontrada')
-              s=s.replace(alvo,novo,1)
-          img3="i===3 ? 'ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2011_13_11.png' : ''"
-          img4="i===3 ? 'ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2011_13_11.png' : i===4 ? 'ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2012_26_43.png' : ''"
-          if 'ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2012_26_43.png' not in s:
-              if img3 not in s: raise SystemExit('mapeamento de imagens nao encontrado')
-              s=s.replace(img3,img4,1)
-          s=s.replace("i<=3 ? '' :", "i<=4 ? '' :",1)
+          novos='''const conteudos=[["👶","Antes de falar, o bebê já conversa!","Nível 0 · Comunicação e linguagem","Descubra como o bebê se comunica por meio do olhar, do sorriso, dos gestos e dos sons — e como essas experiências são valorizadas no CMEI.","nivel0-preview.html"],["🌱","As primeiras palavras estão chegando!","Nível 1 · Comunicação e linguagem","Olhares, gestos, sons e pequenas palavras vão se encontrando. Descubra como acolher e ampliar as tentativas de comunicação da criança.","nivel1-preview.html"],["🧩","Agora tenho muito para contar!","Nível 2 · Comunicação e linguagem","Nas brincadeiras, pequenas falas podem virar grandes conversas. Veja como escutar e ampliar o que a criança tem a dizer.","nivel2-preview.html"],["💬","Deixa eu contar uma coisa?","Nível 3 · Comunicação e linguagem","Perguntas, histórias e muita imaginação! Descubra como a escuta pode ajudar a criança a organizar ideias e ampliar suas conversas.","nivel3-preview.html"],["🌱","Acompanhar também é cuidar","Para todas as famílias · Desenvolvimento infantil","Cada criança tem seu ritmo, mas alguns sinais merecem atenção. Conheça referências para acompanhar o desenvolvimento com informação, cuidado e sem comparações.","acompanhar-desenvolvimento.html"],["🧳","Aconteceu no CMEI","Projeto Maleta Viajante","Uma história que saiu do CMEI e chegou até as famílias. Conheça a experiência da Maleta Viajante e tudo o que existe por trás dessa viagem."]];'''
+          s,n=re.subn(r'const conteudos=\[.*?\];\nfunction mostrar',novos+'\nfunction mostrar',s,count=1,flags=re.S)
+          if n!=1: raise SystemExit('lista de conteudos nao encontrada')
+          nova_func='''function montarConteudos(){let area=document.getElementById('conteudosCards');area.innerHTML='';conteudos.forEach((c,i)=>{let imagens=['ChatGPT%20Image%2014%20de%20set.%20de%202026%2C%2021_40_08.png','ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2009_31_04.png','ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2010_43_43.png','ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2011_13_11.png','ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2012_26_43.png','ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2014_05_05.png'];let alts=['Ilustração de um bebê se comunicando','Ilustração de uma criança se comunicando','Ilustração do Nível 2','Ilustração do Nível 3','Acompanhar também é cuidar','Projeto Maleta Viajante - Aconteceu no CMEI'];let imagem=`<img src="${imagens[i]}" alt="${alts[i]}" style="width:100%;height:170px;object-fit:cover;object-position:center;border-radius:20px;margin-bottom:14px;display:block">`;area.innerHTML+=`<div class="contentCard"><div class="stripe"></div><div class="contentInner">${imagem}<span class="tag ${i===0?'nivel0':i===1?'nivel1':i===2?'nivel2':i===3?'nivel3':''}">${c[2]}</span><h3>${c[1]}</h3><p>${c[3].slice(0,110)}...</p><button class="outline" onclick="abrirConteudo(${i})">Abrir conteúdo</button></div></div>`})}
+'''
+          s,n=re.subn(r'function montarConteudos\(\)\{.*?\}\nfunction abrirConteudo',nova_func+'function abrirConteudo',s,count=1,flags=re.S)
+          if n!=1: raise SystemExit('montarConteudos nao encontrada')
           p.write_text(s)
           PY
       - name: Commit
@@ -35,5 +32,5 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add index.html
-          git diff --cached --quiet || git commit -m "Adiciona card Acompanhar tambem e cuidar"
+          git diff --cached --quiet || git commit -m "Organiza seis cards da semana"
           git push
