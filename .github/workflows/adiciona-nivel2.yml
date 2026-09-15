@@ -1,0 +1,38 @@
+name: Integrar Nivel 2
+on:
+  push:
+    paths:
+      - '.github/workflows/adiciona-nivel2.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Integrar card do Nivel 2
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          old='["💛","Cuidar e educar caminham juntos","Texto curto","Na Educação Infantil, cuidar e educar acontecem juntos. Os momentos de alimentação, higiene, descanso, brincadeiras e rodas de conversa também ensinam."]'
+          new='["🧩","Agora tenho muito para contar!","Nível 2 · Comunicação e linguagem","Nas brincadeiras, pequenas falas podem virar grandes conversas. Veja como escutar e ampliar o que a criança tem a dizer.","nivel2-preview.html"]'
+          if old not in s:
+              raise SystemExit('Card antigo não encontrado')
+          s=s.replace(old,new,1)
+          old2="let imagem=i===0?`<img src=\"ChatGPT%20Image%2014%20de%20set.%20de%202026%2C%2021_40_08.png\" alt=\"Ilustração de um bebê se comunicando\" style=\"width:100%;height:170px;object-fit:cover;object-position:center;border-radius:20px;margin-bottom:14px;display:block\">`:i===1?`<img src=\"ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2009_31_04.png\" alt=\"Ilustração de uma criança se comunicando\" style=\"width:100%;height:170px;object-fit:cover;object-position:center;border-radius:20px;margin-bottom:14px;display:block\">`:'';"
+          new2="let imagem=i===0?`<img src=\"ChatGPT%20Image%2014%20de%20set.%20de%202026%2C%2021_40_08.png\" alt=\"Ilustração de um bebê se comunicando\" style=\"width:100%;height:170px;object-fit:cover;object-position:center;border-radius:20px;margin-bottom:14px;display:block\">`:i===1?`<img src=\"ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2009_31_04.png\" alt=\"Ilustração de uma criança se comunicando\" style=\"width:100%;height:170px;object-fit:cover;object-position:center;border-radius:20px;margin-bottom:14px;display:block\">`:i===2?`<img src=\"ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2010_12_51.png\" alt=\"Ilustração do Nível 2\" style=\"width:100%;height:170px;object-fit:cover;object-position:center;border-radius:20px;margin-bottom:14px;display:block\">`:'';"
+          if old2 not in s:
+              raise SystemExit('Trecho das imagens não encontrado')
+          s=s.replace(old2,new2,1)
+          s=s.replace("${i<=1?'':`<div class=\"roundIcon\">${c[0]}</div>`}","${i<=2?'':`<div class=\"roundIcon\">${c[0]}</div>`}",1)
+          p.write_text(s)
+          PY
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Integra Nivel 2 ao ConectaPais"
+          git push
