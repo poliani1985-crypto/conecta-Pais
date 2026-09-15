@@ -1,0 +1,41 @@
+name: Adiciona botao Encerrando por hoje
+on:
+  push:
+    paths:
+      - '.github/workflows/adiciona-botao-encerrando-hoje.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Adicionar terceiro botao
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          marker='🎉 Abrir etapa final'
+          if '💗 Encerrando por hoje' in s:
+              print('Botao ja existe')
+          else:
+              pos=s.find(marker)
+              if pos < 0:
+                  raise SystemExit('Texto do botao etapa final nao encontrado')
+              # Localiza o elemento anterior/seguinte pelo bloco que contem o botao final.
+              # Insere um link independente imediatamente antes do elemento que contem Abrir etapa final.
+              start=max(s.rfind('<button',0,pos),s.rfind('<a ',0,pos))
+              if start < 0:
+                  raise SystemExit('Inicio do botao final nao encontrado')
+              link='<a href="encerrando-hoje.html" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;padding:14px 22px;border-radius:16px;background:linear-gradient(135deg,#ff7eb3,#e64980);color:white;font-weight:900;box-shadow:0 8px 18px #e6498030">💗 Encerrando por hoje</a>\n'
+              s=s[:start]+link+s[start:]
+              p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet || git commit -m 'Adiciona Encerrando por hoje ao ConectaPais'
+          git push
