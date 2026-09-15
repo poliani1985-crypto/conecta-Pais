@@ -1,0 +1,40 @@
+name: Padronizar cores dos niveis nos cards
+on:
+  push:
+    paths:
+      - '.github/workflows/cores-niveis-cards.yml'
+permissions:
+  contents: write
+jobs:
+  ajustar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Aplicar cores por nivel
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          old='.contentInner{padding:20px}.tag{display:inline-block;background:#d0ebff;color:#1971c2;border-radius:999px;padding:6px 11px;font-size:12px;font-weight:900;margin-bottom:10px}'
+          new='.contentInner{padding:20px}.tag{display:inline-block;background:#d0ebff;color:#1971c2;border-radius:999px;padding:6px 11px;font-size:12px;font-weight:900;margin-bottom:10px}.tag.nivel0{background:#d0ebff;color:#1864ab}.tag.nivel1{background:#fff3bf;color:#8a6500}.tag.nivel2{background:#d3f9d8;color:#2b8a3e}.tag.nivel3{background:#e5dbff;color:#6741d9}'
+          if old not in s: raise SystemExit('CSS tag esperado nao encontrado')
+          s=s.replace(old,new,1)
+          old='`<span class="tag">${c[2]}</span>`'
+          # Some template may be embedded without isolated backticks; replace class attribute in exact rendered fragment.
+          target='<span class="tag">${c[2]}</span>'
+          repl='<span class="tag ${i===0?\'nivel0\':i===1?\'nivel1\':i===2?\'nivel2\':i===3?\'nivel3\':\'\'}">${c[2]}</span>'
+          if target not in s: raise SystemExit('Etiqueta dos cards nao encontrada')
+          s=s.replace(target,repl,1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit e push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Padroniza cores de identificacao dos niveis"
+          git push origin main
