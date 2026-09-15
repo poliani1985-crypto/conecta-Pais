@@ -1227,6 +1227,6 @@ fetch("https://formspree.io/f/mrevykge", {
 });
 }
 </script>
-<script>document.addEventListener('DOMContentLoaded',function(){if(sessionStorage.getItem('conectapaisVoltarConteudos')==='1'){sessionStorage.removeItem('conectapaisVoltarConteudos');abrirPrincipal();}});</script>
+<script>document.addEventListener('DOMContentLoaded',function(){if(sessionStorage.getItem('conectapaisVoltarConteudos')==='1'){sessionStorage.removeItem('conectapaisVoltarConteudos');abrirPrincipal();requestAnimationFrame(function(){requestAnimationFrame(function(){var alvo=document.getElementById('conteudosCards');if(alvo)alvo.scrollIntoView({behavior:'auto',block:'start'});});});}});</script>
 </body>
 </html>
