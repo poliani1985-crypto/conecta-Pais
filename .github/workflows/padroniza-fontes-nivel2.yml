@@ -1,0 +1,32 @@
+name: Padronizar fontes Nivel 2
+on:
+  push:
+    paths:
+      - '.github/workflows/padroniza-fontes-nivel2.yml'
+permissions:
+  contents: write
+jobs:
+  ajustar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Padronizar bloco de fontes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('nivel2-preview.html')
+          s=p.read_text(encoding='utf-8')
+          old='<section class="sec"><div class="wrap card fontes"><h2>📚 Para saber mais</h2><p><b>BNCC (2018)</b> — Campo de experiências “Escuta, fala, pensamento e imaginação”.</p><p><b>Ministério da Saúde</b> — Desenvolvimento Infantil / Caderneta da Criança.</p></div></section>'
+          new='<section class="sec"><div class="wrap card fontes" style="background:#f6f1ff"><h2>📚 Fontes consultadas</h2><p><strong>BRASIL. Ministério da Educação.</strong> Base Nacional Comum Curricular — Educação Infantil.</p><p><strong>BRASIL. Ministério da Saúde.</strong> Desenvolvimento infantil / Caderneta da Criança.</p></div></section>'
+          if old not in s: raise SystemExit('Bloco de fontes do Nivel 2 nao encontrado')
+          p.write_text(s.replace(old,new),encoding='utf-8')
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add nivel2-preview.html
+          git commit -m 'Padroniza fontes consultadas do Nivel 2'
+          git push origin main
