@@ -1,0 +1,38 @@
+name: Integrar Nivel 3 v2
+on:
+  push:
+    paths:
+      - '.github/workflows/integra-nivel3-v2.yml'
+permissions:
+  contents: write
+jobs:
+  integrar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Integrar Nivel 3
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html'); s=p.read_text(encoding='utf-8')
+          needle='["🧩","Agora tenho muito para contar!","Nível 2 · Comunicação e linguagem","Nas brincadeiras, pequenas falas podem virar grandes conversas. Veja como escutar e ampliar o que a criança tem a dizer.","nivel2-preview.html"],'
+          addition='["💬","Deixa eu contar uma coisa?","Nível 3 · Comunicação e linguagem","Perguntas, histórias e muita imaginação! Descubra como a escuta pode ajudar a criança a organizar ideias e ampliar suas conversas.","nivel3-preview.html"],'
+          if addition not in s:
+              if needle not in s: raise SystemExit('Nivel 2 nao encontrado')
+              s=s.replace(needle,needle+addition,1)
+          old="i===2?`<img src=\"ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2010_43_43.png\" alt=\"Ilustração do Nível 2\" style=\"width:100%;height:170px;object-fit:cover;object-position:center;border-radius:20px;margin-bottom:14px;display:block\">`:''"
+          new="i===2?`<img src=\"ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2010_43_43.png\" alt=\"Ilustração do Nível 2\" style=\"width:100%;height:170px;object-fit:cover;object-position:center;border-radius:20px;margin-bottom:14px;display:block\">`:i===3?`<img src=\"ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2011_13_11.png\" alt=\"Ilustração do Nível 3\" style=\"width:100%;height:170px;object-fit:cover;object-position:center;border-radius:20px;margin-bottom:14px;display:block\">`:''"
+          if old in s: s=s.replace(old,new,1)
+          elif 'Ilustração do Nível 3' not in s: raise SystemExit('Logica de imagem nao encontrada')
+          s=s.replace("${i<=2?'':`<div class=\"roundIcon\">${c[0]}</div>`}","${i<=3?'':`<div class=\"roundIcon\">${c[0]}</div>`}",1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'Integra Nivel 3 ao painel de conteudos'
+          git push origin main
