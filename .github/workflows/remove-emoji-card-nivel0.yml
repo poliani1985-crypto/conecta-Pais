@@ -1,0 +1,40 @@
+name: Remover emoji card Nivel 0
+
+on:
+  push:
+    paths:
+      - '.github/workflows/remove-emoji-card-nivel0.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  ajustar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Remover emoji apenas do primeiro card
+        shell: bash
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          old='''${imagem}<div class="roundIcon">${c[0]}</div><span class="tag">${c[2]}</span>'''
+          new='''${imagem}${i===0?'':`<div class="roundIcon">${c[0]}</div>`}<span class="tag">${c[2]}</span>'''
+          if old not in s:
+              raise SystemExit('Trecho esperado nao encontrado; nenhuma alteracao feita.')
+          s=s.replace(old,new,1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Salvar alteracao
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Remove emoji do card do Nivel 0"
+          git push origin main
