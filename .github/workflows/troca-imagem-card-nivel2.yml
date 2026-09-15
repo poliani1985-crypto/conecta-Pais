@@ -1,0 +1,36 @@
+name: Trocar imagem card Nivel 2
+on:
+  push:
+    paths:
+      - '.github/workflows/troca-imagem-card-nivel2.yml'
+permissions:
+  contents: write
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Trocar imagem no card
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          old='ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2010_12_51.png'
+          new='ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2010_43_43.png'
+          marker='function montarConteudos()'
+          before, after=s.split(marker,1)
+          if old not in after:
+              raise SystemExit('Imagem antiga do card Nivel 2 nao encontrada')
+          after=after.replace(old,new,1)
+          p.write_text(before+marker+after,encoding='utf-8')
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'Usa imagem sem texto no card do Nivel 2'
+          git push origin main
