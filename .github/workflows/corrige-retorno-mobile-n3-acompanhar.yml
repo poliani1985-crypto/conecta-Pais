@@ -1,0 +1,39 @@
+name: Corrige retorno mobile N3 e Acompanhar
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/corrige-retorno-mobile-n3-acompanhar.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Padroniza retorno aos cards
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          changes={
+            'nivel3-preview.html':(
+              "function voltarConteudos(){if(document.referrer&&document.referrer.indexOf(location.host)!==-1){history.back()}else{sessionStorage.setItem('conectapaisVoltarConteudos','1');location.replace('index.html#conteudosCards')}",
+              "function voltarConteudos(){sessionStorage.setItem('conectapaisVoltarConteudos','1');location.replace('index.html#conteudosCards')}"
+            ),
+            'acompanhar-desenvolvimento.html':(
+              "function voltarConteudos(){if(document.referrer&&document.referrer.includes(location.host)){history.back()}else{location.replace('index.html#conteudosCards')}",
+              "function voltarConteudos(){sessionStorage.setItem('conectapaisVoltarConteudos','1');location.replace('index.html#conteudosCards')}"
+            )
+          }
+          for name,(old,new) in changes.items():
+              p=Path(name); s=p.read_text(encoding='utf-8')
+              if old not in s: raise SystemExit(f'Trecho esperado não encontrado em {name}')
+              p.write_text(s.replace(old,new,1),encoding='utf-8')
+          PY
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add nivel3-preview.html acompanhar-desenvolvimento.html
+          git commit -m "Padroniza retorno aos cards no celular" || exit 0
+          git push
