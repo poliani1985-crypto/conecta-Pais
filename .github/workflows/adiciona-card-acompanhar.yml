@@ -1,5 +1,9 @@
 name: Adiciona card Acompanhar tambem e cuidar
-on: workflow_dispatch
+on:
+  push:
+    paths:
+      - '.github/workflows/adiciona-card-acompanhar.yml'
+  workflow_dispatch:
 permissions:
   contents: write
 jobs:
@@ -18,12 +22,12 @@ jobs:
           if '"acompanhar-desenvolvimento.html"' not in s:
               if alvo not in s: raise SystemExit('entrada do Nivel 3 nao encontrada')
               s=s.replace(alvo,novo,1)
-          # imagem do quinto card e supressao do icone redondo
-          old="const imagemCard = i===0 ? 'ChatGPT%20Image%2014%20de%20set.%20de%202026%2C%2021_40_08.png' : i===1 ? 'ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2009_31_04.png' : i===2 ? 'ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2010_43_43.png' : i===3 ? 'ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2011_13_11.png' : '';"
-          if old in s:
-              new=old[:-3]+" : i===4 ? 'ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2012_26_43.png' : '';"
-              s=s.replace(old,new,1)
-          s=s.replace("i<=3 ? '' :", "i<=4 ? '' :")
+          img3="i===3 ? 'ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2011_13_11.png' : ''"
+          img4="i===3 ? 'ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2011_13_11.png' : i===4 ? 'ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2012_26_43.png' : ''"
+          if 'ChatGPT%20Image%2015%20de%20set.%20de%202026%2C%2012_26_43.png' not in s:
+              if img3 not in s: raise SystemExit('mapeamento de imagens nao encontrado')
+              s=s.replace(img3,img4,1)
+          s=s.replace("i<=3 ? '' :", "i<=4 ? '' :",1)
           p.write_text(s)
           PY
       - name: Commit
