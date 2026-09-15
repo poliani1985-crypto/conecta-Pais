@@ -1,0 +1,42 @@
+name: Trocar bebe do cabecalho Nivel 0
+
+on:
+  push:
+    paths:
+      - '.github/workflows/troca-bebe-cabecalho-nivel0.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  ajustar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Trocar emoji pela imagem ja existente
+        shell: bash
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          p=Path('nivel0-preview.html')
+          s=p.read_text(encoding='utf-8')
+          old_css='.baby{width:170px;height:170px;border-radius:50%;background:radial-gradient(circle at 50% 40%,#fff 0,#fff7ef 40%,#ffe3c7 100%);display:flex;align-items:center;justify-content:center;font-size:96px;box-shadow:0 10px 28px rgba(255,159,67,.18)}'
+          new_css='.baby{width:170px;height:170px;border-radius:50%;background:radial-gradient(circle at 50% 40%,#fff 0,#fff7ef 40%,#ffe3c7 100%);display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 10px 28px rgba(255,159,67,.18)}.baby img{width:100%;height:100%;object-fit:cover;display:block}'
+          old_html='<div class="babyWrap"><div class="baby">👶</div></div>'
+          new_html='<div class="babyWrap"><div class="baby"><img src="ChatGPT%20Image%2014%20de%20set.%20de%202026%2C%2021_40_08.png" alt="Ilustração de bebê se comunicando"></div></div>'
+          if old_css not in s or old_html not in s:
+              raise SystemExit('Trecho esperado nao encontrado; nenhuma alteracao feita.')
+          s=s.replace(old_css,new_css,1).replace(old_html,new_html,1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Salvar alteracao
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add nivel0-preview.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Troca emoji do bebe pela imagem no cabecalho do Nivel 0"
+          git push origin main
