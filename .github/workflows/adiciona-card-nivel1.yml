@@ -1,0 +1,33 @@
+name: Adicionar card Nivel 1
+on:
+  push:
+    paths:
+      - '.github/workflows/adiciona-card-nivel1.yml'
+permissions:
+  contents: write
+jobs:
+  integrar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Integrar Nivel 1 ao conteudos
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          p=Path('index.html'); s=p.read_text(encoding='utf-8')
+          old='''["🎨","O brincar também ensina","Texto + imagem","Na Educação Infantil, brincar é uma forma importante de aprender. Enquanto brinca, a criança imagina, conversa, cria regras, resolve problemas, expressa sentimentos e desenvolve diferentes habilidades."]'''
+          new='''["🌱","As primeiras palavras estão chegando!","Nível 1 · Comunicação e linguagem","Olhares, gestos, sons e pequenas palavras vão se encontrando. Descubra como acolher e ampliar as tentativas de comunicação da criança.","nivel1-preview.html"]'''
+          if old not in s: raise SystemExit('Card antigo nao encontrado')
+          s=s.replace(old,new,1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit e push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Integra card do Nivel 1"
+          git push origin main
