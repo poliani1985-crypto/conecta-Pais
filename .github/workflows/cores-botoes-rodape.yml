@@ -1,0 +1,46 @@
+name: Ajusta cores dos botoes finais
+on:
+  push:
+    paths:
+      - '.github/workflows/cores-botoes-rodape.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ajustar cores
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          marker='</style>'
+          css='''\n/* Hierarquia visual dos controles de rodape */\n#btnFinal{background:#eeeeee!important;background-image:none!important;color:#a0a0a0!important;border:1px solid #dedede!important;box-shadow:none!important;cursor:not-allowed!important;opacity:.72!important;filter:grayscale(1)!important}\n#btnFinal:hover{transform:none!important;box-shadow:none!important}\n'''
+          if '#btnFinal{background:#eeeeee!important' not in s:
+              s=s.replace(marker,css+marker,1)
+          # Deixa o controle Voltar ao inicio azul, localizando pelo texto e aplicando estilo no proprio elemento.
+          texto='🏠 Voltar ao início'
+          pos=s.find(texto)
+          if pos<0: raise SystemExit('Voltar ao inicio nao encontrado')
+          start=max(s.rfind('<button',0,pos),s.rfind('<a ',0,pos))
+          end=s.find('>',start)
+          if start<0 or end<0: raise SystemExit('Elemento Voltar ao inicio nao encontrado')
+          tag=s[start:end+1]
+          estilo='background:linear-gradient(135deg,#36a9e1,#4c8bf5)!important;color:white!important;border:none!important;box-shadow:0 7px 16px #36a9e130!important;'
+          if 'style=' in tag:
+              import re
+              tag2=re.sub(r'style="([^"]*)"',lambda m:'style="'+m.group(1)+estilo+'"',tag,count=1)
+          else:
+              tag2=tag[:-1]+' style="'+estilo+'">'
+          s=s[:start]+tag2+s[end+1:]
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet || git commit -m 'Destaca inicio e apaga etapa final'
+          git push
