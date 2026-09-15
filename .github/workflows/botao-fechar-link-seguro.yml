@@ -1,0 +1,32 @@
+name: Botao fechar com link seguro
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/botao-fechar-link-seguro.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Troca botoes por links robustos
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          for name in ['nivel3-preview.html','acompanhar-desenvolvimento.html']:
+              p=Path(name); s=p.read_text(encoding='utf-8')
+              old='<button class="fechar" onclick="voltarConteudos()">Fechar conteúdo</button>'
+              new='<a class="fechar" href="index.html#conteudosCards" onclick="sessionStorage.setItem(\'conectapaisVoltarConteudos\',\'1\')">Fechar conteúdo</a>'
+              if old not in s: raise SystemExit(f'Botão não encontrado em {name}')
+              s=s.replace(old,new,1)
+              p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add nivel3-preview.html acompanhar-desenvolvimento.html
+          git commit -m "Corrige clique em fechar no nivel 3 e acompanhar" || exit 0
+          git push
