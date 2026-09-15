@@ -1,0 +1,45 @@
+name: Padronizar rodape e retorno Nivel 2
+on:
+  push:
+    paths:
+      - '.github/workflows/padroniza-rodape-voltar-nivel2.yml'
+permissions:
+  contents: write
+jobs:
+  ajustar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Ajustar Nivel 2 e retorno
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          p=Path('nivel2-preview.html')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('.acoes{text-align:center;padding:25px 18px 45px}.fechar{border:2px solid #6c63a8;border-radius:999px;padding:12px 24px;background:#fff;color:#514a88;font-weight:800;font-size:16px;cursor:pointer}.fechar:hover{background:#f1efff}', '.footerBand{max-width:1040px;margin:18px auto 30px;background:linear-gradient(135deg,#f9efff,#fff5fa);border-radius:20px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.footerBand strong{font-size:22px;color:#6f42c1}.fechar{padding:12px 18px;border-radius:15px;border:2px solid #ffd1e4;background:#fff;color:#555;font-weight:900;cursor:pointer}.fechar:hover{background:#fff7fa}')
+          s=s.replace('.rodape{text-align:center;background:#f1efff;padding:28px 18px}.rodape b{display:block;font-size:18px}', '')
+          old='<div class="acoes"><button class="fechar" onclick="voltarConteudos()">Fechar conteúdo</button></div>\n</main><footer class="rodape"><b>ConectaPais: Laços Educativos entre Família e Escola</b><span>Por trás de cada experiência, existe uma intenção pedagógica. 💗</span></footer>'
+          new='<div class="footerBand"><div><strong>💗 ConectaPais</strong><br><em>Por trás de cada experiência, existe uma intenção pedagógica.</em></div><button class="fechar" onclick="voltarConteudos()">Fechar conteúdo</button></div>\n</main>'
+          if old not in s: raise SystemExit('Rodape antigo Nivel 2 nao encontrado')
+          s=s.replace(old,new)
+          s=s.replace("function voltarConteudos(){sessionStorage.setItem('conectapaisVoltarConteudos','1');location.href='index.html'}", "function voltarConteudos(){sessionStorage.setItem('conectapaisVoltarConteudos','1');location.replace('index.html#conteudosCards')}")
+          p.write_text(s,encoding='utf-8')
+
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          old="<script>document.addEventListener('DOMContentLoaded',function(){if(sessionStorage.getItem('conectapaisVoltarConteudos')==='1'){sessionStorage.removeItem('conectapaisVoltarConteudos');abrirPrincipal();}});</script>"
+          new="<script>document.addEventListener('DOMContentLoaded',function(){if(sessionStorage.getItem('conectapaisVoltarConteudos')==='1'){sessionStorage.removeItem('conectapaisVoltarConteudos');abrirPrincipal();requestAnimationFrame(function(){requestAnimationFrame(function(){var alvo=document.getElementById('conteudosCards');if(alvo)alvo.scrollIntoView({behavior:'auto',block:'start'});});});}});</script>"
+          if old not in s: raise SystemExit('Script de retorno no index nao encontrado')
+          s=s.replace(old,new)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add nivel2-preview.html index.html
+          git commit -m 'Padroniza rodape e corrige retorno do Nivel 2'
+          git push origin main
