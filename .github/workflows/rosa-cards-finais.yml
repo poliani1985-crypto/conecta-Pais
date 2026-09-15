@@ -1,0 +1,36 @@
+name: Rosa nos cards finais
+on:
+  push:
+    paths:
+      - '.github/workflows/rosa-cards-finais.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ajustar identificacao dos cards finais
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          css='.tag.nivel3{background:#e5dbff;color:#6741d9}'
+          if '.tag.geral{' not in s:
+              s=s.replace(css,css+'.tag.geral{background:#ffe0ec;color:#b4235a}',1)
+          old="${i===0?'nivel0':i===1?'nivel1':i===2?'nivel2':i===3?'nivel3':''}"
+          new="${i===0?'nivel0':i===1?'nivel1':i===2?'nivel2':i===3?'nivel3':i===4||i===5?'geral':''}"
+          if old not in s:
+              raise SystemExit('Expressao das classes dos cards nao encontrada')
+          s=s.replace(old,new,1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add index.html
+          git diff --cached --quiet || git commit -m "Deixa os dois cards finais em rosa"
+          git push
