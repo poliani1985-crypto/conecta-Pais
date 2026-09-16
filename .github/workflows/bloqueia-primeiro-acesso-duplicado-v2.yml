@@ -1,0 +1,72 @@
+name: Bloqueia primeiro acesso duplicado v2
+on:
+  push:
+    paths:
+      - '.github/workflows/bloqueia-primeiro-acesso-duplicado-v2.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Proteger primeiro acesso por wrapper
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          marker='// Protecao de primeiro acesso duplicado - ConectaPais'
+          if marker in s:
+              print('Protecao ja presente')
+          else:
+              anchor='async function entrarSistema()'
+              pos=s.find(anchor)
+              if pos < 0:
+                  raise SystemExit('Ancora entrarSistema nao encontrada')
+              code=r'''// Protecao de primeiro acesso duplicado - ConectaPais
+const primeiroAcessoOriginal = primeiroAcesso;
+primeiroAcesso = async function(){
+  const campo = document.getElementById("codigoAcesso");
+  const codigo = campo ? campo.value.trim().toUpperCase() : "";
+  if(campo) campo.value = codigo;
+  if(codigo === ""){
+    alert("Digite um código.");
+    return;
+  }
+  if(grupoSelecionado === "equipe"){
+    const codigoEquipe = document.getElementById("codigoEquipe").value;
+    if(codigoEquipe !== "26"){
+      alert("Código da equipe incorreto.");
+      return;
+    }
+  }
+  try{
+    const registro = await consultarTcleAutorizado(codigo, grupoSelecionado);
+    if(registro){
+      alert("💗 Este código já possui um primeiro acesso com TCLE registrado. Utilize o botão ‘Já participei’ para continuar.");
+      return;
+    }
+    return primeiroAcessoOriginal();
+  }catch(e){
+    console.error(e);
+    alert("Não foi possível verificar o código neste momento. Verifique sua conexão e tente novamente.");
+  }
+};
+
+'''
+              s=s[:pos]+code+s[pos:]
+              p.write_text(s,encoding='utf-8')
+          PY
+      - name: Validar
+        run: |
+          grep -F "Protecao de primeiro acesso duplicado - ConectaPais" index.html
+          grep -F "Este código já possui um primeiro acesso com TCLE registrado" index.html
+          grep -F "const primeiroAcessoOriginal = primeiroAcesso" index.html
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Protege primeiro acesso contra codigo duplicado" || exit 0
+          git push
