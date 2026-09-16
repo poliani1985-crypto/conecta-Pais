@@ -31,21 +31,37 @@ async function primeiroAcesso(){
   }
 }
 
-// Ajustes de redação do Questionário Inicial das Famílias.
+// Ajustes de redação dos Questionários Iniciais.
 if(typeof montarInicial === 'function'){
   const montarInicialOriginal = montarInicial;
   montarInicial = function(){
     montarInicialOriginal();
-    if(grupoSelecionado !== 'familia') return;
     const area = document.getElementById('perguntasIniciais');
     if(!area) return;
-    area.querySelectorAll('label, h3, p, div').forEach(function(el){
-      if(el.childElementCount === 0){
-        el.textContent = el.textContent
-          .replace('1. Por qual motivo principal você matriculou seu filho(a) no CMEI?', '1. Por qual motivo você matriculou seu filho(a) no CMEI?')
-          .replace('7. Você participa das atividades propostas pela escola quando possível?', '7. Você participa das atividades propostas pela escola?');
-      }
-    });
+
+    if(grupoSelecionado === 'familia'){
+      area.querySelectorAll('label, h3, p, div').forEach(function(el){
+        if(el.childElementCount === 0){
+          el.textContent = el.textContent
+            .replace('1. Por qual motivo principal você matriculou seu filho(a) no CMEI?', '1. Por qual motivo você matriculou seu filho(a) no CMEI?')
+            .replace('7. Você participa das atividades propostas pela escola quando possível?', '7. Você participa das atividades propostas pela escola?');
+        }
+      });
+    }
+
+    if(grupoSelecionado === 'equipe'){
+      area.querySelectorAll('label, h3, p, div').forEach(function(el){
+        if(el.childElementCount === 0){
+          el.textContent = el.textContent
+            .replace('Compreendem pouco', 'Não compreendem')
+            .replace('4. Você considera importante aproximar mais as famílias do trabalho pedagógico realizado no CMEI?', '4. Você considera importante aproximar as famílias do trabalho pedagógico realizado no CMEI?')
+            .replace('Valorizam pouco', 'Não valorizam')
+            .replace('6. O CMEI já oferece meios suficientes para diálogo com as famílias?', '6. Você acredita que o CMEI oferece meios suficientes para o diálogo com as famílias?')
+            .replace('7. Você teria interesse em participar de ações que fortaleçam a relação família-escola?', '7. Você tem interesse em participar de ações que fortaleçam a relação família-escola?')
+            .replace('Pouco interesse', 'Não tenho interesse');
+        }
+      });
+    }
   };
 }
 
@@ -70,12 +86,12 @@ if(typeof montarFinal === 'function'){
   };
 }
 
-// Ajuste de redação da questão 1 da Enquete Final das Famílias.
+// Ajuste de redação da questão 1 da Enquete Final.
 if(typeof mostrar === 'function'){
   const mostrarOriginalConectaPais = mostrar;
   mostrar = function(id){
     mostrarOriginalConectaPais(id);
-    if(id === 'enquete' && grupoSelecionado === 'familia'){
+    if(id === 'enquete'){
       const area = document.getElementById('enquete');
       if(!area) return;
       area.querySelectorAll('h3').forEach(function(el){
