@@ -190,6 +190,49 @@ Pesquisadora: Poliani Cristina Fratoni de Oliveira  |  Orientador: Professor Dou
 
 let codigosSalvos = JSON.parse(localStorage.getItem("codigosConectaPais")) || [];
 
+// Controle centralizado de acesso pelo TCLE (Supabase)
+const SUPABASE_TCE_URL = "https://vnkpolnwohgfarsyhxkd.supabase.co";
+const SUPABASE_TCE_KEY = "sb_publishable_ZFHv8dOm6OJE5JTh4Zyzyw_k3m0FCky";
+const SUPABASE_TCE_TABLE = "tcle_autorizados";
+
+function supabaseHeaders(){
+  return {
+    "apikey": SUPABASE_TCE_KEY,
+    "Authorization": "Bearer " + SUPABASE_TCE_KEY,
+    "Content-Type": "application/json"
+  };
+}
+
+async function consultarTcleAutorizado(codigo, grupo){
+  const c = encodeURIComponent(codigo.trim().toUpperCase());
+  const g = encodeURIComponent(grupo);
+  const url = `${SUPABASE_TCE_URL}/rest/v1/${SUPABASE_TCE_TABLE}?select=codigo,grupo,tcle_aceito,questionario_inicial&codigo=eq.${c}&grupo=eq.${g}&tcle_aceito=eq.true&limit=1`;
+  const r = await fetch(url,{headers:supabaseHeaders()});
+  if(!r.ok) throw new Error("Falha ao consultar autorização do TCLE");
+  const dados = await r.json();
+  return dados.length ? dados[0] : null;
+}
+
+async function registrarTcleAutorizado(codigo, grupo){
+  const c = codigo.trim().toUpperCase();
+  const existente = await consultarTcleAutorizado(c, grupo);
+  if(existente) return existente;
+  const r = await fetch(`${SUPABASE_TCE_URL}/rest/v1/${SUPABASE_TCE_TABLE}`,{
+    method:"POST",
+    headers:{...supabaseHeaders(),"Prefer":"return=representation"},
+    body:JSON.stringify({
+      codigo:c,
+      grupo:grupo,
+      tcle_aceito:true,
+      data_aceite:new Date().toISOString(),
+      questionario_inicial:false
+    })
+  });
+  if(!r.ok) throw new Error("Falha ao registrar autorização do TCLE");
+  return r.json();
+}
+
+
 function abrirAcesso(tipo){
 
   grupoSelecionado = tipo;
@@ -239,29 +282,32 @@ function primeiroAcesso(){
     }
   }
 
-  if(!codigosSalvos.includes(codigo)){
-    codigosSalvos.push(codigo);
-
-    localStorage.setItem(
-      "codigosConectaPais",
-      JSON.stringify(codigosSalvos)
-    );
-  }
 
   abrirTCLE(grupoSelecionado);
 }
 
-function entrarSistema(){
-
-  const codigo = document.getElementById("codigoAcesso").value.trim();
+async function entrarSistema(){
+  const campo = document.getElementById("codigoAcesso");
+  const codigo = campo.value.trim().toUpperCase();
+  campo.value = codigo;
 
   if(codigo === ""){
     alert("Digite seu código.");
     return;
   }
 
-  abrirPrincipal();
-
+  try{
+    const registro = await consultarTcleAutorizado(codigo, grupoSelecionado);
+    if(!registro){
+      alert("🌱 Este código ainda não possui um primeiro acesso com TCLE registrado. Para continuar, é necessário realizar o Primeiro acesso e aceitar o Termo de Consentimento Livre e Esclarecido (TCLE).");
+      abrirTCLE(grupoSelecionado);
+      return;
+    }
+    abrirPrincipal();
+  }catch(e){
+    console.error(e);
+    alert("Não foi possível verificar seu acesso neste momento. Verifique sua conexão e tente novamente.");
+  }
 }
   </script>
 <section id="tcle" class="screen hidden">
@@ -629,7 +675,13 @@ fetch(endpointTCLE, {
     data: new Date().toLocaleString("pt-BR")
   })
 })
-.then(() => {
+.then(async (resposta) => {
+  if(!resposta.ok) throw new Error("Falha ao registrar o TCLE no Formspree");
+  await registrarTcleAutorizado(codigo, grupoSelecionado);
+  if(!codigosSalvos.includes(codigo.toUpperCase())){
+    codigosSalvos.push(codigo.toUpperCase());
+    localStorage.setItem("codigosConectaPais", JSON.stringify(codigosSalvos));
+  }
   montarInicial();
   document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
   document.getElementById('questionarioInicial').classList.remove('hidden');
