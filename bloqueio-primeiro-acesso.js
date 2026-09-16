@@ -31,6 +31,27 @@ async function primeiroAcesso(){
   }
 }
 
+// Ajustes de redação do Questionário Inicial das Famílias.
+// Mantém respostas, validação e envio exatamente como já funcionam.
+if(typeof montarInicial === 'function'){
+  const montarInicialOriginal = montarInicial;
+  montarInicial = function(){
+    montarInicialOriginal();
+    if(grupoSelecionado !== 'familia') return;
+
+    const area = document.getElementById('perguntasIniciais');
+    if(!area) return;
+
+    area.querySelectorAll('label, h3, p, div').forEach(function(el){
+      if(el.childElementCount === 0){
+        el.textContent = el.textContent
+          .replace('1. Por qual motivo principal você matriculou seu filho(a) no CMEI?', '1. Por qual motivo você matriculou seu filho(a) no CMEI?')
+          .replace('7. Você participa das atividades propostas pela escola quando possível?', '7. Você participa das atividades propostas pela escola?');
+      }
+    });
+  };
+}
+
 document.addEventListener('DOMContentLoaded', function(){
   document.querySelectorAll('button.oldItem').forEach(function(botao){
     if(botao.textContent.indexOf('Conteúdos anteriores') !== -1){
