@@ -1,0 +1,69 @@
+name: Integra TCLE com Supabase
+
+on:
+  push:
+    paths:
+      - '.github/workflows/integra-tcle-supabase.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Integrar controle de TCLE
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          marker = 'let codigosSalvos = JSON.parse(localStorage.getItem("codigosConectaPais")) || [];'
+          if marker not in s:
+              raise SystemExit('Marcador do sistema de acesso nao encontrado')
+
+          config = '''\n\n// Controle centralizado de acesso pelo TCLE (Supabase)\nconst SUPABASE_TCE_URL = "https://vnkpolnwohgfarsyhxkd.supabase.co";\nconst SUPABASE_TCE_KEY = "sb_publishable_ZFHv8dOm6OJE5JTh4Zyzyw_k3m0FCky";\nconst SUPABASE_TCE_TABLE = "tcle_autorizados";\n\nfunction supabaseHeaders(){\n  return {\n    "apikey": SUPABASE_TCE_KEY,\n    "Authorization": "Bearer " + SUPABASE_TCE_KEY,\n    "Content-Type": "application/json"\n  };\n}\n\nasync function consultarTcleAutorizado(codigo, grupo){\n  const c = encodeURIComponent(codigo.trim().toUpperCase());\n  const g = encodeURIComponent(grupo);\n  const url = `${SUPABASE_TCE_URL}/rest/v1/${SUPABASE_TCE_TABLE}?select=codigo,grupo,tcle_aceito,questionario_inicial&codigo=eq.${c}&grupo=eq.${g}&tcle_aceito=eq.true&limit=1`;\n  const r = await fetch(url,{headers:supabaseHeaders()});\n  if(!r.ok) throw new Error("Falha ao consultar autorização do TCLE");\n  const dados = await r.json();\n  return dados.length ? dados[0] : null;\n}\n\nasync function registrarTcleAutorizado(codigo, grupo){\n  const c = codigo.trim().toUpperCase();\n  const existente = await consultarTcleAutorizado(c, grupo);\n  if(existente) return existente;\n  const r = await fetch(`${SUPABASE_TCE_URL}/rest/v1/${SUPABASE_TCE_TABLE}`,{\n    method:"POST",\n    headers:{...supabaseHeaders(),"Prefer":"return=representation"},\n    body:JSON.stringify({\n      codigo:c,\n      grupo:grupo,\n      tcle_aceito:true,\n      data_aceite:new Date().toISOString(),\n      questionario_inicial:false\n    })\n  });\n  if(!r.ok) throw new Error("Falha ao registrar autorização do TCLE");\n  return r.json();\n}\n'''
+          if 'const SUPABASE_TCE_URL' not in s:
+              s = s.replace(marker, marker + config, 1)
+
+          # Primeiro acesso nao deve mais transformar o simples codigo local em prova de TCLE.
+          old_local = '''  if(!codigosSalvos.includes(codigo)){\n    codigosSalvos.push(codigo);\n\n    localStorage.setItem(\n      "codigosConectaPais",\n      JSON.stringify(codigosSalvos)\n    );\n  }\n'''
+          if old_local in s:
+              s = s.replace(old_local, '', 1)
+
+          # Substitui somente a funcao entrarSistema, preservando o restante.
+          pattern = re.compile(r'function entrarSistema\(\)\{.*?\n\}', re.S)
+          m = pattern.search(s)
+          if not m:
+              raise SystemExit('Funcao entrarSistema nao encontrada')
+          nova = '''async function entrarSistema(){\n  const campo = document.getElementById("codigoAcesso");\n  const codigo = campo.value.trim().toUpperCase();\n  campo.value = codigo;\n\n  if(codigo === ""){\n    alert("Digite seu código.");\n    return;\n  }\n\n  try{\n    const registro = await consultarTcleAutorizado(codigo, grupoSelecionado);\n    if(!registro){\n      alert("🌱 Este código ainda não possui um primeiro acesso com TCLE registrado. Para continuar, é necessário realizar o Primeiro acesso e aceitar o Termo de Consentimento Livre e Esclarecido (TCLE).");\n      abrirTCLE(grupoSelecionado);\n      return;\n    }\n    abrirPrincipal();\n  }catch(e){\n    console.error(e);\n    alert("Não foi possível verificar seu acesso neste momento. Verifique sua conexão e tente novamente.");\n  }\n}'''
+          s = s[:m.start()] + nova + s[m.end():]
+
+          # So registra no Supabase depois de o Formspree confirmar o aceite.
+          alvo = '''.then(() => {\n  montarInicial();\n  document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));\n  document.getElementById('questionarioInicial').classList.remove('hidden');\n})'''
+          novo = '''.then(async (resposta) => {\n  if(!resposta.ok) throw new Error("Falha ao registrar o TCLE no Formspree");\n  await registrarTcleAutorizado(codigo, grupoSelecionado);\n  if(!codigosSalvos.includes(codigo.toUpperCase())){\n    codigosSalvos.push(codigo.toUpperCase());\n    localStorage.setItem("codigosConectaPais", JSON.stringify(codigosSalvos));\n  }\n  montarInicial();\n  document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));\n  document.getElementById('questionarioInicial').classList.remove('hidden');\n})'''
+          if alvo not in s:
+              raise SystemExit('Bloco de confirmacao do TCLE nao encontrado')
+          s = s.replace(alvo, novo, 1)
+
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Validar alteracoes
+        run: |
+          grep -q 'const SUPABASE_TCE_URL' index.html
+          grep -q 'async function entrarSistema' index.html
+          grep -q 'await registrarTcleAutorizado(codigo, grupoSelecionado)' index.html
+          git diff --check
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Integra acesso por TCLE com Supabase"
+          git push
