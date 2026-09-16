@@ -31,11 +31,10 @@ async function primeiroAcesso(){
   }
 }
 
-// Biblioteca oficial de conteúdos anteriores.
-// Mantém o HTML principal intacto e substitui apenas o comportamento do botão antigo.
 document.addEventListener('DOMContentLoaded', function(){
   document.querySelectorAll('button.oldItem').forEach(function(botao){
     if(botao.textContent.indexOf('Conteúdos anteriores') !== -1){
+      botao.textContent = '📚 Nossa Biblioteca';
       botao.onclick = function(){
         window.location.href = 'conteudos-anteriores.html';
       };
