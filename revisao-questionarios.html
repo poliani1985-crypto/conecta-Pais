@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revisão dos Questionários | ConectaPais</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#fff7fb,#f4f1ff);color:#3b3b55}.wrap{max-width:980px;margin:auto;padding:28px 18px 60px}.hero{background:linear-gradient(135deg,#ff7eb3,#9b7ede);color:white;border-radius:28px;padding:28px;text-align:center;box-shadow:0 10px 30px #7d5fb525}.hero h1{margin:0 0 8px}.hero p{margin:0;line-height:1.5}.notice{margin:20px 0;background:#fff9db;border-radius:18px;padding:16px;text-align:center;font-weight:700}.menu{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:24px 0}.menu button{border:0;border-radius:16px;padding:13px 16px;font-weight:800;cursor:pointer;background:white;color:#5b4778;box-shadow:0 5px 15px #00000010}.menu button:hover{transform:translateY(-1px)}.painel{display:none}.painel.ativo{display:block}.card{background:white;border-radius:24px;padding:24px;margin:18px 0;box-shadow:0 8px 24px #0000000d}.card h2{color:#754f9d;margin-top:0}.q{padding:16px 0;border-bottom:1px solid #eee}.q:last-child{border-bottom:0}.q h3{font-size:17px;line-height:1.5;margin:0 0 10px}.opt{display:block;padding:6px 0;line-height:1.4}.aberta{background:#faf8ff;border-radius:14px;padding:12px;margin-top:8px;color:#666}.voltar{display:inline-block;margin-top:20px;text-decoration:none;background:#5b8def;color:white;padding:12px 18px;border-radius:14px;font-weight:bold}
+</style>
+</head>
+<body><div class="wrap">
+<div class="hero"><h1>📝 Revisão dos Questionários</h1><p>ConectaPais — página exclusiva para conferência das questões</p></div>
+<div class="notice">🔎 Esta página é apenas para revisão. Não envia respostas e não passa pelo TCLE.</div>
+<div class="menu">
+<button onclick="abrir('fi')">👨‍👩‍👧 Inicial — Famílias</button>
+<button onclick="abrir('ff')">💗 Final — Famílias</button>
+<button onclick="abrir('ei')">🏫 Inicial — Equipe</button>
+<button onclick="abrir('ef')">🎓 Final — Equipe</button>
+<button onclick="abrir('enq')">📅 Enquete Final</button>
+</div>
+<div id="conteudo"></div>
+<a class="voltar" href="index.html">🏠 Voltar ao ConectaPais</a>
+</div>
+<script>
+const dados={
+fi:{titulo:'Questionário Inicial — Famílias',qs:[
+['1. Por qual motivo você matriculou seu filho(a) no CMEI?',['Preciso trabalhar e não tenho com quem deixar','Quero que meu filho(a) se desenvolva integralmente','Outro motivo diferente das opções acima','Prefiro não responder']],
+['2. Na sua opinião, qual é a principal função do CMEI?',['Cuidar da criança enquanto a família trabalha','Ensinar, cuidar e contribuir no desenvolvimento da criança','Apenas preparar para o Ensino Fundamental','Prefiro não responder']],
+['3. Você acredita que seu filho(a) aprende no CMEI?',['Sim, aprende bastante','Aprende algumas coisas','Aprende pouco ou nada','Prefiro não responder']],
+['4. Você sente que conhece o trabalho realizado pelos professores no CMEI?',['Sim, conheço bem','Conheço um pouco','Conheço muito pouco','Prefiro não responder']],
+['5. O CMEI costuma explicar o que a criança aprende no dia a dia?',['Sempre','Às vezes','Nunca ou quase nunca','Prefiro não responder']],
+['6. Como você avalia a comunicação entre sua família e o CMEI?',['Muito boa','Boa','Precisa melhorar','Prefiro não responder']],
+['7. Você participa das atividades propostas pela escola?',['Sempre','Às vezes','Raramente','Prefiro não responder']],
+['8. Você acredita que a participação da família ajuda no desenvolvimento da criança?',['Sim, ajuda muito','Ajuda um pouco','Não faz diferença','Prefiro não responder']],
+['9. Você gostaria de receber mais informações sobre o trabalho pedagógico do CMEI?',['Sim, gostaria muito','Gostaria um pouco','Não tenho interesse','Prefiro não responder']],
+['10. Você acredita que o CMEI e as família devem trabalhar juntas?',['Sim, sempre','Em alguns momentos','Não considero necessário','Prefiro não responder']]],abertas:['11. O que você considera mais importante no trabalho realizado pelo CMEI?','12. Na sua opinião, o que poderia melhorar na relação entre família e escola?','13. Deixe uma opinião, sugestão ou comentário sobre o CMEI.']},
+ei:{titulo:'Questionário Inicial — Equipe Pedagógica',qs:[
+['1. Como você avalia atualmente a participação das famílias na rotina escolar do CMEI?',['Muito participativa','Participativa em alguns momentos','Pouco participativa','Prefiro não responder']],
+['2. Na sua opinião, as famílias compreendem a função pedagógica da Educação Infantil?',['Compreendem bem','Compreendem parcialmente','Não compreendem','Prefiro não responder']],
+['3. Como você avalia a comunicação entre o CMEI e as famílias?',['Muito boa','Boa','Precisa melhorar','Prefiro não responder']],
+['4. Você considera importante aproximar as famílias do trabalho pedagógico realizado no CMEI?',['Sim, muito importante','Importante em alguns aspectos','Pouco importante','Prefiro não responder']],
+['5. Você acredita que as famílias valorizam o trabalho desenvolvido pela equipe escolar?',['Sim, valorizam bastante','Valorizam parcialmente','Não valorizam','Prefiro não responder']],
+['6. Você acredita que o CMEI oferece meios suficientes para o diálogo com as famílias?',['Sim, plenamente','Em parte','Ainda são insuficientes','Prefiro não responder']],
+['7. Você tem interesse em participar de ações que fortaleçam a relação família-escola?',['Sim, muito interesse','Algum interesse','Não tenho interesse','Prefiro não responder']],
+['8. Você acredita que recursos digitais podem ajudar na aproximação com as famílias?',['Sim, ajudam muito','Ajudam em parte','Ajudam pouco ou nada','Prefiro não responder']],
+['9. Como você percebe o envolvimento das famílias no desenvolvimento das crianças?',['Muito positivo','Parcialmente positivo','Ainda limitado','Prefiro não responder']],
+['10. Você considera importante que o CMEI e família atuem juntas no processo educativo?',['Sim, sempre','Em alguns momentos','Não considero necessário','Prefiro não responder']]],abertas:['11. Na sua opinião, qual é o maior desafio na relação entre escola e famílias?','12. O que poderia melhorar na comunicação entre equipe escolar e responsáveis?','13. Deixe uma opinião, sugestão ou comentário sobre esse tema.']},
+ff:{titulo:'Questionário Final — Famílias',qs:[
+['1. Após sua participação na pesquisa, como você compreende hoje a função do CMEI?',['Apenas local de cuidado','Espaço de cuidado, ensino e desenvolvimento integral','Ainda tenho dúvidas sobre sua função','Prefiro não responder']],
+['2. Hoje você acredita que seu filho(a) aprende no CMEI?',['Sim, aprende bastante','Aprende algumas coisas','Aprende pouco ou nada','Prefiro não responder']],
+['3. Atualmente você sente que conhece melhor o trabalho realizado pelos professores?',['Sim, conheço melhor','Conheço um pouco melhor','Não percebi mudança','Prefiro não responder']],
+['4. Depois da participação no ConectaPais, como você avalia a comunicação entre família e CMEI?',['Melhorou bastante','Melhorou um pouco','Não mudou','Prefiro não responder']],
+['5. O CMEI explica o que a criança aprende no dia a dia?',['Sempre','Às vezes','Não percebi mudança','Prefiro não responder']],
+['6. Sua compreensão sobre as atividades e informações a respeito do CMEI mudou?',['Aumentou bastante','Aumentou um pouco','Não mudou','Prefiro não responder']],
+['7. Hoje você considera importante a participação da família no desenvolvimento da criança?',['Sim, muito mais','Sim, um pouco mais','Continuo pensando igual antes','Prefiro não responder']],
+['8. Os conteúdos do ConectaPais ajudaram a compreender melhor a Educação Infantil?',['Ajudaram muito','Ajudaram um pouco','Não ajudaram','Prefiro não responder']],
+['9. Você gostaria que ações como essa continuassem no CMEI?',['Sim, com certeza','Sim, em alguns momentos','Não tenho interesse','Prefiro não responder']],
+['10. Hoje você acredita que o CMEI e família devem trabalhar juntas?',['Sim, muito mais','Sim, continuo acreditando','Não percebi diferença','Prefiro não responder']]],abertas:['11. O que você aprendeu ou passou a perceber melhor sobre o CMEI durante a pesquisa?','12. Na sua opinião, o que mudou na relação entre sua família e a escola nesse período?','13. Deixe sua opinião sobre o produto ConectaPais e sugestões futuras.']},
+ef:{titulo:'Questionário Final — Equipe Pedagógica',qs:[
+['1. Após o período da pesquisa, como você avalia atualmente a participação das famílias na rotina escolar do CMEI?',['Melhorou bastante','Melhorou um pouco','Não percebi mudança','Prefiro não responder']],
+['2. Na sua opinião, você percebeu que as famílias estão compreendendo melhor a função pedagógica da Educação Infantil após esse período?',['Sim, compreenderam melhor','Houve pequena melhora','Não percebi mudança','Prefiro não responder']],
+['3. Como você avalia hoje a comunicação entre equipe pedagógica e famílias?',['Melhorou bastante','Melhorou um pouco','Não mudou','Prefiro não responder']],
+['4. Na sua opinião, o ConectaPais contribuiu para informar e aproximar as famílias do trabalho pedagógico?',['Contribuiu muito','Contribuiu um pouco','Não contribuiu','Prefiro não responder']],
+['5. Você percebeu se houve maior valorização das famílias em relação ao trabalho da equipe escolar?',['Sim, claramente','Em parte','Não percebi mudança','Prefiro não responder']],
+['6. O diálogo entre escola e famílias melhorou?',['Melhoraram bastante','Melhoraram um pouco','Não mudaram','Prefiro não responder']],
+['7. Sua percepção sobre a importância de fortalecer a relação família-escola mudou?',['Sim, valorizo ainda mais','Mudou um pouco','Continuo pensando igual','Prefiro não responder']],
+['8. Após a experiência, como você avalia o uso de recursos digitais para aproximação com as famílias?',['Muito positivo','Positivo em parte','Pouco eficaz','Prefiro não responder']],
+['9. Você achou que o envolvimento das famílias no desenvolvimento das crianças teve alguma mudança?',['Melhorou bastante','Melhorou um pouco','Não percebi mudança','Prefiro não responder']],
+['10. Você considera que o CMEI e família devem atuar juntas no processo educativo após essa experiência?',['Sim, ainda mais que antes','Sim, continuo acreditando','Não percebi diferença','Prefiro não responder']]],abertas:['11. Quais mudanças você percebeu na relação entre escola e famílias durante a pesquisa?','12. Na sua opinião, quais contribuições o ConectaPais trouxe para a instituição?','13. Deixe sua opinião, sugestão ou comentário final sobre a pesquisa.']},
+enq:{titulo:'Enquete Final',qs:[['1. Você tem interesse em participar de um encontro presencial final sobre o ConectaPais no dia 18/12/2026, no período noturno?',['Sim, tenho interesse','Talvez','Não tenho interesse no momento','Prefiro não responder']],['2. O que mais motivaria sua participação nesse encontro?',['Conhecer os resultados da pesquisa','Tirar dúvidas e conversar','Compartilhar minha opinião','Prefiro não responder']]],abertas:['3. Deseja deixar alguma sugestão para esse encontro?']}
+};
+function abrir(id){const d=dados[id];let html=`<div class="card"><h2>${d.titulo}</h2>`;d.qs.forEach(q=>{html+=`<div class="q"><h3>${q[0]}</h3>${q[1].map(o=>`<span class="opt">○ ${o}</span>`).join('')}</div>`});if(d.abertas){html+='<h2 style="margin-top:28px">Questões abertas</h2>';d.abertas.forEach(q=>html+=`<div class="q"><h3>${q}</h3><div class="aberta">Campo para resposta / Prefiro não responder</div></div>`)}html+='</div>';document.getElementById('conteudo').innerHTML=html;window.scrollTo({top:200,behavior:'smooth'})}
+abrir('ei');
+</script></body></html>
