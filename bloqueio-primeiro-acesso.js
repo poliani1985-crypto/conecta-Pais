@@ -32,16 +32,13 @@ async function primeiroAcesso(){
 }
 
 // Ajustes de redação do Questionário Inicial das Famílias.
-// Mantém respostas, validação e envio exatamente como já funcionam.
 if(typeof montarInicial === 'function'){
   const montarInicialOriginal = montarInicial;
   montarInicial = function(){
     montarInicialOriginal();
     if(grupoSelecionado !== 'familia') return;
-
     const area = document.getElementById('perguntasIniciais');
     if(!area) return;
-
     area.querySelectorAll('label, h3, p, div').forEach(function(el){
       if(el.childElementCount === 0){
         el.textContent = el.textContent
@@ -53,16 +50,13 @@ if(typeof montarInicial === 'function'){
 }
 
 // Ajustes de redação do Questionário Final das Famílias.
-// Altera somente os enunciados solicitados; alternativas, validação e envio permanecem iguais.
 if(typeof montarFinal === 'function'){
   const montarFinalOriginal = montarFinal;
   montarFinal = function(){
     montarFinalOriginal();
     if(grupoSelecionado !== 'familia') return;
-
     const area = document.getElementById('perguntasFinais');
     if(!area) return;
-
     area.querySelectorAll('label, h3, p, div').forEach(function(el){
       if(el.childElementCount === 0){
         el.textContent = el.textContent
@@ -73,6 +67,23 @@ if(typeof montarFinal === 'function'){
           .replace('10. Hoje você acredita mais que o CMEI e família devem trabalhar juntas?', '10. Hoje você acredita que o CMEI e família devem trabalhar juntas?');
       }
     });
+  };
+}
+
+// Ajuste de redação da questão 1 da Enquete Final das Famílias.
+if(typeof mostrar === 'function'){
+  const mostrarOriginalConectaPais = mostrar;
+  mostrar = function(id){
+    mostrarOriginalConectaPais(id);
+    if(id === 'enquete' && grupoSelecionado === 'familia'){
+      const area = document.getElementById('enquete');
+      if(!area) return;
+      area.querySelectorAll('h3').forEach(function(el){
+        if(el.textContent.indexOf('1. Você tem interesse em participar de um encontro presencial final sobre o ConectaPais') === 0){
+          el.textContent = '1. Você tem interesse em participar de um encontro presencial final sobre o ConectaPais no dia 18/12/2026, no período noturno?';
+        }
+      });
+    }
   };
 }
 
