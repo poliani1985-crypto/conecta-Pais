@@ -1,0 +1,53 @@
+name: Restaura interacoes dos conteudos
+on:
+  push:
+    paths:
+      - '.github/workflows/restaura-interacoes-conteudos.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Corrigir interacoes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re, html
+
+          # Nível 3: transforma onclick em dados; JS externo passa a controlar o clique.
+          p=Path('nivel3-preview.html'); s=p.read_text(encoding='utf-8')
+          pat=re.compile(r'onclick="feedback\(this,\'([^\']*)\',\'([^\']*)\',\'([^\']*)\'\)"')
+          def repl(m):
+              return 'data-feedback-id="{}" data-titulo="{}" data-texto="{}"'.format(
+                  html.escape(m.group(1), quote=True), html.escape(m.group(2), quote=True), html.escape(m.group(3), quote=True))
+          s,n=pat.subn(repl,s)
+          if n != 9: raise SystemExit(f'Esperados 9 botoes N3, encontrados {n}')
+          if 'src="interacoes-conectapais.js"' not in s:
+              s=s.replace('</body>','<script src="interacoes-conectapais.js"></script></body>')
+          p.write_text(s,encoding='utf-8')
+
+          # Acompanhar: remove handlers inline dos quatro marcos e modal; JS externo controla tudo.
+          p=Path('acompanhar-desenvolvimento.html'); s=p.read_text(encoding='utf-8')
+          for i in range(4): s=s.replace(f' onclick="abrirMarco({i})"','')
+          s=s.replace(' onclick="fecharFora(event)"','')
+          s=s.replace(' onclick="fecharMarco()"','')
+          if 'src="interacoes-conectapais.js"' not in s:
+              s=s.replace('</body>','<script src="interacoes-conectapais.js"></script></body>')
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Validar
+        run: |
+          grep -q 'data-feedback-id="r1"' nivel3-preview.html
+          grep -q 'interacoes-conectapais.js' nivel3-preview.html
+          grep -q 'interacoes-conectapais.js' acompanhar-desenvolvimento.html
+          git diff --check
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add nivel3-preview.html acompanhar-desenvolvimento.html
+          git commit -m "Restaura interacoes do Nivel 3 e desenvolvimento"
+          git push
