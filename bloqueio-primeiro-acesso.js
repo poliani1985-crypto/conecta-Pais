@@ -68,7 +68,7 @@ if(typeof montarFinal === 'function'){
         el.textContent = el.textContent
           .replace('4. Depois da participação no projeto, como você avalia a comunicação entre família e CMEI?', '4. Depois da participação no ConectaPais, como você avalia a comunicação entre família e CMEI?')
           .replace('5. Hoje o CMEI explica melhor o que a criança aprende no dia a dia?', '5. O CMEI explica o que a criança aprende no dia a dia?')
-          .replace('6. Sua participação nas atividades e informações do CMEI mudou durante esse período?', '6. Sua compreensão sobre as atividades e informações a respeito do CMEI mudaram?')
+          .replace('6. Sua participação nas atividades e informações do CMEI mudou durante esse período?', '6. Sua compreensão sobre as atividades e informações a respeito do CMEI mudou?')
           .replace('7. Hoje você considera mais importante a participação da família no desenvolvimento da criança?', '7. Hoje você considera importante a participação da família no desenvolvimento da criança?')
           .replace('10. Hoje você acredita mais que o CMEI e família devem trabalhar juntas?', '10. Hoje você acredita que o CMEI e família devem trabalhar juntas?');
       }
