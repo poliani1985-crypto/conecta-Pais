@@ -1,0 +1,70 @@
+name: Corrige primeiro acesso duplicado final
+on:
+  push:
+    paths:
+      - '.github/workflows/corrige-primeiro-acesso-duplicado-final.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Corrigir somente primeiroAcesso
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          pattern = r'function primeiroAcesso\(\)\{.*?\n\}\n\nasync function entrarSistema\(\)\{'
+          replacement = '''async function primeiroAcesso(){
+
+  const campo = document.getElementById("codigoAcesso");
+  const codigo = campo.value.trim().toUpperCase();
+  campo.value = codigo;
+
+  if(codigo === ""){
+    alert("Digite um código.");
+    return;
+  }
+
+  if(grupoSelecionado === "equipe"){
+    const codigoEquipe = document.getElementById("codigoEquipe").value;
+    if(codigoEquipe !== "26"){
+      alert("Código da equipe incorreto.");
+      return;
+    }
+  }
+
+  try{
+    const registro = await consultarTcleAutorizado(codigo, grupoSelecionado);
+    if(registro){
+      alert('Este código já possui um primeiro acesso registrado. Utilize o botão "Já participei" para continuar.');
+      return;
+    }
+    abrirTCLE(grupoSelecionado);
+  }catch(e){
+    console.error(e);
+    alert("Não foi possível verificar o código neste momento. Verifique sua conexão e tente novamente.");
+  }
+}
+
+async function entrarSistema(){'''
+          novo, n = re.subn(pattern, replacement, s, count=1, flags=re.S)
+          if n != 1:
+              raise SystemExit(f'Esperava substituir 1 funcao; encontrei {n}. Nenhuma alteracao salva.')
+          p.write_text(novo, encoding='utf-8')
+          PY
+      - name: Validar alteracao
+        run: |
+          grep -F 'async function primeiroAcesso()' index.html
+          grep -F 'consultarTcleAutorizado(codigo, grupoSelecionado)' index.html
+          grep -F 'Este código já possui um primeiro acesso registrado' index.html
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Bloqueia primeiro acesso para codigo ja registrado"
+          git push
