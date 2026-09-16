@@ -128,4 +128,25 @@ document.addEventListener('DOMContentLoaded', function(){
       };
     }
   });
+
+  // Remove o aviso visual de ambiente de testes.
+  document.querySelectorAll('div').forEach(function(el){
+    if(el.textContent.trim().indexOf('⚠️ Esta etapa está disponível apenas para testes e avaliação do produto durante o período de desenvolvimento.') === 0 && el.children.length === 0){
+      el.style.display = 'none';
+    }
+  });
+
+  // Mantém a etapa final realmente bloqueada durante o período de acompanhamento.
+  document.querySelectorAll('button').forEach(function(botao){
+    if(botao.textContent.indexOf('Etapa final — desativada') !== -1){
+      botao.disabled = true;
+      botao.removeAttribute('onclick');
+      botao.style.background = '#d9d9d9';
+      botao.style.backgroundImage = 'none';
+      botao.style.color = '#8f8f8f';
+      botao.style.cursor = 'not-allowed';
+      botao.style.boxShadow = 'none';
+      botao.style.opacity = '0.75';
+    }
+  });
 });
