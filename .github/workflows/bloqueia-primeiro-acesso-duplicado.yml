@@ -1,0 +1,37 @@
+name: Bloqueia primeiro acesso duplicado
+on:
+  push:
+    paths:
+      - '.github/workflows/bloqueia-primeiro-acesso-duplicado.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Proteger primeiro acesso
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          old='''function primeiroAcesso(){\n\n  const codigo = document.getElementById("codigoAcesso").value.trim().toUpperCase();\n\n  if(codigo === ""){\n    alert("Digite um código.");\n    return;\n  }\n\n  if(grupoSelecionado === "equipe"){\n\n    const codigoEquipe =\n      document.getElementById("codigoEquipe").value;\n\n    if(codigoEquipe !== "26"){\n      alert("Código da equipe incorreto.");\n      return;\n    }\n  }\n\n  abrirTCLE(grupoSelecionado);\n}'''
+          new='''async function primeiroAcesso(){\n\n  const campo = document.getElementById("codigoAcesso");\n  const codigo = campo.value.trim().toUpperCase();\n  campo.value = codigo;\n\n  if(codigo === ""){\n    alert("Digite um código.");\n    return;\n  }\n\n  if(grupoSelecionado === "equipe"){\n\n    const codigoEquipe =\n      document.getElementById("codigoEquipe").value;\n\n    if(codigoEquipe !== "26"){\n      alert("Código da equipe incorreto.");\n      return;\n    }\n  }\n\n  try{\n    const registro = await consultarTcleAutorizado(codigo, grupoSelecionado);\n    if(registro){\n      alert("💗 Este código já possui um primeiro acesso com TCLE registrado. Utilize o botão ‘Já participei’ para continuar.");\n      return;\n    }\n    abrirTCLE(grupoSelecionado);\n  }catch(e){\n    console.error(e);\n    alert("Não foi possível verificar o código neste momento. Verifique sua conexão e tente novamente.");\n  }\n}'''
+          if old not in s:
+              raise SystemExit('Funcao primeiroAcesso esperada nao encontrada; nenhuma alteracao feita.')
+          s=s.replace(old,new,1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Validar
+        run: |
+          grep -F "async function primeiroAcesso" index.html
+          grep -F "Este código já possui um primeiro acesso com TCLE registrado" index.html
+          grep -F "consultarTcleAutorizado(codigo, grupoSelecionado)" index.html
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Bloqueia primeiro acesso para codigo com TCLE existente" || exit 0
+          git push
