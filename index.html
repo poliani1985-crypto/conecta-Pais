@@ -856,8 +856,12 @@ required
       data: new Date().toLocaleString("pt-BR")
     })
   })
-  .then((resposta) => {
-    if(!resposta.ok) throw new Error("Formspree recusou o envio da dúvida: " + resposta.status);
+  .then(async (resposta) => {
+    const dados = await resposta.clone().json().catch(() => ({}));
+    const retorno = JSON.stringify(dados).toLowerCase();
+    if(!resposta.ok || retorno.includes("over submission limit") || retorno.includes("submission limit")) {
+      throw new Error("Formspree recusou o envio da dúvida: " + resposta.status);
+    }
     alert("Dúvida enviada com sucesso! 💌");
     document.getElementById("codigoDuvida").value = "";
     document.getElementById("assuntoDuvida").value = "";
@@ -1146,8 +1150,12 @@ fetch(endpointInicial, {
     ...respostasAbertas
   })
 })
-.then((resposta) => {
-  if(!resposta.ok) throw new Error("Formspree recusou o questionário inicial: " + resposta.status);
+.then(async (resposta) => {
+  const dados = await resposta.clone().json().catch(() => ({}));
+  const retorno = JSON.stringify(dados).toLowerCase();
+  if(!resposta.ok || retorno.includes("over submission limit") || retorno.includes("submission limit")) {
+    throw new Error("Formspree recusou o questionário inicial: " + resposta.status);
+  }
   abrirPrincipal();
 })
 .catch((erro) => {
@@ -1245,8 +1253,12 @@ fetch(endpointFinal, {
     ...respostasAbertasFinal
   })
 })
-.then((resposta) => {
-  if(!resposta.ok) throw new Error("Formspree recusou o questionário final: " + resposta.status);
+.then(async (resposta) => {
+  const dados = await resposta.clone().json().catch(() => ({}));
+  const retorno = JSON.stringify(dados).toLowerCase();
+  if(!resposta.ok || retorno.includes("over submission limit") || retorno.includes("submission limit")) {
+    throw new Error("Formspree recusou o questionário final: " + resposta.status);
+  }
   mostrar('enquete');
 })
 .catch((erro) => {
@@ -1299,8 +1311,12 @@ fetch("https://formspree.io/f/mrevykge", {
     data: new Date().toLocaleString("pt-BR")
   })
 })
-.then((resposta) => {
-  if(!resposta.ok) throw new Error("Formspree recusou a enquete: " + resposta.status);
+.then(async (resposta) => {
+  const dados = await resposta.clone().json().catch(() => ({}));
+  const retorno = JSON.stringify(dados).toLowerCase();
+  if(!resposta.ok || retorno.includes("over submission limit") || retorno.includes("submission limit")) {
+    throw new Error("Formspree recusou a enquete: " + resposta.status);
+  }
   mostrar('agradecimento');
 })
 .catch((erro) => {
