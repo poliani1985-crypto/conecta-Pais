@@ -4,12 +4,13 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>ConectaPais</title>
+<script>(function(){if(new URLSearchParams(location.search).get('voltar')==='conteudos'){document.documentElement.classList.add('retorno-conteudos');}})();</script>
 <style>
 :root{
   --pink:#ff5aa5;--orange:#ff9f43;--yellow:#ffd166;--blue:#4dabf7;--purple:#845ef7;--green:#20c997;--dark:#263238;
 }
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#fff0f7,#fff8df,#e9f8ff);color:var(--dark);min-height:100vh;overflow-x:hidden}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#fff0f7,#fff8df,#e9f8ff);color:var(--dark);min-height:100vh;overflow-x:hidden}\nhtml.retorno-conteudos body{visibility:hidden}
 .bg{position:fixed;inset:0;pointer-events:none;z-index:0}
 .blob{position:absolute;border-radius:50%;filter:blur(40px);opacity:.45}
 .b1{width:280px;height:280px;background:#ffd166;top:-80px;left:-70px}
@@ -1301,7 +1302,7 @@ fetch("https://formspree.io/f/mrevykge", {
 });
 }
 </script>
-<script>document.addEventListener('DOMContentLoaded',function(){var voltarPorUrl=new URLSearchParams(window.location.search).get('voltar')==='conteudos';if(voltarPorUrl||sessionStorage.getItem('conectapaisVoltarConteudos')==='1'){sessionStorage.removeItem('conectapaisVoltarConteudos');abrirPrincipal();requestAnimationFrame(function(){requestAnimationFrame(function(){var alvo=document.getElementById('conteudosCards');if(alvo)alvo.scrollIntoView({behavior:'auto',block:'start'});});});}});</script>
+<script>document.addEventListener('DOMContentLoaded',function(){var voltarPorUrl=new URLSearchParams(window.location.search).get('voltar')==='conteudos';if(voltarPorUrl||sessionStorage.getItem('conectapaisVoltarConteudos')==='1'){sessionStorage.removeItem('conectapaisVoltarConteudos');abrirPrincipal();var alvo=document.getElementById('conteudosCards');if(alvo)alvo.scrollIntoView({behavior:'auto',block:'start'});document.documentElement.classList.remove('retorno-conteudos');if(voltarPorUrl&&history.replaceState){history.replaceState(null,'',window.location.pathname);}}});</script>
 <script src="bloqueio-primeiro-acesso.js"></script>
 </body>
 </html>
