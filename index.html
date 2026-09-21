@@ -856,7 +856,8 @@ required
       data: new Date().toLocaleString("pt-BR")
     })
   })
-  .then(() => {
+  .then((resposta) => {
+    if(!resposta.ok) throw new Error("Formspree recusou o envio da dúvida: " + resposta.status);
     alert("Dúvida enviada com sucesso! 💌");
     document.getElementById("codigoDuvida").value = "";
     document.getElementById("assuntoDuvida").value = "";
@@ -1145,11 +1146,13 @@ fetch(endpointInicial, {
     ...respostasAbertas
   })
 })
-.then(() => {
+.then((resposta) => {
+  if(!resposta.ok) throw new Error("Formspree recusou o questionário inicial: " + resposta.status);
   abrirPrincipal();
 })
-.catch(() => {
-  alert("Não foi possível enviar o questionário neste momento. Verifique sua conexão e tente novamente.");
+.catch((erro) => {
+  console.error(erro);
+  alert("Seu questionário não foi registrado. Por favor, não feche esta página e tente enviar novamente em alguns instantes.");
 });
 }
   function validarQuestionarioFinal(){
@@ -1242,11 +1245,13 @@ fetch(endpointFinal, {
     ...respostasAbertasFinal
   })
 })
-.then(() => {
+.then((resposta) => {
+  if(!resposta.ok) throw new Error("Formspree recusou o questionário final: " + resposta.status);
   mostrar('enquete');
 })
-.catch(() => {
-  alert("Não foi possível enviar o questionário final neste momento. Verifique sua conexão e tente novamente.");
+.catch((erro) => {
+  console.error(erro);
+  alert("Seu questionário final não foi registrado. Por favor, não feche esta página e tente enviar novamente em alguns instantes.");
 });
 }
   function validarEnquete(){
@@ -1294,11 +1299,13 @@ fetch("https://formspree.io/f/mrevykge", {
     data: new Date().toLocaleString("pt-BR")
   })
 })
-.then(() => {
+.then((resposta) => {
+  if(!resposta.ok) throw new Error("Formspree recusou a enquete: " + resposta.status);
   mostrar('agradecimento');
 })
-.catch(() => {
-  alert("Não foi possível enviar a enquete neste momento. Verifique sua conexão e tente novamente.");
+.catch((erro) => {
+  console.error(erro);
+  alert("Sua enquete não foi registrada. Por favor, não feche esta página e tente enviar novamente em alguns instantes.");
 });
 }
 </script>
