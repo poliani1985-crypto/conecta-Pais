@@ -638,7 +638,29 @@ function mostrarEmail(){
   }
 
 }
-  function aceitarTCLE(){
+
+const enviosEmAndamento = new Set();
+function chaveEnvio(etapa, codigo){
+  return 'conectapais:envio:' + etapa + ':' + grupoSelecionado + ':' + codigo.trim().toUpperCase();
+}
+function iniciarEnvio(chave, seletor){
+  if(enviosEmAndamento.has(chave)) return false;
+  enviosEmAndamento.add(chave);
+  document.querySelectorAll(seletor).forEach(b => b.disabled = true);
+  return true;
+}
+function terminarEnvio(chave, seletor){
+  enviosEmAndamento.delete(chave);
+  document.querySelectorAll(seletor).forEach(b => b.disabled = false);
+}
+function envioConfirmado(chave){
+  try { return localStorage.getItem(chave) === 'confirmado'; } catch(e) { return false; }
+}
+function confirmarEnvio(chave){
+  try { localStorage.setItem(chave, 'confirmado'); } catch(e) { console.warn('Armazenamento local indisponível'); }
+}
+
+  async function aceitarTCLE(){
 
   const codigo = document.getElementById("codigoAcesso").value.trim();
   const nome = document.getElementById("nomeParticipante").value.trim();
@@ -666,11 +688,22 @@ const todosMarcados = Array.from(checks).every(c => c.checked);
 }
 
   
+const chave = chaveEnvio('tcle', codigo);
+const seletor = 'button[onclick="aceitarTCLE()"]';
+if(!iniciarEnvio(chave, seletor)) return;
+try {
+  const existente = await consultarTcleAutorizado(codigo, grupoSelecionado);
+  if(existente || envioConfirmado(chave)){
+    alert('Seu aceite já está registrado. Continue sem enviar o TCLE novamente.');
+    montarInicial();
+    mostrar('questionarioInicial');
+    return;
+  }
 const endpointTCLE = grupoSelecionado === "familia"
   ? "https://formspree.io/f/xjgdawnr"
   : "https://formspree.io/f/mdavwgqd";
 
-fetch(endpointTCLE, {
+await fetch(endpointTCLE, {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -688,6 +721,7 @@ fetch(endpointTCLE, {
 })
 .then(async (resposta) => {
   if(!resposta.ok) throw new Error("Falha ao registrar o TCLE no Formspree");
+  confirmarEnvio(chave);
   await registrarTcleAutorizado(codigo, grupoSelecionado);
   if(!codigosSalvos.includes(codigo.toUpperCase())){
     codigosSalvos.push(codigo.toUpperCase());
@@ -698,8 +732,14 @@ fetch(endpointTCLE, {
   document.getElementById('questionarioInicial').classList.remove('hidden');
 })
 .catch(() => {
-  alert("Não foi possível registrar o aceite neste momento. Verifique sua conexão e tente novamente.");
+  alert("Não foi possível concluir o registro. Tente novamente; um aceite já confirmado não será reenviado.");
 });
+} catch(erro) {
+  console.error(erro);
+  alert('Não foi possível verificar o aceite. Aguarde e tente novamente.');
+} finally {
+  terminarEnvio(chave, seletor);
+}
 
 }
   
@@ -1065,7 +1105,7 @@ required
   montarFinal();
   mostrar('questionarioFinal');
 }
-function validarQuestionarioInicial(){
+async function validarQuestionarioInicial(){
 
   const codigo = document.getElementById("codigoQuestionario").value.trim();
 
@@ -1101,6 +1141,15 @@ if(codigo === ""){
     }
   }
 
+const chave = chaveEnvio('inicial', codigo);
+const seletor = 'button[onclick="validarQuestionarioInicial()"]';
+if(envioConfirmado(chave)){
+  alert('Seu questionário inicial já foi enviado neste navegador.');
+  abrirPrincipal();
+  return;
+}
+if(!iniciarEnvio(chave, seletor)) return;
+try {
 const endpointInicial = grupoSelecionado === "familia"
   ? "https://formspree.io/f/xzdqjrno"
   : "https://formspree.io/f/xvznwrpo";
@@ -1133,7 +1182,7 @@ if(grupoSelecionado === "equipe"){
   funcao = selects[1]?.value || "";
 }
 
-fetch(endpointInicial, {
+await fetch(endpointInicial, {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -1156,12 +1205,16 @@ fetch(endpointInicial, {
   if(!resposta.ok || retorno.includes("over submission limit") || retorno.includes("submission limit")) {
     throw new Error("Formspree recusou o questionário inicial: " + resposta.status);
   }
+  confirmarEnvio(chave);
   abrirPrincipal();
 })
 .catch((erro) => {
   console.error(erro);
   alert("Seu questionário não foi registrado. Por favor, não feche esta página e tente enviar novamente em alguns instantes.");
 });
+} finally {
+  terminarEnvio(chave, seletor);
+}
 }
   function validarQuestionarioFinal(){
 
