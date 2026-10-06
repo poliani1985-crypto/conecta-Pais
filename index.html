@@ -418,7 +418,10 @@ Quero receber informações gerais sobre os resultados da pesquisa.
   <div class="layout">
     <div style="text-align:center; margin:20px 0;">
   <button class="oldItem" onclick="document.getElementById('conteudosAnteriores').classList.toggle('hidden')">
-    📚 Conteúdos anteriores
+    📚 Nossa Biblioteca
+  </button>
+  <button class="oldItem" style="background:linear-gradient(135deg,#fff0f7,#f2edff);border:1px solid #ffd1e4;color:#71479d;font-weight:900" onclick="abrirRevisaoPedagogica()" aria-label="Abrir a prévia pedagógica da equipe">
+    🔒 Prévia pedagógica
   </button>
 </div>
 
@@ -510,6 +513,33 @@ onclick="mostrar('retaFinal')">
 
 </div>
     </section>
+  </div>
+</section>
+<section id="previaPedagogica" class="screen hidden">
+  <div class="card" style="max-width:820px;margin:28px auto;background:linear-gradient(135deg,#fff7fb,#f2edff);border:1px solid #ffd1e4">
+    <div class="banner" style="text-align:center;background:linear-gradient(135deg,#f5d0fe,#ffe4ef)">
+      <div style="font-size:38px">🔒</div>
+      <h2>Prévia pedagógica</h2>
+      <p>Espaço para a diretora e a supervisora olharem os conteúdos antes da publicação para as famílias.</p>
+    </div>
+    <div id="formularioCodigoPrevia" class="card" style="max-width:500px;margin:20px auto;background:#fff">
+      <form onsubmit="return validarCodigoPrevia(event)">
+        <label for="codigoPrevia">Digite o código de acesso</label>
+        <input id="codigoPrevia" type="password" autocomplete="current-password" placeholder="Código de acesso" required>
+        <button type="submit" class="blue" style="width:100%;margin-top:14px">Acessar prévias</button>
+        <p id="mensagemCodigoPrevia" class="hidden" role="alert" style="margin-top:12px;color:#b4235a;font-weight:800">Esse código não confere. Confira e tente novamente.</p>
+      </form>
+    </div>
+    <div id="areaConteudosPrevia" class="card hidden" role="region" aria-labelledby="tituloConteudosPrevia" style="margin:20px auto;background:#fff">
+      <h2 id="tituloConteudosPrevia">Prévias para revisão</h2>
+      <p>As prévias da próxima semana ficarão disponíveis aqui para leitura e aprovação antes de serem publicadas na página principal do ConectaPais.</p>
+      <div class="card" style="background:#fff8eb;border-left:5px solid #ffb95f;margin-top:16px">
+        <strong>Como funciona:</strong> a equipe revisa os conteúdos; depois da aprovação, eles são publicados na biblioteca para todas as famílias.
+      </div>
+    </div>
+    <div class="actions" style="justify-content:center">
+      <button type="button" onclick="fecharRevisaoPedagogica()" style="background:#fff;color:#70418f;border:1px solid #ffd1e4">🏠 Voltar aos conteúdos</button>
+    </div>
   </div>
 </section>
 <section id="retaFinal" class="screen hidden"><div class="card" style="text-align:center"><div class="banner"><h2>🎉 Estamos na reta final!</h2><p>Que jornada incrível! Você chegou até aqui e isso é motivo de muito orgulho. Juntos, percorremos 70 dias de aprendizagem, partilha e conexão entre família e escola. 💛.</p><div style="font-size:40px">🎉 🌟 💖</div></div><p>Para concluirmos esta etapa tão especial, precisamos da sua colaboração por mais alguns minutinhos. Vamos responder ao questionário final? Suas respostas são muito valiosas para a pesquisa! 🌟</p><button onclick="abrirQuestionarioFinal()">Responder questionário final</button></div></section>
@@ -618,6 +648,34 @@ const tcle={familia:"Você está sendo convidado(a) a participar desta pesquisa 
 const perguntas={familia:["Por qual motivo principal você matriculou seu filho(a) no CMEI?","Na sua opinião, qual é a principal função do CMEI?","Você acredita que seu filho(a) aprende no CMEI?","Você sente que conhece o trabalho realizado pelos professores no CMEI?","Como você avalia a comunicação entre sua família e o CMEI?","Você acredita que escola e família devem trabalhar juntas?"],equipe:["Como você avalia atualmente a participação das famílias na rotina escolar do CMEI?","Na sua opinião, as famílias compreendem a função pedagógica da Educação Infantil?","Como você avalia a comunicação entre escola e famílias?","Você considera importante aproximar mais as famílias do trabalho pedagógico?","Você acredita que recursos digitais podem ajudar na aproximação com as famílias?"]};
 const finais=["Os conteúdos do ConectaPais ajudaram a compreender melhor a Educação Infantil?","A comunicação entre família e escola melhorou?","Você passou a conhecer melhor o trabalho pedagógico?","Você gostaria que ações como essa continuassem no CMEI?","Deixe sua opinião final sobre o ConectaPais."];
 const conteudos=[["👶","Antes de falar, o bebê já conversa!","Nível 0 · Comunicação e linguagem","Descubra como o bebê se comunica por meio do olhar, do sorriso, dos gestos e dos sons — e como essas experiências são valorizadas no CMEI.","nivel0-preview.html"],["🌱","As primeiras palavras estão chegando!","Nível 1 · Comunicação e linguagem","Olhares, gestos, sons e pequenas palavras vão se encontrando. Descubra como acolher e ampliar as tentativas de comunicação da criança.","nivel1-preview.html"],["🧩","Agora tenho muito para contar!","Nível 2 · Comunicação e linguagem","Nas brincadeiras, pequenas falas podem virar grandes conversas. Veja como escutar e ampliar o que a criança tem a dizer.","nivel2-preview.html"],["💬","Deixa eu contar uma coisa?","Nível 3 · Comunicação e linguagem","Perguntas, histórias e muita imaginação! Descubra como a escuta pode ajudar a criança a organizar ideias e ampliar suas conversas.","nivel3-preview.html"],["🌱","Acompanhar também é cuidar","Para todas as famílias · Desenvolvimento infantil","Cada criança tem seu ritmo, mas alguns sinais merecem atenção. Conheça referências para acompanhar o desenvolvimento com informação, cuidado e sem comparações.","acompanhar-desenvolvimento.html"],["🧳","Aconteceu no CMEI","Projeto Maleta Viajante","Uma história que saiu do CMEI e chegou até as famílias. Conheça a experiência da Maleta Viajante e tudo o que existe por trás dessa viagem.","maleta-viajante.html"]];
+function abrirRevisaoPedagogica(){
+  document.getElementById('codigoPrevia').value='';
+  document.getElementById('mensagemCodigoPrevia').classList.add('hidden');
+  document.getElementById('formularioCodigoPrevia').classList.remove('hidden');
+  document.getElementById('areaConteudosPrevia').classList.add('hidden');
+  mostrar('previaPedagogica');
+}
+function validarCodigoPrevia(event){
+  event.preventDefault();
+  const campo=document.getElementById('codigoPrevia');
+  const aviso=document.getElementById('mensagemCodigoPrevia');
+  if(campo.value.trim()==='Equipe#26'){
+    document.getElementById('formularioCodigoPrevia').classList.add('hidden');
+    document.getElementById('areaConteudosPrevia').classList.remove('hidden');
+    aviso.classList.add('hidden');
+  }else{
+    aviso.classList.remove('hidden');
+    campo.value='';
+    campo.focus();
+  }
+  return false;
+}
+function fecharRevisaoPedagogica(){
+  document.getElementById('codigoPrevia').value='';
+  document.getElementById('formularioCodigoPrevia').classList.remove('hidden');
+  document.getElementById('areaConteudosPrevia').classList.add('hidden');
+  mostrar('principal');
+}
 function mostrar(id){document.querySelectorAll('.screen').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');window.scrollTo(0,0)}
 function voltarInicio(){mostrar('inicio')}
 function abrirTCLE(g){ grupoSelecionado = g;document.getElementById('tituloTCLE').innerText = g === 'familia'? '📄 TCLE — Pais, mães ou responsáveis': '📄 TCLE — Equipe pedagógica';if(g === 'familia'){document.getElementById('pdfTCLE').src = 'https://drive.google.com/file/d/18czVh8M502LniObL4dNEIEP2V6GIKWZu/preview';} else {document.getElementById('pdfTCLE').src = 'https://drive.google.com/file/d/1ELDjgNtrwqOCyQY7T7-448c31ju3041A/preview';}mostrar('tcle');}
