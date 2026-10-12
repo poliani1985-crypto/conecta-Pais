@@ -677,7 +677,7 @@ function fecharRevisaoPedagogica(){
   document.getElementById('codigoPrevia').value='';
   document.getElementById('formularioCodigoPrevia').classList.remove('hidden');
   document.getElementById('areaConteudosPrevia').classList.add('hidden');
-  mostrar('principal');
+  abrirPrincipal();
   const levarAosCards=()=>{
     const cards=document.getElementById('conteudosCards');
     if(!cards)return;
