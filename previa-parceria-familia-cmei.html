@@ -37,6 +37,15 @@ main{max-width:1160px;margin:auto;padding:24px 18px 48px}
 .box.text{background:#fff8e7;border-color:#f4e6b3}.box.activity{background:linear-gradient(135deg,#f8f0ff,#fff7eb 55%,#fff0f7);border-color:#e8d8f1}.box.tip{background:linear-gradient(120deg,#fff1f7,#fff9e7);border-color:#f5d7e5}.box.look{background:linear-gradient(120deg,#eaf8ff,#edfbf0);border-color:#d4ebdc}.box.refs{background:#faf9fc;border-color:#ece7f2;font-size:14px}.box.refs ul{margin:8px 0 0;padding-left:20px}.box.refs li{margin:6px 0}.box a{color:#67439a;font-weight:700}
 .interaction-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:13px 0}
 .interaction-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.dailyGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:14px 0}
+.daily{overflow:hidden;border:1px solid #eadcf0;border-radius:19px;background:#fff;box-shadow:0 5px 14px #49396310}
+.babyArt{height:190px;background-image:url('parceria-nivel0.webp');background-size:204% 204%;background-repeat:no-repeat;background-color:#f5edf8}
+.baby0{background-position:0 0}.baby1{background-position:100% 0}.baby2{background-position:0 100%}.baby3{background-position:100% 100%}
+.dailyBody{padding:14px}.dailyBody h3{margin:0 0 5px;color:#56427a;font-size:18px;line-height:1.3}.dailyBody p{margin:5px 0 10px;font-size:14px;color:#625b6e}
+.speech{padding:10px 12px;border-radius:13px;background:#fff4df;border-left:4px solid #e8b34c;margin:8px 0;font-size:14px;line-height:1.5}
+.speech.cmei{background:#eff9f3;border-color:#58b779}.speech strong{color:#4f4267}
+.safeNote{padding:13px 15px;border-radius:15px;background:#fff8df;border:1px solid #f0df9a;color:#554c3e;font-size:14px}
+@media(max-width:650px){.dailyGrid{grid-template-columns:1fr}.babyArt{height:210px}}
 .pick,.pathstep{border:2px solid #fff;background:linear-gradient(145deg,#fff,#fff6fb);border-radius:16px;padding:12px;text-align:center;cursor:pointer;color:#51426d;box-shadow:0 5px 12px #49396312;font:700 15px/1.35 Arial;transition:.15s}
 .pick:hover,.pick[aria-expanded=true],.pathstep:hover,.pathstep[aria-current=true]{border-color:#e8aacb;transform:translateY(-2px);background:#fff}
 .pick .emoji{display:block;font-size:28px;margin-bottom:4px}
@@ -74,23 +83,20 @@ footer{text-align:center;color:#777083;padding:10px 20px 26px;font-size:13px}
 </section>
 
 <article id="detail0" class="sheet" hidden tabindex="-1">
-<div class="sheetHead"><div class="art a0" role="img" aria-label="Responsável compartilha uma informação com educadora"></div><div><span class="level">NÍVEL 0</span><h1>Pequenos recados que ajudam a cuidar</h1><p>Para os bebês, uma troca breve entre família e equipe pode ajudar a compreender sinais, preferências e necessidades.</p></div></div>
-<section class="box text"><h2>O que a família conhece do bebê?</h2><p>A família conhece os jeitos de acalmar, os horários, os sons e os gestos que fazem parte da vida do bebê. A equipe observa como ele se sente e participa das experiências no CMEI. Compartilhar essas informações favorece o cuidado cotidiano.</p><p><strong>Toque nos recadinhos para ver exemplos de informações que podem ser compartilhadas.</strong></p></section>
-<section class="box activity"><h2>Recadinhos do dia a dia</h2><div class="interaction-grid">
-<button class="pick" aria-expanded="false" onclick="toggleInfo(this,'n0sono')"><span class="emoji">😴</span>Descanso</button>
-<button class="pick" aria-expanded="false" onclick="toggleInfo(this,'n0comida')"><span class="emoji">🥣</span>Alimentação</button>
-<button class="pick" aria-expanded="false" onclick="toggleInfo(this,'n0acolhimento')"><span class="emoji">🧸</span>Acolhimento</button>
-<button class="pick" aria-expanded="false" onclick="toggleInfo(this,'n0novidade')"><span class="emoji">💬</span>Novidade em casa</button>
+<div class="sheetHead"><div class="art a0" role="img" aria-label="Família compartilha informações com educadora no acolhimento do bebê"></div><div><span class="level">NÍVEL 0</span><h1>Pequenos recados que ajudam a cuidar</h1><p>Hábitos e sinais do bebê ajudam a família e a equipe a se conhecerem melhor e a construir um acolhimento mais próximo.</p></div></div>
+<section class="box text"><h2>O que a família conhece do bebê?</h2><p>A família conhece os jeitos de acalmar, os hábitos de sono, a alimentação e as preferências do bebê. A equipe observa como ele se sente, descansa, se alimenta e participa das experiências no CMEI. Compartilhar essas informações ajuda os adultos a cuidar em diálogo.</p><p>Toque em cada cena para ver um exemplo de conversa entre família e equipe.</p></section>
+<section class="box activity"><h2>Recadinhos do dia a dia</h2>
+<div class="dailyGrid">
+<div class="daily"><div class="babyArt baby0" role="img" aria-label="Bebê dormindo de barriga para cima em berço firme e vazio"></div><div class="dailyBody"><h3>😴 Sono e aconchego</h3><p>Contar os hábitos que ajudam o bebê a relaxar pode orientar o acolhimento.</p><button class="pick" aria-expanded="false" onclick="toggleInfo(this,'n0sono')">Ver as falas</button><div id="n0sono" class="reveal"><div class="speech"><strong>Família:</strong> “Em casa, a chupeta costuma ajudá-lo a se acalmar. A naninha faz parte do nosso ritual antes do soninho.”</div><div class="speech cmei"><strong>Equipe do CMEI:</strong> “Obrigada por contar. Vamos observar os sinais de sono e acolhê-lo. Na hora de dormir, seguimos as orientações de sono seguro.”</div><p class="safeNote">Para bebês no primeiro ano de vida, o Ministério da Saúde recomenda colocá-los para dormir de barriga para cima, e não de lado ou de bruços. O berço deve ficar sem objetos macios soltos, como naninhas, travesseiros ou brinquedos. <a href="https://www.gov.br/saude/pt-br/assuntos/noticias/2022/dezembro/cobertura-do-nariz-e-ou-boca-pode-causar-sufocacao-conheca-medidas-para-prevenir-acidentes-com-criancas" target="_blank" rel="noopener">Ver orientação</a>.</p></div></div></div>
+<div class="daily"><div class="babyArt baby1" role="img" aria-label="Bebê sentado com supervisão explorando alimento adequado à idade"></div><div class="dailyBody"><h3>🥣 Alimentação</h3><p>Uma conversa respeitosa ajuda a compartilhar o que a família observa e como foi a refeição no CMEI.</p><button class="pick" aria-expanded="false" onclick="toggleInfo(this,'n0comida')">Ver as falas</button><div id="n0comida" class="reveal"><div class="speech"><strong>Família:</strong> “Em casa, ele ainda aceita melhor o leite e está conhecendo os outros alimentos, conforme a idade e as orientações que recebemos.”</div><div class="speech cmei"><strong>Equipe do CMEI:</strong> “Hoje ele comeu pouco do alimento servido e procurou mais o leite. Vamos observar juntos e continuar oferecendo o cardápio adequado à idade, sem forçar e respeitando os sinais do bebê.”</div><p class="safeNote">A alimentação complementar começa a partir dos 6 meses. As preparações e consistências precisam ser adequadas à idade; o leite continua fazendo parte da alimentação conforme a orientação recebida. <a href="https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/s/saude-da-crianca/primeira-infancia/alimentacao-saudavel" target="_blank" rel="noopener">Consultar o Ministério da Saúde</a>.</p></div></div></div>
+<div class="daily"><div class="babyArt baby2" role="img" aria-label="Família mostra chupeta e naninha à educadora enquanto o bebê está acordado e no colo"></div><div class="dailyBody"><h3>🧸 Hábitos de conforto</h3><p>Chupeta, colo, voz ou um objeto afetivo podem fazer parte da rotina de acolhimento da criança.</p><button class="pick" aria-expanded="false" onclick="toggleInfo(this,'n0conforto')">Ver as falas</button><div id="n0conforto" class="reveal"><div class="speech"><strong>Família:</strong> “Quando está cansado, o colo e a chupeta costumam ajudá-lo. A naninha também o acalma quando está acordado.”</div><div class="speech cmei"><strong>Equipe do CMEI:</strong> “Essa informação nos ajuda a conhecer o jeito dele. Vamos observar o que funciona no acolhimento e combinar o uso seguro dos objetos na rotina.”</div><p class="safeNote">A família pode compartilhar esses hábitos. Para o sono, a equipe segue as orientações de segurança e mantém o espaço de dormir livre de objetos macios soltos.</p></div></div></div>
+<div class="daily"><div class="babyArt baby3" role="img" aria-label="Família e educadora trocam informações na chegada do bebê ao CMEI"></div><div class="dailyBody"><h3>💬 Uma novidade na rotina</h3><p>Uma noite diferente, uma mudança de hábito ou outro recado importante pode ser compartilhado.</p><button class="pick" aria-expanded="false" onclick="toggleInfo(this,'n0rotina')">Ver as falas</button><div id="n0rotina" class="reveal"><div class="speech"><strong>Família:</strong> “A noite foi diferente e ele acordou mais vezes. Talvez esteja com mais sono hoje.”</div><div class="speech cmei"><strong>Equipe do CMEI:</strong> “Obrigada por avisar. Vamos observar como ele fica durante o dia e depois contamos como foi o descanso no CMEI.”</div></div></div></div>
 </div>
-<div id="n0sono" class="reveal">“Hoje o bebê descansou menos que de costume.” Esse recado ajuda a equipe a observar sinais de cansaço e oferecer acolhimento.</div>
-<div id="n0comida" class="reveal">“Ele mamou há pouco” ou “comeu menos pela manhã.” Informações simples podem apoiar a atenção à rotina alimentar.</div>
-<div id="n0acolhimento" class="reveal">“A naninha costuma ajudá-lo a se acalmar.” Conhecer referências afetivas pode favorecer uma transição mais acolhedora.</div>
-<div id="n0novidade" class="reveal">Uma mudança na rotina ou um acontecimento importante também pode ser compartilhado, sempre com respeito à privacidade da família.</div>
 </section>
-<section class="box tip"><h2>Uma dica</h2><p>Uma conversa rápida na chegada ou na saída já pode ser valiosa. Não é preciso compartilhar detalhes íntimos: somente o que for importante para o cuidado do bebê.</p></section>
-<section class="box look"><h2>Olhar pedagógico</h2><p>O diálogo aproxima os contextos de vida do bebê e ajuda a equipe a planejar acolhimento e experiências com atenção à singularidade de cada criança.</p></section>
-<section class="box refs"><h2>Referências</h2><ul><li>BRASIL. <i>Diretrizes Curriculares Nacionais para a Educação Infantil</i>. Resolução CNE/CEB nº 5/2009.</li><li>MONÇÃO, Maria Aparecida Guedes. O compartilhamento da educação das crianças pequenas nas instituições de educação infantil. <i>Cadernos de Pesquisa</i>, 2015.</li></ul></section>
-<div class="actions"><button class="btn secondary" onclick="closeCard()">← Voltar aos cards</button><button class="btn" onclick="openCard(1)">Próximo card →</button></div>
+<section class="box tip"><h2>Uma dica</h2><p>Um recado breve na chegada ou na saída pode ser valioso. Compartilhe somente o que for importante para o cuidado do bebê; a equipe também pode contar como ele passou o dia.</p></section>
+<section class="box look"><h2>Olhar pedagógico</h2><p>O diálogo aproxima os contextos de vida do bebê e ajuda a equipe a planejar acolhimento e experiências com atenção à singularidade de cada criança, sem julgar os hábitos da família.</p></section>
+<section class="box refs"><h2>Referências</h2><ul><li>BRASIL. <i>Diretrizes Curriculares Nacionais para a Educação Infantil</i>. Resolução CNE/CEB nº 5/2009.</li><li>BRASIL. Ministério da Saúde. <i>Guia Alimentar para Crianças Brasileiras Menores de 2 anos</i>.</li><li>BRASIL. Ministério da Saúde. Recomendações de segurança do sono e prevenção de sufocação em bebês.</li><li>MONÇÃO, Maria Aparecida Guedes. O compartilhamento da educação das crianças pequenas nas instituições de educação infantil. <i>Cadernos de Pesquisa</i>, 2015.</li></ul></section>
+<div class="actions"><button class="btn secondary" onclick="closeCard()">Fechar conteúdo</button></div>
 </article>
 
 <article id="detail1" class="sheet" hidden tabindex="-1">
@@ -105,7 +111,7 @@ footer{text-align:center;color:#777083;padding:10px 20px 26px;font-size:13px}
 <section class="box tip"><h2>Uma dica</h2><p>Escutar também é participar. Uma conversa respeitosa pode começar com uma observação, uma pergunta ou um agradecimento.</p></section>
 <section class="box look"><h2>Olhar pedagógico</h2><p>A parceria não apaga as diferenças entre casa e CMEI. Ela aproxima informações e experiências, reconhecendo o papel de cada contexto na vida da criança.</p></section>
 <section class="box refs"><h2>Referências</h2><ul><li>BRASIL. Ministério da Educação. <i>Base Nacional Comum Curricular: Educação Infantil</i>, 2017.</li><li>GARCIA, Heloisa Helena Genovese de Oliveira; MACEDO, Lino de. Reuniões de pais na educação infantil: modos de gestão. <i>Cadernos de Pesquisa</i>, 2011.</li></ul></section>
-<div class="actions"><button class="btn secondary" onclick="closeCard()">← Voltar aos cards</button><button class="btn" onclick="openCard(2)">Próximo card →</button></div>
+<div class="actions"><button class="btn secondary" onclick="closeCard()">Fechar conteúdo</button></div>
 </article>
 
 <article id="detail2" class="sheet" hidden tabindex="-1">
@@ -119,7 +125,7 @@ footer{text-align:center;color:#777083;padding:10px 20px 26px;font-size:13px}
 <section class="box tip"><h2>Uma dica</h2><p>Fale sobre o que foi observado, sem transformar uma situação em rótulo. Perguntas abertas ajudam a entender o contexto.</p></section>
 <section class="box look"><h2>Olhar pedagógico</h2><p>Conhecer os contextos da criança apoia a continuidade do cuidado e permite planejar propostas que acolham seus interesses e necessidades.</p></section>
 <section class="box refs"><h2>Referências</h2><ul><li>BRASIL. Ministério da Educação. <i>Base Nacional Comum Curricular: Educação Infantil</i>, 2017.</li><li>MONÇÃO, Maria Aparecida Guedes. O compartilhamento da educação das crianças pequenas nas instituições de educação infantil. <i>Cadernos de Pesquisa</i>, 2015.</li></ul></section>
-<div class="actions"><button class="btn secondary" onclick="closeCard()">← Voltar aos cards</button><button class="btn" onclick="openCard(3)">Próximo card →</button></div>
+<div class="actions"><button class="btn secondary" onclick="closeCard()">Fechar conteúdo</button></div>
 </article>
 
 <article id="detail3" class="sheet" hidden tabindex="-1">
@@ -136,7 +142,7 @@ footer{text-align:center;color:#777083;padding:10px 20px 26px;font-size:13px}
 <section class="box tip"><h2>Uma dica</h2><p>Descreva o que aconteceu, escute o que o outro contexto observou e pense em um próximo passo possível. Se necessário, combinem um novo momento para conversar.</p></section>
 <section class="box look"><h2>Olhar pedagógico</h2><p>Uma situação do cotidiano não define a criança nem sua família. O diálogo respeitoso ajuda a compreender necessidades e acompanhar o bem-estar sem procurar culpados.</p></section>
 <section class="box refs"><h2>Referências</h2><ul><li>MONÇÃO, Maria Aparecida Guedes. O compartilhamento da educação das crianças pequenas nas instituições de educação infantil. <i>Cadernos de Pesquisa</i>, 2015.</li><li>GARCIA, Heloisa Helena Genovese de Oliveira; MACEDO, Lino de. Reuniões de pais na educação infantil: modos de gestão. <i>Cadernos de Pesquisa</i>, 2011.</li></ul></section>
-<div class="actions"><button class="btn secondary" onclick="closeCard()">← Voltar aos cards</button><button class="btn" onclick="openCard(4)">Próximo card →</button></div>
+<div class="actions"><button class="btn secondary" onclick="closeCard()">Fechar conteúdo</button></div>
 </article>
 
 <article id="detail4" class="sheet" hidden tabindex="-1">
@@ -148,10 +154,11 @@ footer{text-align:center;color:#777083;padding:10px 20px 26px;font-size:13px}
 <div id="cmei4" class="tab-panel">Como a criança participa das propostas, explora os espaços, brinca, convive e aprende no cotidiano do CMEI.</div>
 <div id="juntos4" class="tab-panel">Combinar um canal e um momento possível para conversar, respeitando a privacidade, os horários e as diferentes formas de organização das famílias.</div>
 </section>
+<section class="box activity"><h2>O ConectaPais também é espaço para perguntar</h2><p>Se surgiu uma dúvida e você não conseguiu conversar com alguém do CMEI, ou se sente vergonha de perguntar pessoalmente, pode usar a caixa <strong>“Tire suas dúvidas”</strong> na página principal do ConectaPais.</p><p>O formulário pede o código de participante. Quando uma resposta é publicada em <strong>“Dúvidas respondidas”</strong>, ela aparece sem identificação e pode ajudar outras famílias.</p><a class="btn secondary" href="duvidas-respondidas.html" target="_top">💬 Ver dúvidas respondidas</a></section>
 <section class="box tip"><h2>Uma dica</h2><p>Quando surgir uma dúvida, procure um momento tranquilo e converse diretamente com a equipe. Se um canal não funcionar para sua rotina, vale combinar outro caminho possível.</p></section>
 <section class="box look"><h2>Olhar pedagógico</h2><p>A instituição acolhe a diversidade das famílias e promove participação, diálogo e escuta cotidiana. A parceria é construída ao longo do tempo, não depende de uma presença igual para todos.</p></section>
 <section class="box refs"><h2>Referências</h2><ul><li>BRASIL. Conselho Nacional de Educação. <i>Diretrizes Curriculares Nacionais para a Educação Infantil</i>. Resolução CNE/CEB nº 5/2009.</li><li>BRASIL. Ministério da Educação. <i>Base Nacional Comum Curricular: Educação Infantil</i>, 2017.</li></ul></section>
-<div class="actions"><button class="btn secondary" onclick="closeCard()">← Voltar aos cards</button><button class="btn" onclick="openCard(5)">Próximo card →</button></div>
+<div class="actions"><button class="btn secondary" onclick="closeCard()">Fechar conteúdo</button></div>
 </article>
 
 <article id="detail5" class="sheet" hidden tabindex="-1">
@@ -172,7 +179,7 @@ footer{text-align:center;color:#777083;padding:10px 20px 26px;font-size:13px}
 <section class="box tip"><h2>Uma dica</h2><p>Valorizar a participação é também reconhecer quem colabora de outras maneiras: conversando, compartilhando informações, acompanhando a criança ou mantendo o diálogo com o CMEI.</p></section>
 <section class="box look"><h2>Olhar pedagógico</h2><p>Quando a instituição abre espaços variados de participação e acolhe as diferentes realidades familiares, fortalece os vínculos comunitários sem transformar a presença em obrigação.</p></section>
 <section class="box refs"><h2>Referências</h2><ul><li>BRASIL. Conselho Nacional de Educação. <i>Diretrizes Curriculares Nacionais para a Educação Infantil</i>. Resolução CNE/CEB nº 5/2009.</li><li>MONÇÃO, Maria Aparecida Guedes. O compartilhamento da educação das crianças pequenas nas instituições de educação infantil. <i>Cadernos de Pesquisa</i>, 2015.</li></ul></section>
-<div class="actions"><button class="btn secondary" onclick="closeCard()">← Voltar aos cards</button></div>
+<div class="actions"><button class="btn secondary" onclick="closeCard()">Fechar conteúdo</button></div>
 </article>
 </main>
 <footer>ConectaPais · Laços Educativos entre Família e Escola · Imagens ilustrativas</footer>
@@ -195,3 +202,4 @@ window.addEventListener('load',()=>{const m=location.hash.match(/^#card-([0-5])$
 </script>
 </body>
 </html>
+
