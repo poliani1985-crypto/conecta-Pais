@@ -130,12 +130,12 @@ footer{text-align:center;color:#777083;padding:10px 20px 26px;font-size:13px}
 <article id="detail3" class="sheet" hidden tabindex="-1">
 <div class="sheetHead"><div class="art a3" role="img" aria-label="Família, educadora e criança olham uma rotina ilustrada"></div><div><span class="level l3">NÍVEL 3</span><h1>Como conversar diante de uma dúvida?</h1><p>Uma situação-problema para pensar em respostas que mantêm a criança no centro.</p></div></div>
 <section class="box text"><h2>O que aconteceu?</h2><p>Na saída, a educadora conta que a criança participou pouco do almoço e aceitou apenas alguns alimentos. A família comenta que, naquela manhã, ela também comeu menos que o habitual e que a percebeu mais quieta. A equipe e a família ainda não sabem o motivo; por isso, compartilham o que observaram e pensam em acompanhar o bem-estar da criança, sem pressioná-la ou tirar conclusões por causa de uma refeição. Como os adultos podem seguir essa conversa?</p></section>
-<section class="box activity"><h2>Escolha uma resposta</h2>
+<section class="box activity"><h2>Escolha uma resposta</h2><p>Toque em uma opção para ver a explicação. Toque novamente nela para fechar.</p>
 <figure class="caseIllustration"><img src="situacao-nivel3-alimentacao-v2.webp" alt="Educadora e família conversam com cuidado enquanto a criança está à mesa no CMEI"><figcaption>Uma observação compartilhada pode ajudar os adultos a compreender melhor como a criança está.</figcaption></figure>
 <div class="choice-list">
-<button onclick="answerCase('a')">“Ela sempre faz isso. Em casa também é difícil.”</button>
-<button onclick="answerCase('b')">“Obrigada por contar. Vamos observar juntos e conversar novamente se continuar?”</button>
-<button onclick="answerCase('c')">“Isso é assunto da família; o CMEI não precisa acompanhar.”</button>
+<button aria-expanded="false" onclick="answerCase('a',this)">“Ela sempre faz isso. Em casa também é difícil.”</button>
+<button aria-expanded="false" onclick="answerCase('b',this)">“Obrigada por contar. Vamos observar juntos e conversar novamente se continuar?”</button>
+<button aria-expanded="false" onclick="answerCase('c',this)">“Isso é assunto da família; o CMEI não precisa acompanhar.”</button>
 </div>
 <div id="caseFeedback" class="feedback" role="status" aria-live="polite"></div>
 </section>
@@ -202,7 +202,7 @@ function openTrail(i){setPath(i);document.getElementById('pathViewer').hidden=fa
 function closeTrail(){const viewer=document.getElementById('pathViewer');if(viewer.hidden)return;viewer.hidden=true;document.body.style.overflow='';document.getElementById('pathStep'+pathIndex).focus()}
 function stepPath(d){const next=pathIndex+d;if(next<0||next>3)return;setPath(next)}
 document.addEventListener('keydown',e=>{const viewer=document.getElementById('pathViewer');if(viewer.hidden)return;if(e.key==='Escape')closeTrail();if(e.key==='ArrowRight')stepPath(1);if(e.key==='ArrowLeft')stepPath(-1)});
-function answerCase(choice){const f=document.getElementById('caseFeedback');const answers={a:'Essa fala pode encerrar a conversa com um rótulo. Tente contar o que foi observado e escutar o que a família percebeu, sem definir a criança por uma situação.',b:'Boa escolha! A resposta acolhe a informação, propõe observação compartilhada e deixa espaço para retomar a conversa, sem procurar culpados.',c:'A alimentação e o bem-estar da criança fazem parte do cuidado cotidiano nos dois contextos. Compartilhar observações, respeitando os papéis de cada um, pode ajudar.'};f.textContent=answers[choice];f.classList.add('show')}
+function answerCase(choice,button){const f=document.getElementById('caseFeedback'),wasOpen=button.getAttribute('aria-expanded')==='true';document.querySelectorAll('.choice-list button').forEach(x=>x.setAttribute('aria-expanded','false'));if(wasOpen){f.textContent='';f.classList.remove('show');return}const answers={a:'Essa fala pode encerrar a conversa com um rótulo. Tente contar o que foi observado e escutar o que a família percebeu, sem definir a criança por uma situação.',b:'Boa escolha! A resposta acolhe a informação, propõe observação compartilhada e deixa espaço para retomar a conversa, sem procurar culpados.',c:'A alimentação e o bem-estar da criança fazem parte do cuidado cotidiano nos dois contextos. Compartilhar observações, respeitando os papéis de cada um, pode ajudar.'};f.textContent=answers[choice];f.classList.add('show');button.setAttribute('aria-expanded','true')}
 window.addEventListener('load',()=>{const m=location.hash.match(/^#card-([0-5])$/);if(m)openCard(Number(m[1]))})
 </script>
 </body>
