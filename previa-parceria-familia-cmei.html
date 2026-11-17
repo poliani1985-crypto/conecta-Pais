@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Prévia pedagógica ConectaPais sobre parceria entre famílias e CMEI.">
+<title>Família e CMEI em parceria | ConectaPais</title>
+<style>
+:root{--plum:#60447f;--pink:#df5b9b;--gold:#e8a83c;--ink:#433b52;--muted:#6c6574;--line:#eee3ef;--paper:#fff}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 Arial,Helvetica,sans-serif;color:var(--ink);background:linear-gradient(135deg,#fff0f7,#fff8df,#e9f8ff);min-height:100vh}
+[hidden]{display:none!important}
+header{position:sticky;top:0;z-index:4;background:#ffffffed;border-bottom:1px solid #f1e3ee;padding:12px 18px}
+nav{max-width:1160px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-weight:900;color:var(--plum)}
+.navbtn,.btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;border:0;border-radius:15px;padding:11px 16px;background:linear-gradient(110deg,#e75b9c,#8d5fbd);color:#fff;text-decoration:none;font-weight:800;font-size:15px;cursor:pointer}
+.navbtn.secondary,.btn.secondary{background:#fff;color:var(--plum);border:1px solid #ead7ef}
+main{max-width:1160px;margin:auto;padding:24px 18px 48px}
+.hero,.sheet{background:#fff;border-radius:28px;padding:26px;box-shadow:0 10px 35px #49396312}
+.hero{text-align:center;margin-bottom:20px;background:linear-gradient(130deg,#fff,#fff8fc 48%,#f7f4ff)}
+.tag{display:inline-block;font-size:12px;letter-spacing:.5px;font-weight:900;background:#fff0f7;color:#a62967;border-radius:999px;padding:7px 12px}
+.hero h1{font-size:clamp(30px,4.5vw,46px);line-height:1.15;color:#4b3d76;margin:13px 0 8px}
+.hero p{max-width:880px;margin:9px auto}
+.heroNote{max-width:850px;margin:15px auto 0;padding:13px 17px;border-radius:17px;background:#fff4d7;border:1px solid #f6e5a6}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.tile{display:flex;flex-direction:column;overflow:hidden;border:1px solid #f0d8e6;border-radius:23px;background:#fff;box-shadow:0 8px 25px #34344f10;transition:transform .18s}
+.tile:hover{transform:translateY(-3px)}
+.art{height:190px;background-image:url('parceria-familia-cmei.webp');background-size:304% 204%;background-repeat:no-repeat;background-color:#f5edf8}
+.a0{background-position:0 0}.a1{background-position:50% 0}.a2{background-position:100% 0}.a3{background-position:0 100%}.a4{background-position:50% 100%}.a5{background-position:100% 100%}
+.tileBody{padding:17px;display:flex;flex:1;flex-direction:column}
+.level{display:inline-block;align-self:flex-start;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:900;background:#eaf4ff;color:#28629c}
+.level.l1{background:#fff3bf;color:#8a6500}.level.l2{background:#d3f9d8;color:#2b8a3e}.level.l3{background:#e5dbff;color:#6741d9}.level.gen{background:#ffe0ec;color:#a4235a}.level.cmei{background:#ffedd5;color:#9c5700}
+.tile h2{font-size:20px;line-height:1.3;color:#56427a;margin:10px 0 5px}.tile p{font-size:15px;margin:5px 0 16px;color:#625b6e}.tile .btn{margin-top:auto}
+.sheet{max-width:1000px;margin:0 auto}.sheetHead{display:grid;grid-template-columns:230px 1fr;gap:22px;align-items:center;padding-bottom:17px;border-bottom:1px solid var(--line)}
+.sheetHead .art{height:165px;border-radius:20px}.sheetHead h1{font-size:clamp(26px,4vw,38px);line-height:1.2;color:#4b3d76;margin:8px 0}.sheetHead p{margin:5px 0;color:var(--muted)}
+.box{margin-top:17px;padding:18px 20px;border-radius:20px;background:#f4f8ff;border:1px solid #e5edf8}.box h2{margin:0 0 8px;color:#56427a;font-size:21px}.box p{margin:8px 0}
+.box.text{background:#fff8e7;border-color:#f4e6b3}.box.activity{background:linear-gradient(135deg,#f8f0ff,#fff7eb 55%,#fff0f7);border-color:#e8d8f1}.box.tip{background:linear-gradient(120deg,#fff1f7,#fff9e7);border-color:#f5d7e5}.box.look{background:linear-gradient(120deg,#eaf8ff,#edfbf0);border-color:#d4ebdc}.box.refs{background:#faf9fc;border-color:#ece7f2;font-size:14px}.box.refs ul{margin:8px 0 0;padding-left:20px}.box.refs li{margin:6px 0}.box a{color:#67439a;font-weight:700}
+.interaction-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:13px 0}
+.interaction-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.pick,.pathstep{border:2px solid #fff;background:linear-gradient(145deg,#fff,#fff6fb);border-radius:16px;padding:12px;text-align:center;cursor:pointer;color:#51426d;box-shadow:0 5px 12px #49396312;font:700 15px/1.35 Arial;transition:.15s}
+.pick:hover,.pick[aria-expanded=true],.pathstep:hover,.pathstep[aria-current=true]{border-color:#e8aacb;transform:translateY(-2px);background:#fff}
+.pick .emoji{display:block;font-size:28px;margin-bottom:4px}
+.reveal{display:none;margin:10px 0;padding:13px 15px;border-radius:15px;background:#fff;border-left:5px solid #e891be;box-shadow:0 3px 10px #483b5510}.reveal.show{display:block}
+.choice-list{display:grid;gap:9px;margin:12px 0}.choice-list button{font:700 15px/1.45 Arial;color:#5e4678;background:#fff;border:2px solid #e3d5ee;border-radius:13px;text-align:left;padding:12px;cursor:pointer}.choice-list button:hover,.choice-list button:focus{border-color:#9e78bf;background:#fbf8ff}
+.feedback{display:none;padding:13px 15px;border-radius:14px;background:#fff8df;border:1px solid #eedb99;margin-top:10px}.feedback.show{display:block}
+.path{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:14px 0}.pathstep{position:relative;padding:13px 8px}.pathstep:not(:last-child):after{content:"→";position:absolute;right:-15px;top:30%;color:#a477bd;font-size:20px;z-index:1}.path-panel{min-height:82px}
+.tabs{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0}.tabs button{border:1px solid #e7d7ee;background:#fff;color:#594679;border-radius:999px;padding:10px 14px;font-weight:800;cursor:pointer}.tabs button[aria-selected=true]{background:#714e96;color:#fff;border-color:#714e96}.tab-panel{display:none;padding:14px 16px;background:#fff;border-radius:15px;border:1px solid #eee1ef}.tab-panel.show{display:block}
+.event-controls{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:15px}.event-counter{font-weight:900;color:#704b92}
+.actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+footer{text-align:center;color:#777083;padding:10px 20px 26px;font-size:13px}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sheetHead{grid-template-columns:190px 1fr}.path{grid-template-columns:repeat(2,1fr)}.pathstep:not(:last-child):after{content:""}}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.sheet{padding:18px}.sheetHead{grid-template-columns:1fr}.sheetHead .art{height:190px}.hero{padding:22px 17px}.interaction-grid.two{grid-template-columns:1fr}.path{grid-template-columns:1fr}.event-controls{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<header><nav><div class="brand">💗 ConectaPais · Prévia pedagógica</div><a class="navbtn secondary" href="index.html?voltar=previa" target="_top">← Voltar à prévia</a></nav></header>
+<main>
+<section id="home">
+<div class="hero">
+<span class="tag">PRÉVIA PARA 30/11 · EM REVISÃO</span>
+<h1>Família e CMEI: uma parceria construída no diálogo</h1>
+<p>Quando a família compartilha o que conhece da criança e a equipe escuta e conta como são as experiências no CMEI, a criança fica no centro de uma relação de cuidado e educação.</p>
+<p class="heroNote"><strong>Uma parceria possível:</strong> cada família participa de um jeito e no tempo que pode. Escuta, confiança e troca de informações também são formas de estar junto.</p>
+</div>
+<div class="grid">
+<article class="tile"><div class="art a0" role="img" aria-label="Família compartilha informações com educadora na chegada do bebê"></div><div class="tileBody"><span class="level">NÍVEL 0</span><h2>Pequenos recados que ajudam a cuidar</h2><p>Uma informação sobre o bebê pode ajudar a equipe a acolhê-lo com mais segurança.</p><button class="btn" onclick="openCard(0)">Abrir</button></div></article>
+<article class="tile"><div class="art a1" role="img" aria-label="Responsável conversa e escuta a educadora enquanto a criança brinca"></div><div class="tileBody"><span class="level l1">NÍVEL 1</span><h2>A conversa continua</h2><p>Família e equipe podem trocar observações em conversas simples do dia a dia.</p><button class="btn" onclick="openCard(1)">Abrir</button></div></article>
+<article class="tile"><div class="art a2" role="img" aria-label="Família mostra um desenho da criança e conversa com educadora"></div><div class="tileBody"><span class="level l2">NÍVEL 2</span><h2>Uma troca, dois olhares</h2><p>O que cada contexto observa pode ajudar a compreender melhor a criança.</p><button class="btn" onclick="openCard(2)">Abrir</button></div></article>
+<article class="tile"><div class="art a3" role="img" aria-label="Família, equipe e criança compartilham uma rotina visual"></div><div class="tileBody"><span class="level l3">NÍVEL 3</span><h2>Como conversar diante de uma dúvida?</h2><p>Uma situação para pensar em respostas que acolhem e abrem espaço para o diálogo.</p><button class="btn" onclick="openCard(3)">Abrir</button></div></article>
+<article class="tile"><div class="art a4" role="img" aria-label="Adultos compartilham um livro com a criança em uma sala acolhedora"></div><div class="tileBody"><span class="level gen">ACOMPANHAR TAMBÉM É CUIDAR</span><h2>Parceria sem cobrança</h2><p>Conheça pequenos caminhos para manter uma comunicação respeitosa.</p><button class="btn" onclick="openCard(4)">Abrir</button></div></article>
+<article class="tile"><div class="art a5" role="img" aria-label="Famílias ajudam em barraca de bingo e participam da Festa Junina do CMEI"></div><div class="tileBody"><span class="level cmei">ACONTECEU NO CMEI</span><h2>Festa Junina: participação que fortalece laços</h2><p>Algumas famílias colaboraram de diferentes maneiras para esse momento coletivo.</p><button class="btn" onclick="openCard(5)">Abrir</button></div></article>
+</div>
+<p class="note" style="text-align:center;margin-top:16px">As imagens são ilustrações para representar as situações.</p>
+</section>
+
+<article id="detail0" class="sheet" hidden tabindex="-1">
+<div class="sheetHead"><div class="art a0" role="img" aria-label="Responsável compartilha uma informação com educadora"></div><div><span class="level">NÍVEL 0</span><h1>Pequenos recados que ajudam a cuidar</h1><p>Para os bebês, uma troca breve entre família e equipe pode ajudar a compreender sinais, preferências e necessidades.</p></div></div>
+<section class="box text"><h2>O que a família conhece do bebê?</h2><p>A família conhece os jeitos de acalmar, os horários, os sons e os gestos que fazem parte da vida do bebê. A equipe observa como ele se sente e participa das experiências no CMEI. Compartilhar essas informações favorece o cuidado cotidiano.</p><p><strong>Toque nos recadinhos para ver exemplos de informações que podem ser compartilhadas.</strong></p></section>
+<section class="box activity"><h2>Recadinhos do dia a dia</h2><div class="interaction-grid">
+<button class="pick" aria-expanded="false" onclick="toggleInfo(this,'n0sono')"><span class="emoji">😴</span>Descanso</button>
+<button class="pick" aria-expanded="false" onclick="toggleInfo(this,'n0comida')"><span class="emoji">🥣</span>Alimentação</button>
+<button class="pick" aria-expanded="false" onclick="toggleInfo(this,'n0acolhimento')"><span class="emoji">🧸</span>Acolhimento</button>
+<button class="pick" aria-expanded="false" onclick="toggleInfo(this,'n0novidade')"><span class="emoji">💬</span>Novidade em casa</button>
+</div>
+<div id="n0sono" class="reveal">“Hoje o bebê descansou menos que de costume.” Esse recado ajuda a equipe a observar sinais de cansaço e oferecer acolhimento.</div>
+<div id="n0comida" class="reveal">“Ele mamou há pouco” ou “comeu menos pela manhã.” Informações simples podem apoiar a atenção à rotina alimentar.</div>
+<div id="n0acolhimento" class="reveal">“A naninha costuma ajudá-lo a se acalmar.” Conhecer referências afetivas pode favorecer uma transição mais acolhedora.</div>
+<div id="n0novidade" class="reveal">Uma mudança na rotina ou um acontecimento importante também pode ser compartilhado, sempre com respeito à privacidade da família.</div>
+</section>
+<section class="box tip"><h2>Uma dica</h2><p>Uma conversa rápida na chegada ou na saída já pode ser valiosa. Não é preciso compartilhar detalhes íntimos: somente o que for importante para o cuidado do bebê.</p></section>
+<section class="box look"><h2>Olhar pedagógico</h2><p>O diálogo aproxima os contextos de vida do bebê e ajuda a equipe a planejar acolhimento e experiências com atenção à singularidade de cada criança.</p></section>
+<section class="box refs"><h2>Referências</h2><ul><li>BRASIL. <i>Diretrizes Curriculares Nacionais para a Educação Infantil</i>. Resolução CNE/CEB nº 5/2009.</li><li>MONÇÃO, Maria Aparecida Guedes. O compartilhamento da educação das crianças pequenas nas instituições de educação infantil. <i>Cadernos de Pesquisa</i>, 2015.</li></ul></section>
+<div class="actions"><button class="btn secondary" onclick="closeCard()">← Voltar aos cards</button><button class="btn" onclick="openCard(1)">Próximo card →</button></div>
+</article>
+
+<article id="detail1" class="sheet" hidden tabindex="-1">
+<div class="sheetHead"><div class="art a1" role="img" aria-label="Responsável e educadora conversam com atenção"></div><div><span class="level l1">NÍVEL 1</span><h1>A conversa continua</h1><p>Uma parceria se fortalece quando a conversa não fica só nos avisos: há espaço para perguntar, ouvir e compartilhar.</p></div></div>
+<section class="box text"><h2>Dois contextos, uma criança</h2><p>A família pode contar o que observa em casa; a equipe pode compartilhar como a criança participa das brincadeiras, dos cuidados e das relações no CMEI. Não é necessário que todos façam as mesmas coisas: é importante que a criança seja cuidada e respeitada nos dois contextos.</p></section>
+<section class="box activity"><h2>Escolha uma fala para abrir a conversa</h2><p>Toque em cada cartão e veja como uma frase simples pode convidar à troca.</p>
+<div class="tabs"><button aria-selected="true" onclick="showTab('fam1',this)">A família conta</button><button aria-selected="false" onclick="showTab('equipe1',this)">A equipe compartilha</button><button aria-selected="false" onclick="showTab('pergunta1',this)">Uma pergunta acolhedora</button></div>
+<div id="fam1" class="tab-panel show">“Em casa, percebemos que ela gosta muito de histórias. Como tem sido esse interesse no CMEI?”</div>
+<div id="equipe1" class="tab-panel">“Hoje, durante a leitura, ela escolheu um livro e mostrou as imagens aos colegas. Vocês também têm percebido esse interesse?”</div>
+<div id="pergunta1" class="tab-panel">“Tem algo da rotina ou das preferências da criança que você gostaria de compartilhar conosco?”</div>
+</section>
+<section class="box tip"><h2>Uma dica</h2><p>Escutar também é participar. Uma conversa respeitosa pode começar com uma observação, uma pergunta ou um agradecimento.</p></section>
+<section class="box look"><h2>Olhar pedagógico</h2><p>A parceria não apaga as diferenças entre casa e CMEI. Ela aproxima informações e experiências, reconhecendo o papel de cada contexto na vida da criança.</p></section>
+<section class="box refs"><h2>Referências</h2><ul><li>BRASIL. Ministério da Educação. <i>Base Nacional Comum Curricular: Educação Infantil</i>, 2017.</li><li>GARCIA, Heloisa Helena Genovese de Oliveira; MACEDO, Lino de. Reuniões de pais na educação infantil: modos de gestão. <i>Cadernos de Pesquisa</i>, 2011.</li></ul></section>
+<div class="actions"><button class="btn secondary" onclick="closeCard()">← Voltar aos cards</button><button class="btn" onclick="openCard(2)">Próximo card →</button></div>
+</article>
+
+<article id="detail2" class="sheet" hidden tabindex="-1">
+<div class="sheetHead"><div class="art a2" role="img" aria-label="Família e equipe observam juntas uma produção da criança"></div><div><span class="level l2">NÍVEL 2</span><h1>Uma troca, dois olhares</h1><p>Uma observação ganha mais sentido quando pode ser partilhada com cuidado e sem julgamentos.</p></div></div>
+<section class="box text"><h2>O que a criança vive em cada lugar?</h2><p>Em casa, a família observa preferências, mudanças e formas de se comunicar. No CMEI, a equipe acompanha as interações e as aprendizagens em grupo. Esses olhares podem se encontrar para compreender melhor a criança.</p></section>
+<section class="box activity"><h2>Trilha do diálogo</h2><p>Avance pelas etapas para ver como uma troca pode acontecer.</p>
+<div class="path"><button class="pathstep" aria-current="true" onclick="setPath(0)">👀<br>Observar</button><button class="pathstep" aria-current="false" onclick="setPath(1)">💬<br>Compartilhar</button><button class="pathstep" aria-current="false" onclick="setPath(2)">👂<br>Escutar</button><button class="pathstep" aria-current="false" onclick="setPath(3)">🤝<br>Combinar</button></div>
+<div id="pathPanel" class="reveal show path-panel">A família ou a equipe percebe algo importante sobre a criança e escolhe um momento tranquilo para conversar.</div>
+<div class="event-controls"><button class="btn secondary" onclick="stepPath(-1)">← Anterior</button><span id="pathCount" class="event-counter">ETAPA 1 DE 4</span><button class="btn" onclick="stepPath(1)">Próxima →</button></div>
+</section>
+<section class="box tip"><h2>Uma dica</h2><p>Fale sobre o que foi observado, sem transformar uma situação em rótulo. Perguntas abertas ajudam a entender o contexto.</p></section>
+<section class="box look"><h2>Olhar pedagógico</h2><p>Conhecer os contextos da criança apoia a continuidade do cuidado e permite planejar propostas que acolham seus interesses e necessidades.</p></section>
+<section class="box refs"><h2>Referências</h2><ul><li>BRASIL. Ministério da Educação. <i>Base Nacional Comum Curricular: Educação Infantil</i>, 2017.</li><li>MONÇÃO, Maria Aparecida Guedes. O compartilhamento da educação das crianças pequenas nas instituições de educação infantil. <i>Cadernos de Pesquisa</i>, 2015.</li></ul></section>
+<div class="actions"><button class="btn secondary" onclick="closeCard()">← Voltar aos cards</button><button class="btn" onclick="openCard(3)">Próximo card →</button></div>
+</article>
+
+<article id="detail3" class="sheet" hidden tabindex="-1">
+<div class="sheetHead"><div class="art a3" role="img" aria-label="Família, educadora e criança olham uma rotina ilustrada"></div><div><span class="level l3">NÍVEL 3</span><h1>Como conversar diante de uma dúvida?</h1><p>Uma situação-problema para pensar em respostas que mantêm a criança no centro.</p></div></div>
+<section class="box text"><h2>O que aconteceu?</h2><p>Na saída, a educadora conta que a criança participou pouco do almoço. A família comenta que, naquela manhã, ela também comeu menos que o habitual. Como os adultos podem seguir essa conversa?</p></section>
+<section class="box activity"><h2>Escolha uma resposta</h2>
+<div class="choice-list">
+<button onclick="answerCase('a')">“Ela sempre faz isso. Em casa também é difícil.”</button>
+<button onclick="answerCase('b')">“Obrigada por contar. Vamos observar juntos e conversar novamente se continuar?”</button>
+<button onclick="answerCase('c')">“Isso é assunto da família; o CMEI não precisa acompanhar.”</button>
+</div>
+<div id="caseFeedback" class="feedback" role="status" aria-live="polite"></div>
+</section>
+<section class="box tip"><h2>Uma dica</h2><p>Descreva o que aconteceu, escute o que o outro contexto observou e pense em um próximo passo possível. Se necessário, combinem um novo momento para conversar.</p></section>
+<section class="box look"><h2>Olhar pedagógico</h2><p>Uma situação do cotidiano não define a criança nem sua família. O diálogo respeitoso ajuda a compreender necessidades e acompanhar o bem-estar sem procurar culpados.</p></section>
+<section class="box refs"><h2>Referências</h2><ul><li>MONÇÃO, Maria Aparecida Guedes. O compartilhamento da educação das crianças pequenas nas instituições de educação infantil. <i>Cadernos de Pesquisa</i>, 2015.</li><li>GARCIA, Heloisa Helena Genovese de Oliveira; MACEDO, Lino de. Reuniões de pais na educação infantil: modos de gestão. <i>Cadernos de Pesquisa</i>, 2011.</li></ul></section>
+<div class="actions"><button class="btn secondary" onclick="closeCard()">← Voltar aos cards</button><button class="btn" onclick="openCard(4)">Próximo card →</button></div>
+</article>
+
+<article id="detail4" class="sheet" hidden tabindex="-1">
+<div class="sheetHead"><div class="art a4" role="img" aria-label="Família, educadora e criança compartilham uma leitura"></div><div><span class="level gen">ACOMPANHAR TAMBÉM É CUIDAR</span><h1>Parceria sem cobrança</h1><p>Não existe um único jeito de participar. O diálogo pode acontecer em pequenas trocas, de acordo com as possibilidades de cada família.</p></div></div>
+<section class="box text"><h2>Uma parceria possível respeita cada realidade</h2><p>Há famílias que conseguem conversar na entrada ou na saída; outras precisam de um canal combinado com a instituição. Participar não significa estar em todos os eventos nem realizar tarefas escolares em casa. A equipe também tem a responsabilidade de criar espaços de escuta e compartilhar o trabalho pedagógico.</p></section>
+<section class="box activity"><h2>Mapa da parceria</h2><p>Toque em cada parte para ver exemplos de uma comunicação de mão dupla.</p>
+<div class="tabs"><button aria-selected="true" onclick="showTab('familia4',this)">O que a família pode compartilhar</button><button aria-selected="false" onclick="showTab('cmei4',this)">O que o CMEI pode compartilhar</button><button aria-selected="false" onclick="showTab('juntos4',this)">O que podemos construir juntos</button></div>
+<div id="familia4" class="tab-panel show">Preferências, mudanças na rotina, interesses e perguntas sobre a criança — conforme a família se sentir confortável em compartilhar.</div>
+<div id="cmei4" class="tab-panel">Como a criança participa das propostas, explora os espaços, brinca, convive e aprende no cotidiano do CMEI.</div>
+<div id="juntos4" class="tab-panel">Combinar um canal e um momento possível para conversar, respeitando a privacidade, os horários e as diferentes formas de organização das famílias.</div>
+</section>
+<section class="box tip"><h2>Uma dica</h2><p>Quando surgir uma dúvida, procure um momento tranquilo e converse diretamente com a equipe. Se um canal não funcionar para sua rotina, vale combinar outro caminho possível.</p></section>
+<section class="box look"><h2>Olhar pedagógico</h2><p>A instituição acolhe a diversidade das famílias e promove participação, diálogo e escuta cotidiana. A parceria é construída ao longo do tempo, não depende de uma presença igual para todos.</p></section>
+<section class="box refs"><h2>Referências</h2><ul><li>BRASIL. Conselho Nacional de Educação. <i>Diretrizes Curriculares Nacionais para a Educação Infantil</i>. Resolução CNE/CEB nº 5/2009.</li><li>BRASIL. Ministério da Educação. <i>Base Nacional Comum Curricular: Educação Infantil</i>, 2017.</li></ul></section>
+<div class="actions"><button class="btn secondary" onclick="closeCard()">← Voltar aos cards</button><button class="btn" onclick="openCard(5)">Próximo card →</button></div>
+</article>
+
+<article id="detail5" class="sheet" hidden tabindex="-1">
+<div class="sheetHead"><div class="art a5" role="img" aria-label="Famílias participam da Festa Junina do CMEI em uma barraca de bingo"></div><div><span class="level cmei">ACONTECEU NO CMEI</span><h1>Festa Junina: participação que fortalece laços</h1><p>Algumas famílias colaboraram de diferentes maneiras para a realização desse momento coletivo.</p></div></div>
+<section class="box text"><h2>Uma festa feita com colaboração</h2><p>Na Festa Junina do CMEI, algumas famílias participaram da venda dos bingos, ajudaram nas barracas e contribuíram com doações de mantimentos para a escola. Foram formas diferentes de colaborar e de fazer parte de um encontro da comunidade.</p><p>Cada família vive uma realidade própria. Nem todas conseguem ou desejam participar do mesmo modo, e isso não diminui sua importância na vida da criança.</p></section>
+<section class="box activity"><h2>Um mural de participações</h2><p>Toque em cada momento para conhecer uma forma de colaboração lembrada na festa.</p>
+<div class="interaction-grid two">
+<button class="pick" aria-expanded="false" onclick="toggleInfo(this,'eventBingo')"><span class="emoji">🎟️</span>Venda dos bingos</button>
+<button class="pick" aria-expanded="false" onclick="toggleInfo(this,'eventBarracas')"><span class="emoji">🎪</span>Ajuda nas barracas</button>
+<button class="pick" aria-expanded="false" onclick="toggleInfo(this,'eventFood')"><span class="emoji">🧺</span>Doação de mantimentos</button>
+<button class="pick" aria-expanded="false" onclick="toggleInfo(this,'eventTogether')"><span class="emoji">💛</span>Encontro da comunidade</button>
+</div>
+<div id="eventBingo" class="reveal">Algumas famílias ajudaram na venda dos bingos, colaborando com a organização da festa.</div>
+<div id="eventBarracas" class="reveal">Algumas pessoas da família puderam ficar nas barracas e apoiar esse momento de convivência.</div>
+<div id="eventFood" class="reveal">Também houve doação de mantimentos para a escola. Cada contribuição foi acolhida como uma forma de participação.</div>
+<div id="eventTogether" class="reveal">A festa reuniu crianças, famílias e equipe em um momento coletivo. A colaboração aconteceu de formas diferentes, conforme as possibilidades de cada pessoa.</div>
+</section>
+<section class="box tip"><h2>Uma dica</h2><p>Valorizar a participação é também reconhecer quem colabora de outras maneiras: conversando, compartilhando informações, acompanhando a criança ou mantendo o diálogo com o CMEI.</p></section>
+<section class="box look"><h2>Olhar pedagógico</h2><p>Quando a instituição abre espaços variados de participação e acolhe as diferentes realidades familiares, fortalece os vínculos comunitários sem transformar a presença em obrigação.</p></section>
+<section class="box refs"><h2>Referências</h2><ul><li>BRASIL. Conselho Nacional de Educação. <i>Diretrizes Curriculares Nacionais para a Educação Infantil</i>. Resolução CNE/CEB nº 5/2009.</li><li>MONÇÃO, Maria Aparecida Guedes. O compartilhamento da educação das crianças pequenas nas instituições de educação infantil. <i>Cadernos de Pesquisa</i>, 2015.</li></ul></section>
+<div class="actions"><button class="btn secondary" onclick="closeCard()">← Voltar aos cards</button></div>
+</article>
+</main>
+<footer>ConectaPais · Laços Educativos entre Família e Escola · Imagens ilustrativas</footer>
+<script>
+let active=-1,pathIndex=0;
+const pathTexts=[
+"A família ou a equipe percebe algo importante sobre a criança e escolhe um momento tranquilo para conversar.",
+"Cada pessoa compartilha o que observou, sem rótulos e sem comparar a criança com outras.",
+"Os adultos escutam o contexto um do outro e podem fazer perguntas para compreender melhor.",
+"Quando fizer sentido, família e equipe combinam um próximo passo possível e retomam a conversa depois."
+];
+function openCard(i){if(i<0||i>5)return;active=i;document.getElementById('home').hidden=true;document.querySelectorAll('.sheet').forEach(x=>x.hidden=true);const page=document.getElementById('detail'+i);page.hidden=false;page.focus({preventScroll:true});scrollTo(0,0);history.replaceState(null,'',location.pathname+location.search+'#card-'+i)}
+function closeCard(){document.querySelectorAll('.sheet').forEach(x=>x.hidden=true);document.getElementById('home').hidden=false;history.replaceState(null,'',location.pathname+location.search);scrollTo(0,0);active=-1}
+function toggleInfo(button,id){const panel=document.getElementById(id),opened=panel.classList.contains('show');panel.classList.toggle('show',!opened);button.setAttribute('aria-expanded',String(!opened))}
+function showTab(id,button){const group=button.closest('.box');group.querySelectorAll('.tab-panel').forEach(x=>x.classList.toggle('show',x.id===id));group.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected',String(x===button)))}
+function setPath(i){pathIndex=Math.max(0,Math.min(3,i));document.querySelectorAll('.pathstep').forEach((x,n)=>x.setAttribute('aria-current',String(n===pathIndex)));document.getElementById('pathPanel').textContent=pathTexts[pathIndex];document.getElementById('pathPanel').classList.add('show');document.getElementById('pathCount').textContent='ETAPA '+(pathIndex+1)+' DE 4'}
+function stepPath(d){setPath(pathIndex+d)}
+function answerCase(choice){const f=document.getElementById('caseFeedback');const answers={a:'Essa fala pode encerrar a conversa com um rótulo. Tente contar o que foi observado e escutar o que a família percebeu, sem definir a criança por uma situação.',b:'Boa escolha! A resposta acolhe a informação, propõe observação compartilhada e deixa espaço para retomar a conversa, sem procurar culpados.',c:'A alimentação e o bem-estar da criança fazem parte do cuidado cotidiano nos dois contextos. Compartilhar observações, respeitando os papéis de cada um, pode ajudar.'};f.textContent=answers[choice];f.classList.add('show')}
+window.addEventListener('load',()=>{const m=location.hash.match(/^#card-([0-5])$/);if(m)openCard(Number(m[1]))})
+</script>
+</body>
+</html>
