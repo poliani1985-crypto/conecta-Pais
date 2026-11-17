@@ -116,7 +116,7 @@
 <div id="eventStepScreen" class="event-screen" hidden role="dialog" aria-modal="true" aria-labelledby="eventStepTitle">
 <div class="event-screen-top"><button class="btn secondary" onclick="closeEventStep()">← Voltar ao percurso</button><span id="eventStepCount" class="tag"></span></div>
 <div class="event-screen-card"><div id="eventStepPhoto" class="event-screen-photo" role="img"></div><div class="event-screen-copy"><h2 id="eventStepTitle"></h2><p id="eventStepMessage"></p></div></div>
-<div class="event-screen-bottom"><button class="btn secondary" id="eventStepPrev" onclick="moveEventStep(-1)">← Anterior</button><button class="btn" id="eventStepNext" onclick="moveEventStep(1)">Próxima etapa →</button></div>
+<div class="event-screen-bottom"><button class="btn secondary" id="eventStepPrev" onclick="moveEventStep(-1)">← Anterior</button><button type="button" class="btn" id="eventStepNext" onclick="moveEventStep(1);return false;">Próxima etapa →</button></div>
 </div><div class="actions"><button class="btn secondary" onclick="closeCard()">Fechar conteúdo</button></div></article>
 </main><footer>ConectaPais · Laços Educativos entre Família e Escola</footer>
 <script>
